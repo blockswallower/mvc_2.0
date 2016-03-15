@@ -1,6 +1,6 @@
 <?php
 
-class IndexController {
+class index {
     public function __construct() {
 
     }
