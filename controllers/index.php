@@ -1,7 +1,10 @@
 <?php
 
-class index {
+class index extends Controller {
     public function __construct() {
+        parent::__construct();
 
+        $this->config_view_array();
+        $this->view->show('index');
     }
 }

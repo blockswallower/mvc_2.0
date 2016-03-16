@@ -41,4 +41,29 @@ class Controller {
 		 */
 		$this->settings = new Settings();
 	}
+
+	public function load_model() {
+
+	}
+
+	/**
+	 * @param $controller
+	 * @param $key
+	 * @param $value
+	 *
+	 * This method will 'send' a variable
+	 * to the current view
+     */
+	public function set($controller, $key, $value) {
+		$this->variables[$controller][$key] = $value;
+	}
+
+	/**
+	 * This allows us to access the
+	 * variables we send to the view
+	 * with the set() method
+	 */
+	public function config_view_array() {
+		$this->view->var = $this->variables;
+	}
 }
