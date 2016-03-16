@@ -53,6 +53,15 @@ class Controller {
 	 *
 	 * This method will 'send' a variable
 	 * to the current view
+	 *
+	 * Controller:
+	 *
+	 * $test = [VALUE];
+	 * $this->set([CONTROLLER_NAME], [KEY], [VALUE])
+	 *
+	 * View:
+	 *
+	 * $this->var[CONTROLLER_NAME][KEY]
      */
 	public function set($controller, $key, $value) {
 		$this->variables[$controller][$key] = $value;
