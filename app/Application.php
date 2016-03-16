@@ -30,7 +30,8 @@ class Application {
          */
         $this->validate_url($url);
 
-        $this->file = "controllers/$url[0].php";
+        $url_controller = ucfirst($url[0])."Controller.php";
+        $this->file = "controllers/$url_controller";
 
         /**
          * Routes to the right view 
@@ -60,8 +61,8 @@ class Application {
      */
     public function validate_url($url) {
         if (empty($url[0])) {
-            require 'controllers/index.php';
-            $this->controller = new index();
+            require 'controllers/IndexController.php';
+            $this->controller = new IndexController();
         }
     }
 }

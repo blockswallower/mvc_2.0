@@ -25,10 +25,13 @@ class Routes {
 			 */
 			require $file;
 		} else {
+			echo $file." doesn't exist";
 			return false;
 		}
-		
-		self::$controller = new $url[0];
+
+		$url_controller = ucfirst($url[0])."Controller";
+
+		self::$controller = new $url_controller;
 
 		if (isset($url[2])) {
 			if (method_exists(self::$controller, $url[1])) {
