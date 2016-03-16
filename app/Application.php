@@ -19,6 +19,11 @@ class Application {
      */
     public $file;
 
+    /**
+     * @var string
+     */
+    public $standard_controller = 'controllers/IndexController.php';
+
     public function __construct() {
         /**
          * Generates the URL in the right format
@@ -28,16 +33,18 @@ class Application {
         /**
          * Validates if the URL is not empty
          */
-        $this->validate_url($url);
-
-        $url_controller = ucfirst($url[0])."Controller.php";
-        $this->file = "controllers/$url_controller";
-
-        /**
-         * Routes to the right view 
-         * based on the url
-         */
-        Routes::route($url, $this->file);
+        if (!$this->validate_url($url)) {
+            $url_controller = ucfirst($url[0])."Controller.php";
+            $this->file = "controllers/$url_controller";
+            /**
+             * Routes to the right view
+             * based on the url
+             */
+            Routes::route($url, $this->file);
+        } else {
+            require $this->standard_controller;
+            $this->controller = new IndexController();
+        }
     }
 
     /**
@@ -54,15 +61,13 @@ class Application {
 
     /**
      * @param $url
-     * 
-     * Requires the standard 
-     * index controller/view 
-     * if the url[0] is empty
+     * @return bool
      */
     public function validate_url($url) {
         if (empty($url[0])) {
-            require 'controllers/IndexController.php';
-            $this->controller = new IndexController();
+            return true;
+        } else {
+            return false;
         }
     }
 }
