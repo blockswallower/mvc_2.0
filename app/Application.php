@@ -32,7 +32,11 @@ class Application {
 
         $this->file = "controllers/$url[0].php";
 
-        $this->route($url, $this->file);
+        /**
+         * Routes to the right view 
+         * based on the url
+         */
+        Routes::route($url, $this->file);
     }
 
     /**
@@ -49,42 +53,15 @@ class Application {
 
     /**
      * @param $url
+     * 
+     * Requires the standard 
+     * index controller/view 
+     * if the url[0] is empty
      */
     public function validate_url($url) {
         if (empty($url[0])) {
             require 'controllers/index.php';
             $this->controller = new index();
-        }
-    }
-
-    /**
-     * @param $url
-     * @param $file
-     * @return bool
-     */
-    public function route($url, $file) {
-        if (file_exists($file)) {
-            require $file;
-        } else {
-            return false;
-        }
-
-        $this->controller = new $url[0];
-
-        if (isset($url[2])) {
-            if (method_exists($this->controller, $url[1])) {
-                $this->controller->{$url[1]}($url[2]);
-            } else {
-                return false;
-            }
-        } else {
-            if (isset($url[1])) {
-                if (method_exists($this->controller, $url[1])) {
-                    $this->controller->{$url[1]}();
-                } else {
-                    return false;
-                }
-            }
         }
     }
 }
