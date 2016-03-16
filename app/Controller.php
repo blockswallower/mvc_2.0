@@ -26,6 +26,11 @@ class Controller {
 	 * @var array
 	 */
 	protected $settings;
+
+	/**
+	 * @var string
+	 */
+	protected $modelsdir = 'models/';
 	
 	
 	public function __construct() {
@@ -42,8 +47,30 @@ class Controller {
 		$this->settings = new Settings();
 	}
 
-	public function load_model() {
+	/**
+	 * @param $model
+	 *
+	 * Loads the model in the given
+	 * parameter
+	 *
+	 * Controller:
+	 *
+	 * $this->loadmodel('index');
+	 *
+	 * $this->index->[FUCTION_CALL]
+     */
+	public function loadmodel($model) {
+		$ucfirstModel = ucfirst($model)."Model";
 
+		$path = $this->modelsdir.$ucfirstModel.".php";
+
+		if (file_exists($path)) {
+			require $path;
+
+			$this->$model = new $ucfirstModel();
+		} else {
+			var_dump($ucfirstModel." Doesn't exist");
+		}
 	}
 
 	/**
