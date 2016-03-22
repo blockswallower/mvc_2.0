@@ -1,3 +1,1 @@
-document.onload(function() {
 
-});
