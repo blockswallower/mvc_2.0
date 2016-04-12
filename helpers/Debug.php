@@ -7,7 +7,7 @@ class Dedug {
      */
 
     /**
-     * $param $data
+     * @param $data
      *
      * dumps data between
      * <pre> tags
