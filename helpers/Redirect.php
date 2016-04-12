@@ -18,4 +18,13 @@ class Redirect {
 
         header("location:" . $previous_page);
     }
+
+    /**
+     * @param $page
+     *
+     * Redirects the user to a specific page
+     */
+    public static function to($page) {
+        header("Location: ".__URL__.$page);
+    }
 }
