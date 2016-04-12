@@ -1,5 +1,4 @@
 
+    <?php Link::script('script.js'); ?>
     </body>
-
-<?php Link::script('script.js'); ?>
 </html>
