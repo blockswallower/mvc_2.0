@@ -9,12 +9,12 @@ class Link {
      /**
       * @var String
       */
-     private static $absolute_style_path = 'http://localhost/mvc_2.0/assets/css/';
+     private static $absolute_style_path = __URL__.'assets/css/';
 
      /**
       * @var String
       */
-     private static $absolute_script_path = 'http://localhost/mvc_2.0/assets/js/';
+     private static $absolute_script_path = __URL__.'assets/js/';
 
 
      /**
