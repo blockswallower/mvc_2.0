@@ -24,7 +24,7 @@ class Link {
           /**
            * Generates a stylesheet link
            */
-          echo '<link href="'.self::$absolute_style_path.$css_file.'" rel="stylesheet">';
+          echo '<link href="'.self::$absolute_style_path.$css_file.'" rel="stylesheet">'."\n";
      }
 
     /**
@@ -35,6 +35,6 @@ class Link {
            * Generates a javascript
            * file link
            */
-          echo '<script src="'.self::$absolute_script_path.$js_file.'"></script>';
+          echo '<script src="'.self::$absolute_script_path.$js_file.'"></script>'."\n";
      }
 }
