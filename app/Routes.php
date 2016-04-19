@@ -13,6 +13,20 @@ class Routes {
 	public static $controller;
 
 	/**
+	 * @var string
+	 * 
+	 * 404 controller path
+	 */
+	public static $FourNullFourPath = './controllers/PageNotFoundController.php';
+
+	/**
+	 * @var string
+	 *
+	 * 404 controller
+	 */
+	public static $FourNullFourController = 'PageNotFoundController';
+
+	/**
 	 * @param $url
 	 * @param $file
 	 * @return bool
@@ -25,13 +39,17 @@ class Routes {
 			 */
 			require $file;
 		} else {
-			echo $file." doesn't exist";
-			return false;
+			$PageNotFoundController = self::$FourNullFourController;
+			self::$controller = self::$FourNullFourController;
+			
+			require self::$FourNullFourPath;
+			new $PageNotFoundController;
 		}
 
 		$url_controller = ucfirst($url[0])."Controller";
-
-		self::$controller = new $url_controller;
+		
+		if (self::$controller != self::$FourNullFourController)
+			self::$controller = new $url_controller;
 
 		if (isset($url[2])) {
 			if (method_exists(self::$controller, $url[1])) {
