@@ -27,7 +27,11 @@ class Sessions {
     /**
      * @var integer
      */
-    private static $max_elapsed = 60 * 60 * 24;
+    private static $max_elapsed;
+    
+    public function __construct () {
+        self::$max_elapsed = 60 * 60 * 24;
+    }
 
     /**
      * Starts a session
