@@ -14,7 +14,22 @@ class XSS {
      * against cross site scripting
      */
     public static function xss_prevent($data) {
-        return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+        if (!is_array($data)) {
+            return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+        }
+
+        $ret = array();
+
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $ret[$key] = self::xss_prevent($data[$key]);
+                continue;
+            }
+
+            $ret[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+        }
+
+        return $ret;
     }
 
     /**
