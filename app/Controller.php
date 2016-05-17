@@ -35,6 +35,13 @@ class Controller {
 	
 	public function __construct() {
 		/**
+		 * This is needed for 
+		 * being able to redirect 
+		 * after a function call
+		 */
+		ob_start();
+		
+		/**
 		 * Create a new View object.
 		 * This will be created for 
 		 * every child controller
