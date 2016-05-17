@@ -9,8 +9,9 @@ class XSS {
     /**
      * @param $data
      * @return string
+     * @return array
      *
-     * Returns string secured
+     * Returns string|array secured
      * against cross site scripting
      */
     public static function xss_prevent($data) {
