@@ -45,4 +45,19 @@ class String {
 			return false;
 
 	}
+
+	/**
+	 * @param $string
+	 * @param $substr
+	 * @return boolean
+	 *
+	 * Returns true if the given string
+	 * contains the given substring
+	 */
+	public static function contains($haystack, $needle) {
+		if (strstr($haystack, $needle)) 
+			return true;			
+		else 
+			return false;
+	}
 }
