@@ -23,7 +23,6 @@ class String {
 			return true;
 		 else 
 			return false;
-		
 	}
 
 	/**
@@ -43,7 +42,6 @@ class String {
 			return true;
 		else
 			return false;
-
 	}
 
 	/**
@@ -84,8 +82,7 @@ class String {
 			'h', 'i', 'j', 'k', 'l', 'm', 'n',
 			'o', 'p', 'q', 'r', 's', 'v', 'u',
 			'v', 'w', 'x', 'y', 'z', '0', '1',
-			'2', '3', '4', '5', '6', '7', '8',
-			'9'
+			'2', '3', '4', '5', '6', '7', '8', '9'
 		); 
 		
 		$password = "";
