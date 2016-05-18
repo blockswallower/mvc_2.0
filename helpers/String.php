@@ -15,7 +15,7 @@ class String {
 	 * of the given string is the same as the
 	 * given character
 	 */
-	public static function lastchar($string, $char) {
+	public static function last_char($string, $char) {
 		$string = str_split($string);
 		$last_char = $string[count($string) -1];
 		
@@ -35,7 +35,7 @@ class String {
 	 * of the given string is the same as the
 	 * given character
 	 */
-	public static function firstchar($string, $char) {
+	public static function first_char($string, $char) {
 		$string = str_split($string);
 		$first_char = $string[0];
 
@@ -71,5 +71,29 @@ class String {
 	public static function slug($string) {
 		$string = str_replace(" ", "-", $string);
 		return $string;
+	}
+
+	/**
+	 * @return String
+	 *
+	 * Returns random password
+	 */
+	public static function password_generate() {
+		$characters = array(
+			'a', 'b', 'c', 'd', 'e', 'f', 'g', 
+			'h', 'i', 'j', 'k', 'l', 'm', 'n',
+			'o', 'p', 'q', 'r', 's', 'v', 'u',
+			'v', 'w', 'x', 'y', 'z', '0', '1',
+			'2', '3', '4', '5', '6', '7', '8',
+			'9'
+		); 
+		
+		$password = "";
+		
+		for ($ii = 0; $ii < 20; $ii++) {
+			$password .= $characters[rand(1, 35)];
+		}
+		
+		return $password;
 	}
 }
