@@ -37,4 +37,14 @@ class Link {
            */
           echo '<script src="'.self::$absolute_script_path.$js_file.'"></script>'."\n";
      }
+
+    /**
+     * @param $font
+     */
+    public static function google_font($font) {
+        /**
+         * Generates a google font style tag
+         */
+        echo '<link href="'.$font.'" rel="stylesheet">'."\n";
+    }
 }
