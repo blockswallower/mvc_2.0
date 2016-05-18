@@ -60,4 +60,16 @@ class String {
 		else 
 			return false;
 	}
+
+	/**
+	 * @param $string
+	 * @return String
+	 *
+	 * Returns string with spaces
+	 * replaced with slugs
+	 */
+	public static function slug($string) {
+		$string = str_replace(" ", "-", $string);
+		return $string;
+	}
 }
