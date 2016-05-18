@@ -72,6 +72,18 @@ class String {
 	}
 
 	/**
+	 * @param $string
+	 * @return String
+	 *
+	 * Returns string with spaces
+	 * replaced with underscores
+	 */
+	public static function under($string) {
+		$string = str_replace(" ", "_", $string);
+		return $string;
+	}
+
+	/**
 	 * @return String
 	 *
 	 * Returns random password
