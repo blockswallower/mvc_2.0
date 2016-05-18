@@ -5,7 +5,7 @@
  *
  * store every directory
  * you want to autoload in
- * this array
+ * this array (Can only be PHP files)
  */
 $directories = array(
     './app',
