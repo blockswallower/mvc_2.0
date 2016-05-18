@@ -16,8 +16,14 @@ class Link {
       */
      private static $absolute_script_path = 'http://localhost/mvc_2.0/assets/js/';
 
+    /**
+     * @var String
+     */
+     private static $absolute_img_path = 'http://localhost/mvc_2.0/assets/img/';
 
-     /**
+
+
+    /**
      * @param $css_file
      */
      public static function style($css_file) {
@@ -46,5 +52,17 @@ class Link {
          * Generates a google font style tag
          */
         echo '<link href="'.$font.'" rel="stylesheet">'."\n";
+    }
+
+    /**
+     * @param $src
+     * @param $width
+     * @param $height
+     *
+     * generates img tag
+     */
+    public static function img($src, $width, $height) {
+        $src = self::$absolute_img_path.$src;
+        echo '<img src="'.$src.'" width="'.$width.'" height="'.$height.'">'."\t";
     }
 }
