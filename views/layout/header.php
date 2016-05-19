@@ -18,5 +18,6 @@
         </style>
     </head>
     <body>
+        <div id="error-handler"></div>
 
 
