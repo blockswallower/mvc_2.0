@@ -9,7 +9,7 @@ class Settings {
 	/**
 	 * @var array
 	 */
-	public $config;
+	public static $config;
 	
 	public function __construct() {
 		/**
@@ -17,10 +17,10 @@ class Settings {
 		 * in the other controllers
 		 * 
 		 * access in controllers:
-		 * $this->settings->config[ARRAY_INDEX]
+		 * Settings::$config[ARRAY_INDEX]
 		 */
-		$this->config = array(
-			
+		self::$config = array(
+			"Debug" => true
 		);
 	}
 }

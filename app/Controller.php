@@ -40,6 +40,11 @@ class Controller {
 		 * after a function call
 		 */
 		ob_start();
+
+		/**
+		 * Starts the session
+		 */
+		session_start();
 		
 		/**
 		 * Create a new View object.

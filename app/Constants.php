@@ -7,5 +7,5 @@
  * All constants will instantly be included by
  * the autoloader in the index.php file
  */
-define("__URL__", "http://localhost/mvc_2.0/");
+define("__URL__", "http://localhost/Snail_MVC/");
 
