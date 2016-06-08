@@ -27,4 +27,20 @@ class Arr {
 	public static function last($array) {
 		return $array[count($array) -1];
 	}
+
+	/**
+	 * @param $array
+	 * @return bool
+	 * 
+	 * Returns true if the given array is assoc
+	 */
+	public static function is_assoc($array) {
+		$isAssoc = false;
+
+		if (!empty($array) && is_array($array)) {
+			$isAssoc = (bool) count(array_filter(array_keys($array), 'is_string'));
+		}
+		
+		return $isAssoc;
+	}
 }
