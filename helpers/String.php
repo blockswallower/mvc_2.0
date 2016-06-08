@@ -84,6 +84,25 @@ class String {
 	}
 
 	/**
+	 * @param $string
+	 * @param $index
+	 * @return string
+	 * 
+	 * Returns an part of a 
+	 * given string
+	 */
+	public static function limit($string, $index) {
+		$string = str_split($string);
+		$output = "";
+		
+		for ($ii = 0; $ii < $index; $ii++) {
+			$output .= $string[$ii];		
+		}
+		
+		return $output;
+	}
+
+	/**
 	 * @return String
 	 *
 	 * Returns random password
