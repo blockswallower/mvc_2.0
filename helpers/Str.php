@@ -130,6 +130,17 @@ class Str {
 	}
 
 	/**
+	 * @param $string
+	 * @param $with
+	 * @return string
+	 * 
+	 * returns 2 concatenated strings
+	 */
+	public static function append($string, $with) {
+		return $string.$with;
+	}
+
+	/**
 	 * @return String
 	 *
 	 * Returns random password
