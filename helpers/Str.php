@@ -1,6 +1,6 @@
 <?php
 
-class String {
+class Str {
 	/**
 	 * This class will contain
 	 * string methods

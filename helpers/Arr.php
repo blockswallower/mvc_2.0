@@ -1,6 +1,6 @@
 <?php
 
-class Arrays {
+class Arr {
 	/**
 	 * This class will contain
 	 * array methods
