@@ -103,6 +103,33 @@ class Str {
 	}
 
 	/**
+	 * @return bool
+	 * 
+	 * Check if a string is an IP.
+	 */
+	public static function is_ip($string) {
+		return filter_var($string, FILTER_VALIDATE_IP) !== false;
+	}
+	
+	/**
+	 * @return bool
+	 * 
+	 * Check if a string is an email.
+	 */
+	public static function is_email($string) {
+		return filter_var($string, FILTER_VALIDATE_EMAIL) !== false;
+	}
+	
+	/**
+	 * @return bool
+	 * 
+	 * Check if a string is an url.
+	 */
+	public static function is_url($string) {
+		return filter_var($string, FILTER_VALIDATE_URL) !== false;
+	}
+
+	/**
 	 * @return String
 	 *
 	 * Returns random password
