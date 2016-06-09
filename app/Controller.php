@@ -81,7 +81,7 @@ class Controller {
 
 			$this->$model = new $ucfirstModel();
 		} else {
-			var_dump($ucfirstModel." Doesn't exist");
+			Dedug::exitdump($ucfirstModel." Doesn't exist");
 		}
 	}
 
