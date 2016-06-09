@@ -103,7 +103,7 @@ class Sessions {
      */
     public static function confirm_user_logged_in() {
         if (!self::is_logged_in()) {
-            self::end_session();
+            self::end_all_sessions();
             /*
              * Note that header redirection requires output buffering
              * to be turned on or requires nothing has been output
@@ -121,7 +121,7 @@ class Sessions {
      */
     public static function confirm_session_is_valid() {
         if (!self::is_session_valid()) {
-            self::end_session();
+            self::end_all_sessions();
             /*
             * Note that header redirection requires output buffering
             * to be turned on or requires nothing has been output
@@ -250,6 +250,6 @@ class Sessions {
      */
     public static function after_successful_logout() {
         $_SESSION['logged_in'] = false;
-        self::end_session();
+        self::end_all_sessions();
     }
 }
