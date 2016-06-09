@@ -44,7 +44,7 @@ class Controller {
 		/**
 		 * Starts the session
 		 */
-		session_start();
+		Sessions::init();
 		
 		/**
 		 * Create a new View object.
