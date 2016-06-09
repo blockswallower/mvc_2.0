@@ -1,6 +1,6 @@
 <?php
 
-class XSS {
+class X {
     /**
      * This class will mainly be used
      * to prevent Xross site scripting
@@ -40,7 +40,7 @@ class XSS {
      * Echos string secured
      * against cross site scripting
      */
-    public static function xss_echo($data) {
+    public static function _echo($data) {
         echo self::xss_prevent($data);
     }
 
