@@ -70,10 +70,21 @@ class Sessions {
      *
      * forcibly end the session
      */
-    public static function end_session() {
+    public static function end_all_sessions() {
         if (isset($_SESSION)) {
             session_unset();
             session_destroy();
+        }
+    }
+
+	/**
+     * @param $session
+     * 
+     * unset a specific session
+     */
+    public static function end_session($session) {
+        if (!empty($session)) {
+            unset($session);
         }
     }
 
