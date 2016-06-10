@@ -7,6 +7,11 @@ class Dedug {
      */
 
     /**
+     * @var String
+     */
+    public static $standard_error_session = "Error";
+
+    /**
      * @param $data
      *
      * dumps data between
@@ -42,7 +47,7 @@ class Dedug {
      */
     public static function pagedump($data) {
         if (Settings::$config['Debug']) {
-            Sessions::set("Error", $data);
+            Sessions::set(self::$standard_error_session, $data);
             Redirect::to("debug");
         }
     }

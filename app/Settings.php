@@ -16,7 +16,7 @@ class Settings {
 		 * This config array can be accessed 
 		 * in the other controllers
 		 * 
-		 * access in controllers:
+		 * access in other PHP files:
 		 * Settings::$config[ARRAY_INDEX]
 		 */
 		self::$config = array(
