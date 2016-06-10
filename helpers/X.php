@@ -41,7 +41,13 @@ class X {
      * against cross site scripting
      */
     public static function _echo($data) {
-        echo self::xss_prevent($data);
+        if (!is_array($data)) {
+            echo self::xss_prevent($data);
+        } else {
+            foreach($data as $item) {
+                echo self::xss_prevent($item)."</br>";
+            }
+        }
     }
 
     /**
