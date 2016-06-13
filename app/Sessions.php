@@ -252,4 +252,22 @@ class Sessions {
         $_SESSION['logged_in'] = false;
         self::end_all_sessions();
     }
+
+
+	/**
+     * Dies the page if no ajax call was made
+     */
+    public static function access_ajax_only() {
+        define('IS_AJAX', isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
+        if(!IS_AJAX) {
+            die('Restricted access');
+        }
+
+        $pos = strpos($_SERVER['HTTP_REFERER'],getenv('HTTP_HOST'));
+        
+        if($pos === false) {
+            die('Restricted access');
+        }
+
+    }
 }
