@@ -61,6 +61,33 @@ class X {
     }
 
     /**
+     * @param $target
+     * @param $source
+     * @param bool $discard
+     *
+     * Reads post data without changing the value
+     *
+     * Example:
+     *
+     * $this->fix($_POST, file_get_contents('php://input'));
+     */
+    public static function fix(&$target, $source, $discard = true) {
+        if ($discard) {
+            $target = array();
+        }
+
+        $source = preg_replace_callback('/(^|(?<=&))[^=[&]+/',
+            function($key) { return bin2hex(urldecode($key[0])); }, $source
+        );
+
+        parse_str($source, $post);
+
+        foreach($post as $key => $val) {
+            $target[hex2bin($key)] = $val;
+        }
+    }
+
+    /**
      * @param $data
      * @return string
      *
