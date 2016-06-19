@@ -98,7 +98,7 @@ autoload($directories);
 $settings = new Settings();
 
 /**
- * loads in every scripts given
+ * loads in every script given
  * in the settings array
  */
 load_scripts();
