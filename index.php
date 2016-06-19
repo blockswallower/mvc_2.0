@@ -36,8 +36,59 @@ function autoload($directories) {
     }
 }
 
-autoload($directories);
 
+/**
+ * loads in every scripts given
+ * in the settings array
+ */
+function load_scripts() {
+    if (Settings::$config['SCRIPT']['EVERY_TIME_EXECUTION'] != 'NONE') {
+        $scripts = Settings::$config['SCRIPT']['EVERY_TIME_EXECUTION'];
+        $dir = './scripts';
+
+        if (is_array($scripts)) {
+            foreach($scripts as $script) {
+                if ($script != "NONE")
+                    require $dir. '/' .$script;
+            }
+        } else {
+            if ($scripts != "NONE")
+                require $dir. '/' .$scripts;
+        }
+    }
+
+    if (Settings::$config['SCRIPT']['ONE_TIME_EXECUTION'] != 'NONE') {
+        $settingsContent = './app/Settings.php';
+        $scripts = Settings::$config['SCRIPT']['ONE_TIME_EXECUTION'];
+        $dir = './scripts';
+
+        if (is_array($scripts)) {
+            foreach($scripts as $script) {
+                if ($script != "NONE")
+                    require $dir. '/' .$script;
+            }
+        } else {
+            if ($scripts != "NONE")
+                require $dir. '/' .$scripts;
+        }
+
+        if (is_array($scripts)) {
+            foreach ($scripts as $script) {
+                $newSettingsContent = str_replace($scripts, 'NONE', file_get_contents($settingsContent));
+                file_put_contents($settingsContent, $newSettingsContent);
+            }
+        } else {
+            $newSettingsContent = str_replace($scripts, 'NONE', file_get_contents($settingsContent));
+            file_put_contents($settingsContent, $newSettingsContent);
+        }
+    }
+}
+
+/**
+ * autoloads every directory
+ * in the $directories array
+ */
+autoload($directories);
 
 /**
  * @var object
@@ -46,46 +97,17 @@ autoload($directories);
  */
 $settings = new Settings();
 
-if (Settings::$config['SCRIPT']['EVERY_TIME_EXECUTION'] != 'NONE') {
-    $scripts = Settings::$config['SCRIPT']['EVERY_TIME_EXECUTION'];
-    $dir = './scripts';
+/**
+ * loads in every scripts given
+ * in the settings array
+ */
+load_scripts();
 
-    if (is_array($scripts)) {
-        foreach($scripts as $script) {
-            if ($script != "NONE")
-                require $dir. '/' .$script;
-        }
-    } else {
-        if ($scripts != "NONE")
-            require $dir. '/' .$scripts;
-    }
-}
-
-if (Settings::$config['SCRIPT']['ONE_TIME_EXECUTION'] != 'NONE') {
-    $settingsContent = './app/Settings.php';
-    $scripts = Settings::$config['SCRIPT']['ONE_TIME_EXECUTION'];
-    $dir = './scripts';
-
-    if (is_array($scripts)) {
-        foreach($scripts as $script) {
-            if ($script != "NONE")
-                require $dir. '/' .$script;
-        }
-    } else {
-        if ($scripts != "NONE")
-            require $dir. '/' .$scripts;
-    }
-
-    if (is_array($scripts)) {
-        foreach ($scripts as $script) {
-            $newSettingsContent = str_replace($scripts, 'NONE', file_get_contents($settingsContent));
-            file_put_contents($settingsContent, $newSettingsContent);
-        }
-    } else {
-        $newSettingsContent = str_replace($scripts, 'NONE', file_get_contents($settingsContent));
-        file_put_contents($settingsContent, $newSettingsContent);
-    }
-}
-
+/**
+ * @var object
+ *
+ * stores the Application object
+ * and starts the MVC system
+ */
 $app = new Application();
 
