@@ -36,6 +36,33 @@ class X {
     /**
      * @param $data
      * @return string
+     * @return array
+     *
+     * Returns string|array decode
+     * against cross site scripting
+     */
+    public static function xss_decode($data) {
+        if (!is_array($data)) {
+            return htmlspecialchars_decode($data, ENT_QUOTES);
+        }
+
+        $ret = array();
+
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $ret[$key] = self::xss_decode($data[$key]);
+                continue;
+            }
+
+            $ret[$key] = htmlspecialchars_decode($value, ENT_QUOTES);
+        }
+
+        return $ret;
+    }
+
+    /**
+     * @param $data
+     * @return string
      *
      * Echos string secured
      * against cross site scripting
