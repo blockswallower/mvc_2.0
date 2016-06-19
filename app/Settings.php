@@ -20,7 +20,12 @@ class Settings {
 		 * Settings::$config[ARRAY_INDEX]
 		 */
 		self::$config = array(
-			"Debug" => true
+			"DEBUG" => true,
+
+			"SCRIPT" => array(
+				"FILES" => false,
+				"ONE_TIME_EXECUTION" => true
+			),
 		);
 	}
 }

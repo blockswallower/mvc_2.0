@@ -38,5 +38,30 @@ function autoload($directories) {
 
 autoload($directories);
 
+
+/**
+ * @var object
+ *
+ * stores the settings object
+ */
+$settings = new Settings();
+
+if (Settings::$config['SCRIPT']['FILES'] != false) {
+    $scripts = Settings::$config['SCRIPT']['FILES'];
+    $dir = './scripts';
+
+    if (is_array($scripts)) {
+        foreach($scripts as $script) {
+            require $dir. '/' .$script;
+        }
+    } else {
+        require $dir. '/' .$scripts;
+    }
+
+    if (!Settings::$config['SCRIPT']['ONE_TIME_EXECUTION']) {
+        // tbd
+    }
+}
+
 $app = new Application();
 

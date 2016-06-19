@@ -46,7 +46,7 @@ class Dedug {
      * and ends the programme
      */
     public static function pagedump($data) {
-        if (Settings::$config['Debug']) {
+        if (Settings::$config['DEBUG']) {
             Sessions::set(self::$standard_error_session, $data);
             Redirect::to("debug");
         }
