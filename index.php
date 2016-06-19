@@ -46,8 +46,24 @@ autoload($directories);
  */
 $settings = new Settings();
 
-if (Settings::$config['SCRIPT']['FILES'] != 'NONE') {
-    $scripts = Settings::$config['SCRIPT']['FILES'];
+if (Settings::$config['SCRIPT']['EVERY_TIME_EXECUTION'] != 'NONE') {
+    $scripts = Settings::$config['SCRIPT']['EVERY_TIME_EXECUTION'];
+    $dir = './scripts';
+
+    if (is_array($scripts)) {
+        foreach($scripts as $script) {
+            if ($script != "NONE")
+                require $dir. '/' .$script;
+        }
+    } else {
+        if ($scripts != "NONE")
+            require $dir. '/' .$scripts;
+    }
+}
+
+if (Settings::$config['SCRIPT']['ONE_TIME_EXECUTION'] != 'NONE') {
+    $settingsContent = './app/Settings.php';
+    $scripts = Settings::$config['SCRIPT']['ONE_TIME_EXECUTION'];
     $dir = './scripts';
 
     if (is_array($scripts)) {
@@ -60,18 +76,14 @@ if (Settings::$config['SCRIPT']['FILES'] != 'NONE') {
             require $dir. '/' .$scripts;
     }
 
-    if (Settings::$config['SCRIPT']['ONE_TIME_EXECUTION']) {
-        $settingsContent = './app/Settings.php';
-
-        if (is_array($scripts)) {
-            foreach ($scripts as $script) {
-                $newSettingsContent = str_replace($scripts, 'NONE', file_get_contents($settingsContent));
-                file_put_contents($settingsContent, $newSettingsContent);
-            }
-        } else {
+    if (is_array($scripts)) {
+        foreach ($scripts as $script) {
             $newSettingsContent = str_replace($scripts, 'NONE', file_get_contents($settingsContent));
             file_put_contents($settingsContent, $newSettingsContent);
         }
+    } else {
+        $newSettingsContent = str_replace($scripts, 'NONE', file_get_contents($settingsContent));
+        file_put_contents($settingsContent, $newSettingsContent);
     }
 }
 

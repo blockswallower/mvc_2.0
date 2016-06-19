@@ -23,8 +23,8 @@ class Settings {
 			'DEBUG' => true,
 
 			'SCRIPT' => array(
-				'FILES' => 'NONE',
-				'ONE_TIME_EXECUTION' => true
+				'EVERY_TIME_EXECUTION' => 'NONE',
+				'ONE_TIME_EXECUTION' => "NONE"
 			),
 		);
 	}
