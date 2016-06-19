@@ -31,7 +31,7 @@ function autoload($directories) {
             if ('..' === $file)
                 continue;
 
-            require $dir.'/'.$file;
+            require $dir. '/' .$file;
         }
     }
 }
@@ -46,20 +46,32 @@ autoload($directories);
  */
 $settings = new Settings();
 
-if (Settings::$config['SCRIPT']['FILES'] != false) {
+if (Settings::$config['SCRIPT']['FILES'] != 'NONE') {
     $scripts = Settings::$config['SCRIPT']['FILES'];
     $dir = './scripts';
 
     if (is_array($scripts)) {
         foreach($scripts as $script) {
-            require $dir. '/' .$script;
+            if ($script != "NONE")
+                require $dir. '/' .$script;
         }
     } else {
-        require $dir. '/' .$scripts;
+        if ($scripts != "NONE")
+            require $dir. '/' .$scripts;
     }
 
-    if (!Settings::$config['SCRIPT']['ONE_TIME_EXECUTION']) {
-        // tbd
+    if (Settings::$config['SCRIPT']['ONE_TIME_EXECUTION']) {
+        $settingsContent = './app/Settings.php';
+
+        if (is_array($scripts)) {
+            foreach ($scripts as $script) {
+                $newSettingsContent = str_replace($scripts, 'NONE', file_get_contents($settingsContent));
+                file_put_contents($settingsContent, $newSettingsContent);
+            }
+        } else {
+            $newSettingsContent = str_replace($scripts, 'NONE', file_get_contents($settingsContent));
+            file_put_contents($settingsContent, $newSettingsContent);
+        }
     }
 }
 
