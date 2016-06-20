@@ -74,7 +74,7 @@ function load_scripts() {
 
         if (is_array($scripts)) {
             foreach ($scripts as $script) {
-                $newSettingsContent = str_replace($scripts, 'NONE', file_get_contents($settingsContent));
+                $newSettingsContent = str_replace($script, 'NONE', file_get_contents($settingsContent));
                 file_put_contents($settingsContent, $newSettingsContent);
             }
         } else {
