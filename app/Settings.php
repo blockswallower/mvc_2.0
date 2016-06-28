@@ -24,7 +24,7 @@ class Settings {
 
 			'SCRIPT' => array(
 				'EVERY_TIME_EXECUTION' => 'NONE',
-				'ONE_TIME_EXECUTION' => "NONE"
+				'ONE_TIME_EXECUTION' => 'NONE'
 			),
 		);
 	}

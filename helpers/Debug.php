@@ -1,6 +1,6 @@
 <?php
 
-class Dedug {
+class Debug {
     /**
      * This class will be used for several
      * debug methods
