@@ -32,7 +32,7 @@ class Arr {
 	 * @param $array
 	 * @return bool
 	 * 
-	 * Returns true if the given array is assoc
+	 * Returns true if the given array is associative
 	 */
 	public static function is_assoc($array) {
 		$isAssoc = false;

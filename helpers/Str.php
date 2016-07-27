@@ -145,7 +145,7 @@ class Str {
 	 *
 	 * Returns random password
 	 */
-	public static function randomize() {
+	public static function randomize_password() {
 		$characters = array(
 			'a', 'b', 'c', 'd', 'e', 'f', 'g', 
 			'h', 'i', 'j', 'k', 'l', 'm', 'n',

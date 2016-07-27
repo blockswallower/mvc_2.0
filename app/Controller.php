@@ -43,6 +43,7 @@ class Controller {
 
 		/**
 		 * Starts the session
+		 * on every new page
 		 */
 		Sessions::init();
 		
@@ -55,6 +56,8 @@ class Controller {
 
 		/**
 		 * Create a new Settings object
+		 *
+		 * Access with: Settings::$config[ARRAY_INDEX]
 		 */
 		$this->settings = new Settings();
 	}
@@ -81,7 +84,7 @@ class Controller {
 
 			$this->$model = new $ucfirstModel();
 		} else {
-			Dedug::exitdump($ucfirstModel." Doesn't exist");
+			Debug::exitdump($ucfirstModel." Doesn't exist");
 		}
 	}
 

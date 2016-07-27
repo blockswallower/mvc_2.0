@@ -15,7 +15,7 @@ class Email {
      * Static method to send verification email after registration
      * This can only be used if the website is hosted
      */
-    public static function verification_email($email, $name, $password, $hash) {
+    public static function send_verification_email($email, $name, $password, $hash) {
         /**
          * @var String
          */
