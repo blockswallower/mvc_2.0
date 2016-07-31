@@ -61,8 +61,8 @@ class Link {
      *
      * generates img tag
      */
-    public static function img($src, $width, $height) {
+    public static function img($src, $width, $height, $css) {
         $src = self::$absolute_img_path.$src;
-        echo '<img src="'.$src.'" width="'.$width.'" height="'.$height.'">'."\t";
+        echo '<img src="'.$src.'class="'.$css.'" width="'.$width.'" height="'.$height.'">'."\t";
     }
 }

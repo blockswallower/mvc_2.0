@@ -15,13 +15,13 @@ class Form {
      * @param $method
      * @param $action
      */
-    public static function open($method, $action) {
+    public static function open($method, $action, $css) {
         /**
          * Instantiates a new form.
          * parameters will fill in the
          * required
          */
-        echo "<form method='".$method."' action='".$action."' role='form'>";
+        echo "<form method='".$method." class=".$css."' action='".$action."' role='form'>";
     }
 
     public static function close() {
@@ -34,11 +34,11 @@ class Form {
     /**
      * @param $name
      */
-    public static function submit($name) {
+    public static function submit($name, $css) {
         /**
          * Generates a submit button
          */
-        echo '<input type="submit" value="submit" name="'.$name.'"/>';
+        echo '<input type="submit" class="'.$css.'" value="submit" name="'.$name.'"/>';
     }
 
     /**
@@ -56,10 +56,10 @@ class Form {
      * @param $name
      * @param $placeholder
      */
-    public static function text($name, $placeholder) {
+    public static function text($name, $placeholder, $css) {
         /**
          * Generates text input field
          */
-        echo '<input type="text" name="'.$name.'" placeholder="'.$placeholder.'"/>';
+        echo '<input type="text" name="'.$name.'" class="'.$css.'" placeholder="'.$placeholder.'"/>';
     }
 }
