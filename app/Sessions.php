@@ -255,7 +255,7 @@ class Sessions {
 
 
 	/**
-     * Dies the page if no ajax call was made
+     * Exit the programme if no ajax call was made
      */
     public static function access_ajax_only() {
         if(!IS_AJAX) {

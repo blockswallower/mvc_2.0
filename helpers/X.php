@@ -3,7 +3,7 @@
 class X {
     /**
      * This class will mainly be used
-     * to prevent Xross site scripting
+     * to prevent Cross site scripting
      */
 
     /**
