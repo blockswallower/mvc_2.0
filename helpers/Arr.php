@@ -88,6 +88,37 @@ class Arr {
 
 	/**
 	 * @param $array
+	 * @return int
+	 *
+	 * Returns the size of the given array
+     */
+	public static function size($array) {
+		$size = 0;
+
+		if (!empty($array)) {
+			foreach ($array as $arr) {
+				$size ++;
+			}
+
+			return $size;
+		} else {
+			return $size;
+		}
+	}
+
+	/**
+	 * @param $array
+	 * @return mixed
+	 *
+	 * Returns random index from given array (Non assoc)
+     */
+	public static function rand($array) {
+		$random = rand(0, self::size($array) - 1);
+		return $array[$random];
+	}
+
+	/**
+	 * @param $array
 	 * @return bool
 	 * 
 	 * Returns true if the given array is associative
