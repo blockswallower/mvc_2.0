@@ -9,17 +9,17 @@ class Link {
      /**
       * @var String
       */
-     private static $absolute_style_path = 'http://localhost/Snail_MVC/assets/css/';
+     private static $absolute_style_path = __URL__ . 'assets/css/';
 
      /**
       * @var String
       */
-     private static $absolute_script_path = 'http://localhost/Snail_MVC/assets/js/';
+     private static $absolute_script_path = __URL__ . '/assets/js/';
 
     /**
      * @var String
      */
-     private static $absolute_img_path = 'http://localhost/Snail_MVC/assets/img/';
+     private static $absolute_img_path = __URL__ . '/assets/img/';
 
 
 

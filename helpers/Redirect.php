@@ -25,6 +25,6 @@ class Redirect {
      * Redirects the user to a specific page
      */
     public static function to($page) {
-        header("Location: ".__URL__.$page);
+        header("Location: " . __URL__ . $page);
     }
 }
