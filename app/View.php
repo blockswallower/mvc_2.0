@@ -64,4 +64,38 @@ class View {
 	public function render_view($view) {
 		require $this->basepath.$view.".php";
 	}
+
+	/**
+	 * @param null $key
+	 * @return mixed
+	 *
+	 * returns a value from the view "var" variable
+	 * can be used in views like this:
+	 *
+	 * $this->get([KEY]);
+     */
+	public function get($key = null) {
+		/*
+		 * @var String
+		 */
+		$cur_controller = Controller::return_current_controller();
+
+		if (!empty($this->var[$cur_controller])) {
+			if (!empty($key)) {
+				$value = $this->var[$cur_controller][$key];
+
+				if (!empty($value)) {
+					return $value;
+				} else {
+					debug::pagedump('The value you are trying to access is empty or NULL');
+				}
+			} else {
+				debug::pagedump('Please enter a value as an argument: $this->get([VALUE])');
+			}
+		} else {
+			debug::pagedump("No variables has been send to this controller yet: " . ucfirst($cur_controller) . "Controller");
+		}
+
+		return $key;
+	}
 }

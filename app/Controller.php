@@ -31,6 +31,11 @@ class Controller {
 	 * @var string
 	 */
 	protected $modelsdir = 'models/';
+
+	/**
+	 * @var string
+	 */
+	protected static $standerd_controller = "index";
 	
 	
 	public function __construct() {
@@ -116,5 +121,26 @@ class Controller {
 	 */
 	public function config_view_array() {
 		$this->view->var = $this->variables;
+	}
+
+	/**
+	 * Returns the controller the user
+	 * is currently in
+	 */
+	public static function return_current_controller() {
+		$url = isset($_GET['url']) ? $_GET['url'] : null;
+		$url = filter_var($url, FILTER_SANITIZE_URL);
+		$url = rtrim($url, '/');
+		$url = explode('/', $url);
+
+		if (empty($url[0])) {
+			/*
+			 * Will set the current controller
+			 * to index if nu controller was found
+			 */
+			$url[0] = self::$standerd_controller;
+		}
+
+		return $url[0];
 	}
 }
