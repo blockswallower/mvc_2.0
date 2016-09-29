@@ -24,7 +24,7 @@ class Settings {
 
 			'DB_TYPE' => 'mysql',
 			'DB_HOST' => 'localhost',
-			'DB_NAME' => '[YOUR OWN DATABASE NAME]',
+			'DB_NAME' => '',
 			'DB_USERNAME' => 'root',
 			'DB_PASSWORD' => '',
 
