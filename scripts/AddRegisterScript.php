@@ -179,7 +179,7 @@ if (!file_exists("views/register.php")) {
 
     fwrite($view, '
 <h1>Register</h1>
-<form class="omb_loginForm" action="<?php echo URL; ?>register/register" method="post" >
+<form class="omb_loginForm" action="<?php echo __URL__; ?>register/register" method="post" >
     <input type="text" class="form-control" name="username" placeholder="username" />
     <input type="email" name="email" placeholder="email address">
     <input type="email" name="email_confirm" placeholder="email address confirm" />
