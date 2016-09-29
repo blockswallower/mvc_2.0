@@ -12,7 +12,8 @@ class Urls {
 
     public function __construct() {
         $this->urls = [
-            "index"
+            "index",
+            "debug"
         ];
     }
 }
