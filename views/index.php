@@ -1,2 +1,2 @@
-<h1>Welcome to Snail MVC!</h1>
-<?php Link::img('snail.png', "200", "150", ""); ?>
+<h1 id="title">Snail</h1>
+<h1>PHP Micro Framework</h1>
