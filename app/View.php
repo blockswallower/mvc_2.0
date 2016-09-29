@@ -87,13 +87,13 @@ class View {
 				if (!empty($value)) {
 					return $value;
 				} else {
-					debug::pagedump('The value you are trying to access is empty or NULL');
+					Debug::pagedump('The value you are trying to access is empty or NULL');
 				}
 			} else {
-				debug::pagedump('Please enter a value as an argument: $this->get([VALUE])');
+				Debug::pagedump('Please enter a value as an argument: $this->get([VALUE])');
 			}
 		} else {
-			debug::pagedump("No variables has been send to this controller yet: " . ucfirst($cur_controller) . "Controller");
+			Debug::pagedump("No variables has been send to this controller yet: " . ucfirst($cur_controller) . "Controller");
 		}
 
 		return $key;

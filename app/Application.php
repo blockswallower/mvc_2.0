@@ -56,7 +56,7 @@ class Application {
                 require $this->standard_controller;
                 $this->controller = new IndexController();
             } else {
-                debug::exitdump("You have no permission to enter this page: " . Settings::$config["STANDARD_CONTROLLER"]);
+                Debug::exitdump("You have no permission to enter this page: " . Settings::$config["STANDARD_CONTROLLER"]);
             }
         }
     }

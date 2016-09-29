@@ -59,7 +59,7 @@ class Routes {
 			if (in_array($url[0], $url_permission->urls)) {
 				self::$controller = new $url_controller;
 			} else {
-				debug::exitdump("You have no permission to enter this page: " . $url[0]);
+				Debug::exitdump("You have no permission to enter this page: " . $url[0]);
 			}
 		}
 
