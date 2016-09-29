@@ -45,8 +45,19 @@ class Application {
              */
             Routes::route($url, $this->file);
         } else {
-            require $this->standard_controller;
-            $this->controller = new IndexController();
+            require_once "Urls.php";
+            $url_permission = new Urls();
+
+            /*
+			 * Check if the user has permission
+			 * to enter the page.
+			 */
+            if (in_array(Settings::$config["STANDARD_CONTROLLER"], $url_permission->urls)) {
+                require $this->standard_controller;
+                $this->controller = new IndexController();
+            } else {
+                debug::exitdump("You have no permission to enter this page: " . Settings::$config["STANDARD_CONTROLLER"]);
+            }
         }
     }
 

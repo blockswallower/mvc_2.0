@@ -47,9 +47,21 @@ class Routes {
 		}
 
 		$url_controller = ucfirst($url[0])."Controller";
-		
-		if (self::$controller != self::$FourNullFourController)
-			self::$controller = new $url_controller;
+
+		if (self::$controller != self::$FourNullFourController) {
+			require_once "Urls.php";
+			$url_permission = new Urls();
+
+			/*
+			 * Check if the user has permission
+			 * to enter the page.
+			 */
+			if (in_array($url[0], $url_permission->urls)) {
+				self::$controller = new $url_controller;
+			} else {
+				debug::exitdump("You have no permission to enter this page: " . $url[0]);
+			}
+		}
 
 		if (isset($url[2])) {
 			if (method_exists(self::$controller, $url[1])) {

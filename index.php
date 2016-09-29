@@ -8,8 +8,8 @@
  * this array (Can only be PHP files)
  */
 $directories = array(
-    './app',
-    './helpers'
+    './helpers',
+    './app'
 );
 
 /**
