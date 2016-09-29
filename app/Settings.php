@@ -22,6 +22,12 @@ class Settings {
 		self::$config = array(
 			'DEBUG' => true,
 
+			'DB_TYPE' => 'mysql',
+			'DB_HOST' => 'localhost',
+			'DB_NAME' => '[YOUR OWN DATABASE NAME]',
+			'DB_USERNAME' => 'root',
+			'DB_PASSWORD' => '',
+
 			'SCRIPT' => array(
 				'EVERY_TIME_EXECUTION' => 'NONE',
 				'ONE_TIME_EXECUTION' => 'NONE'
