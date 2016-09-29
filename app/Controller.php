@@ -32,12 +32,6 @@ class Controller {
 	 */
 	protected $modelsdir = 'models/';
 
-	/**
-	 * @var string
-	 */
-	protected static $standerd_controller = "index";
-	
-	
 	public function __construct() {
 		/**
 		 * This is needed for 
@@ -136,9 +130,10 @@ class Controller {
 		if (empty($url[0])) {
 			/*
 			 * Will set the current controller
-			 * to index if nu controller was found
+			 * to Settings::$config["STANDARD_CONTROLLER"]
+			 * if no controller was found
 			 */
-			$url[0] = self::$standerd_controller;
+			$url[0] = Settings::$config["STANDARD_CONTROLLER"];
 		}
 
 		return $url[0];

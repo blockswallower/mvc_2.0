@@ -22,9 +22,12 @@ class Application {
     /**
      * @var string
      */
-    public $standard_controller = 'controllers/IndexController.php';
+    public $standard_controller;
 
     public function __construct() {
+        $this->standard_controller = "controllers/"
+                                     .ucfirst(Settings::$config["STANDARD_CONTROLLER"]) . "Controller.php";
+
         /**
          * Generates the URL in the right format
          */

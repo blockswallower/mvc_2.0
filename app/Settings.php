@@ -26,6 +26,8 @@ class Settings {
 				'EVERY_TIME_EXECUTION' => 'NONE',
 				'ONE_TIME_EXECUTION' => 'NONE'
 			),
+
+			'STANDARD_CONTROLLER' => "index"
 		);
 	}
 }
