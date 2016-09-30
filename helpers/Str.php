@@ -38,25 +38,27 @@ class Str {
 		$string = str_split($string);
 		$first_char = $string[0];
 
-		if ($first_char == $char)
+		if ($first_char == $char) {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 
 	/**
-	 * @param $string
-	 * @param $substr
+	 * @param $haystack
+	 * @param $needle
 	 * @return boolean
 	 *
 	 * Returns true if the given string
 	 * contains the given substring
 	 */
 	public static function contains($haystack, $needle) {
-		if (strstr($haystack, $needle)) 
-			return true;			
-		else 
+		if (strstr($haystack, $needle)) {
+			return true;
+		} else {
 			return false;
+		}
 	}
 
 	/**
