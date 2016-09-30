@@ -11,6 +11,6 @@ class PageNotFoundController extends Controller {
 		 * content based on the
 		 * parameter
 		 */
-		$this->view->show('404/404');
+		$this->view->show_hf('404/404');
 	}
 }
