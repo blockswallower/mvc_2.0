@@ -40,13 +40,39 @@ class Debug {
 
     /**
      * @param $data
+     * @param $line
      *
      * dumps data between
      * <pre> tags on a different page 
      * and ends the programme
+     *
+     * If you want the linenumber from where
+     * this dump is executed to appear,
+     * use this method as follows:
+     *
+     * Debug::pagedump("This is a dump!", __LINE__);
      */
-    public static function pagedump($data) {
+    public static function pagedump($data, $linenumber = null) {
         if (Settings::$config['DEBUG']) {
+            /*
+             * @var String
+             */
+            $cur_controller = ucfirst(Controller::return_current_controller())."Controller";
+
+            if ($linenumber != null) {
+                /*
+                * @var String
+                */
+                $debug_info = "Page dump call: line ". $linenumber ."<br>Controller/Class: ". $cur_controller;
+            } else {
+                /*
+                * @var String
+                */
+                $debug_info = "Controller/Class: ". $cur_controller;
+            }
+
+
+            Sessions::set("debug_info", $debug_info);
             Sessions::set(self::$standard_error_session, $data);
             Redirect::to("debug");
         }
