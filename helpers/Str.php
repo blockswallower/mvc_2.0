@@ -48,17 +48,45 @@ class Str {
 	/**
 	 * @param $haystack
 	 * @param $needle
+	 * @param $checkall
 	 * @return boolean
 	 *
 	 * Returns true if the given string
 	 * contains the given substring
 	 */
-	public static function contains($haystack, $needle) {
-		if (strstr($haystack, $needle)) {
-			return true;
-		} else {
-			return false;
+	public static function contains($haystack, $needle, $checkall = false) {
+		/*
+		 * @var string
+		 */
+		$contains = false;
+
+		if (is_string($needle)) {
+			if (strstr($haystack, $needle)) {
+				$contains =  true;
+			} else {
+				return $contains;
+			}
+		} else if (is_array($needle) && !$checkall) {
+			foreach ($needle as $check) {
+				if (strstr($haystack, $check)) {
+					$contains = true;
+				}
+			}
+		} else if (is_array($needle) && $checkall) {
+			$checked_needles = [];
+
+			foreach ($needle as $check) {
+				if (strstr($haystack, $check)) {
+					$checked_needles[] = $check;
+				}
+			}
+
+			if (Arr::size($checked_needles) == Arr::size($needle)) {
+				$contains = true;
+			}
 		}
+
+		return $contains;
 	}
 
 	/**
