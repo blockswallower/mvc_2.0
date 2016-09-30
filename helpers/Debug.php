@@ -40,7 +40,7 @@ class Debug {
 
     /**
      * @param $data
-     * @param $line
+     * @param $linenumber
      *
      * dumps data between
      * <pre> tags on a different page 
