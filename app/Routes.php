@@ -67,14 +67,14 @@ class Routes {
 			if (method_exists(self::$controller, $url[1])) {
 				self::$controller->{$url[1]}($url[2]);
 			} else {
-				return false;
+				Debug::pagedump("Method does not exist: " . $url[1], __LINE__, __CLASS__);
 			}
 		} else {
 			if (isset($url[1])) {
 				if (method_exists(self::$controller, $url[1])) {
 					self::$controller->{$url[1]}();
 				} else {
-					return false;
+					Debug::pagedump("Method does not exist: " . $url[1], __LINE__, __CLASS__);
 				}
 			}
 		}

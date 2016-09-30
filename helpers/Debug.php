@@ -41,6 +41,7 @@ class Debug {
     /**
      * @param $data
      * @param $linenumber
+     * @param $coreSnailClass
      *
      * dumps data between
      * <pre> tags on a different page 
@@ -48,27 +49,42 @@ class Debug {
      *
      * If you want the linenumber from where
      * this dump is executed to appear,
-     * use this method as follows:
+     * use the Magic constants build in PHP as the second argument:
      *
      * Debug::pagedump("This is a dump!", __LINE__);
+     *
+     * If you are using a core snail functionality class and
+     * you don't want to dump the current controller, just fill
+     * in the file (as String) where you execute the dump as a third argument.
+     *
+     * Debug::pagedump("This is a dump!", __LINE__, [NAME OF FILE]);
+     *
+     * or use the PHP magic constant:
+     *
+     * Debug::pagedump("This is a dump!", __LINE__, __CLASS__);
      */
-    public static function pagedump($data, $linenumber = null) {
+    public static function pagedump($data, $linenumber = null, $coreSnailClass = null) {
         if (Settings::$config['DEBUG']) {
             /*
              * @var String
              */
             $cur_controller = ucfirst(Controller::return_current_controller())."Controller";
 
-            if ($linenumber != null) {
-                /*
-                * @var String
-                */
+            /*
+             * @var String
+             */
+            $debug_info = "";
+
+            if ($linenumber != null && $coreSnailClass == null) {
                 $debug_info = "Page dump call: line ". $linenumber ."<br>Controller/Class: ". $cur_controller;
-            } else {
-                /*
-                * @var String
-                */
+            } else if ($linenumber == null && $coreSnailClass == null) {
                 $debug_info = "Controller/Class: ". $cur_controller;
+            }
+
+            if ($linenumber != null && $coreSnailClass != null) {
+                $debug_info = "Page dump call: line ". $linenumber ."<br>Controller/Class: ". $coreSnailClass. ".php";
+            } else if ($linenumber == null && $coreSnailClass != null) {
+                $debug_info = "Controller/Class: ". $coreSnailClass . ".php";
             }
 
 
