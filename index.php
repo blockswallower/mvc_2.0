@@ -9,6 +9,7 @@
  */
 $directories = array(
     './helpers',
+    './lib/TemplateEngine',
     './app'
 );
 

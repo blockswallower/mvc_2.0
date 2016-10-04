@@ -13,7 +13,8 @@ class Urls {
     public function __construct() {
         $this->urls = [
             "index",
-            "debug"
+            "debug",
+            "template"
         ];
     }
 }
