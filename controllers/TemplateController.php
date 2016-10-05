@@ -22,6 +22,9 @@ class TemplateController extends Controller {
          * parameter
          */
         $te = new TemplateEngine();
-        $te->render_template("template");
+        $te->render_template("template", [
+             "title" => "my new website",
+             "page_content" => "testestest"
+        ]);
     }
 }

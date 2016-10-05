@@ -8,6 +8,50 @@ class Str {
 
 	/**
 	 * @param $string
+	 * @param $char1
+	 * @param $char2
+	 * @return String
+	 *
+	 * Returns substring between 2 characters
+	 *
+	 */
+	public static function substring($string, $char1, $char2) {
+		$split = str_split($string);
+		$char1_index = Arr::find_index($split, $char1);
+		$char2_index = Arr::find_index($split, $char2);
+		$substring = "";
+
+		for ($ii = 0; $ii < count($split); $ii++) {
+			if ($ii >= $char1_index && $ii <= $char2_index) {
+				$substring .= $split[$ii];
+			}
+		}
+
+		return $substring;
+	}
+
+	/**
+	 * @param $string
+	 * @param $replace
+	 * @param $subject
+     */
+	public static function replace($string, $replace, $subject) {
+		$split = str_split($string);
+		$replace_split = str_split($replace);
+
+		$replaced = "";
+
+		if (!Str::contains($string, $replace)) {
+			Debug::pagedump("String does not contain the given substring", __LINE__, __CLASS__);
+		}
+
+		for ($ii = 0; $ii < count($split); $ii++) {
+
+		}
+	}
+
+	/**
+	 * @param $string
 	 * @param $char
 	 * @return boolean
 	 *
@@ -19,10 +63,11 @@ class Str {
 		$string = str_split($string);
 		$last_char = $string[count($string) -1];
 		
-		if ($last_char == $char) 
+		if ($last_char == $char) {
 			return true;
-		 else 
+		} else {
 			return false;
+		}
 	}
 
 	/**

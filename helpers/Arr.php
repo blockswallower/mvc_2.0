@@ -132,4 +132,23 @@ class Arr {
 		
 		return $isAssoc;
 	}
+
+	/**
+	 * @param $array
+	 * @param $item
+	 * @return int|null
+	 *
+	 * Algorithm to find array index by given array
+	 */
+	public static function find_index($array, $item) {
+		$index = null;
+
+		for ($ii = 0; $ii < count($array); $ii++) {
+			if ($array[$ii] == $item) {
+				return $ii;
+			}
+		}
+
+		return $index;
+	}
 }
