@@ -13,9 +13,6 @@ class TemplateController extends Controller {
          * lower section it won't function properly
          * ========================================
          */
-
-        $this->set("template", "test", "testvalue");
-
         $this->config_view_array();
 
         /**
