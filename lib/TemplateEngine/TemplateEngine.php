@@ -8,6 +8,8 @@ class TemplateEngine {
 
    /*
     * @var Object
+    *
+    * TODO: fix that templates can't access global view variables
     */
     public $view;
 
@@ -44,6 +46,10 @@ class TemplateEngine {
     /**
      * @param $view
      * @param $values
+     *
+     * Decrypts the whole template and checks
+     * if there are any lines with template tags
+     * or template keywords
      */
     public function decrypt_template($view, $values) {
         /*
@@ -85,6 +91,8 @@ class TemplateEngine {
     /**
      * @param $view
      * @param null $values
+     *
+     * Renders template and changes content back to template form
      */
     public function render_template($view, $values = null) {
         $old_content = file_get_contents($this->get_base_view_path() . $view . ".php");
@@ -103,6 +111,9 @@ class TemplateEngine {
      * @param $values
      * @param $value_index
      * @return mixed|string
+     *
+     * Decrypts a given line with template tags ('{{', '}}')
+     * en checks for template keywords
      */
     public function decrypt_template_tag($line, $values, $value_index) {
         $substring = Str::substring($line, "{", "}") . "}";
@@ -121,6 +132,8 @@ class TemplateEngine {
 
     /**
      * @param $template
+     *
+     * requires the decrypted template
      */
     public function show($template) {
         require $template;
