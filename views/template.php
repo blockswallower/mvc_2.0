@@ -1,6 +1,11 @@
-<?php $this->extend("layout/header")?>
+<!DOCTYPE html>
+<html lang="nl">
+    <head>
+        <title>my new website</title>
+    </head>
+    <body>
+        <h1>{{ title }}</h1>
+        <p>{{ page_content }}</p>
 
-<h1>{{ title }}</h1>
-<p>{{ page_content }}</p>
-
-<?php $this->extend("layout/footer")?>
+        <h3>{{ description }}</h3></body>
+</html>

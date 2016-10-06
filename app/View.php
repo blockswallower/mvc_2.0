@@ -54,13 +54,14 @@ class View {
 				if (!empty($value)) {
 					return $value;
 				} else {
-					Debug::pagedump('The value you are trying to access is empty or NULL');
+					Debug::pagedump('The value you are trying to access is empty or NULL', __LINE__, __CLASS__);
 				}
 			} else {
-				Debug::pagedump('Please enter an array key as an argument: $this->get([KEY])');
+				Debug::pagedump('Please enter an array key as an argument: $this->get([KEY])', __LINE__, __CLASS__);
 			}
 		} else {
-			Debug::pagedump("No variables has been send to this controller yet: " . ucfirst($cur_controller) . "Controller");
+			Debug::pagedump("No variables has been send from this controller yet: " . ucfirst($cur_controller) . "Controller",
+						    __LINE__, __CLASS__);
 		}
 
 		return $key;

@@ -6,6 +6,11 @@ class TemplateEngine {
      */
     public $base_view_path;
 
+   /*
+    * @var Object
+    */
+    public $view;
+
     /*
      * @var String
      */
@@ -33,21 +38,19 @@ class TemplateEngine {
      */
     public function __construct() {
         $this->set_base_view_path("./views/");
+        $this->view = new View();
     }
 
+    /**
+     * @param $view
+     * @param $values
+     */
     public function decrypt_template($view, $values) {
         /*
          * @var File
          * used for reading line by line
          */
         $file = file($this->get_base_view_path() . $view . ".php");
-
-        /*
-         * @var String
-         * Used for compairing and
-         * rendering.
-         */
-        $template = file_get_contents($this->get_base_view_path() . $view . ".php");
 
         /*
          * @var Array
@@ -58,10 +61,20 @@ class TemplateEngine {
          * @var Integer
          */
         $value_index = 0;
-        
+
         foreach ($file as $line) {
+            /*
+             * @var String
+             * Used for compairing and
+             * rendering.
+             */
+            $template = file_get_contents($this->get_base_view_path() . $view . ".php");
+
             if (Str::contains($line, $this->template_tags, true)) {
-                $this->decrypt_template_tag($line, $values, $value_index);
+                $new_line = $this->decrypt_template_tag($line, $values, $value_index);
+                $new_template_content =  str_replace($line, $new_line, $template);
+
+                file_put_contents($this->get_base_view_path() . $view . ".php", $new_template_content);
 
                 $templateTagsFound[] = $line;
                 $value_index ++;
@@ -69,10 +82,28 @@ class TemplateEngine {
         }
     }
 
+    /**
+     * @param $view
+     * @param null $values
+     */
     public function render_template($view, $values = null) {
+        $old_content = file_get_contents($this->get_base_view_path() . $view . ".php");
         $this->decrypt_template($view, $values);
+
+        require $this->get_base_view_path() . $view . ".php";
+
+        /*
+         * Sets view content back to template form
+         */
+        file_put_contents($this->get_base_view_path() . $view . ".php", $old_content);
     }
 
+    /**
+     * @param $line
+     * @param $values
+     * @param $value_index
+     * @return mixed|string
+     */
     public function decrypt_template_tag($line, $values, $value_index) {
         $substring = Str::substring($line, "{", "}") . "}";
         $new_line = "";
@@ -81,18 +112,18 @@ class TemplateEngine {
             Debug::pagedump("A template keyword was found!", __LINE__, __CLASS__);
         } else {
             $keys = array_keys($values);
-            $new_substring = str_replace($substring, $keys[$value_index], $values[$keys[$value_index]]);
-
-//            Debug::dump("New line replace");
-//            Debug::dump($line);
-//            Debug::dump($substring);
-//            Debug::dump($new_substring);
-
-            $new_line = str_replace($line, $substring, $new_substring);
-
-            Debug::exitdump($new_line);
-            exit;
+            $new_substring = str_replace($substring, $values[$keys[$value_index]], $substring);
+            $new_line = str_replace($substring, $new_substring, $line);
         }
+
+        return $new_line;
+    }
+
+    /**
+     * @param $template
+     */
+    public function show($template) {
+        require $template;
     }
 
     /**

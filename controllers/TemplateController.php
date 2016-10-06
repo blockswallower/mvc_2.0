@@ -14,6 +14,8 @@ class TemplateController extends Controller {
          * ========================================
          */
 
+        $this->set("template", "test", "testvalue");
+
         $this->config_view_array();
 
         /**
@@ -24,7 +26,8 @@ class TemplateController extends Controller {
         $te = new TemplateEngine();
         $te->render_template("template", [
              "title" => "my new website",
-             "page_content" => "testestest"
+             "page_content" => "testestest",
+             "description" => "Hello my name is Dennis and i'm 18 years old!"
         ]);
     }
 }

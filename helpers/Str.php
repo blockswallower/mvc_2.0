@@ -32,26 +32,6 @@ class Str {
 
 	/**
 	 * @param $string
-	 * @param $replace
-	 * @param $subject
-     */
-	public static function replace($string, $replace, $subject) {
-		$split = str_split($string);
-		$replace_split = str_split($replace);
-
-		$replaced = "";
-
-		if (!Str::contains($string, $replace)) {
-			Debug::pagedump("String does not contain the given substring", __LINE__, __CLASS__);
-		}
-
-		for ($ii = 0; $ii < count($split); $ii++) {
-
-		}
-	}
-
-	/**
-	 * @param $string
 	 * @param $char
 	 * @return boolean
 	 *
