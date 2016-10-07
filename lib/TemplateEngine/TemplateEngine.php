@@ -8,8 +8,6 @@ class TemplateEngine {
 
    /*
     * @var Object
-    *
-    * TODO: fix that templates can't access global view variables
     */
     public $view;
 
