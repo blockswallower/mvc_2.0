@@ -25,10 +25,10 @@ class TemplateEngine {
      *
      * All keywords that resemble a "Template Keyword"
      */
-    public $template_keywords = ["for", "while", "if", "if not",
-                                 "do", "equals", "not equals", ">",
-                                 "<", "==", "!=", "-", "+", "plus",
-                                 "minus", "times", "*"];
+    public $template_keywords = ["for", "while", "if", "ifnot",
+                                 "do", "equals", "!equals", "==",
+                                 "!=", "-", "+", "plus",
+                                 "minus", "times", "*", "end"];
 
     /*
      * TemplateEngine Constructor
@@ -78,7 +78,10 @@ class TemplateEngine {
                 file_put_contents($this->get_base_view_path() . $view . ".php", $new_template_content);
 
                 $templateTagsFound[] = $line;
-                $value_index ++;
+
+                if (!Str::contains($line, $this->template_keywords)) {
+                    $value_index ++;
+                }
             }
         }
     }
@@ -115,11 +118,66 @@ class TemplateEngine {
         $new_line = "";
 
         if (Str::contains($substring, $this->template_keywords)) {
-            Debug::pagedump("A template keyword was found!", __LINE__, __CLASS__);
+            $substring = Str::substringint($substring, 2, strlen($substring) - 3);
+            $substring_exploded = explode(" ", $substring);
+
+            $first_keyword = "";
+
+            $new_line .= "<?php ";
+
+            foreach ($substring_exploded as $str) {
+                if ($str != "") {
+                    $first_keyword = $str;
+                    break;
+                }
+            }
+
+            if ($first_keyword == "end") {
+                $new_line = "<?php } ?>";
+            } else {
+                $new_line = $this->map_substring_keywords($substring_exploded, $new_line, $first_keyword);
+            }
         } else {
             $keys = array_keys($values);
             $new_substring = str_replace($substring, $values[$keys[$value_index]], $substring);
             $new_line = str_replace($substring, $new_substring, $line);
+        }
+
+        return $new_line;
+    }
+
+    /**
+     * @param $substring_exploded
+     * @param $new_line
+     * @param $first_keyword
+     * @return mixed
+     */
+    public function map_substring_keywords($substring_exploded , $new_line, $first_keyword) {
+        $second_keyword = $substring_exploded[2];
+        $third_keyword = $substring_exploded[3];
+        $fourth_keyword = $substring_exploded[4];
+
+        $new_line .= "" . $first_keyword . " (";
+
+        if (Str::contains($second_keyword, "$")) {
+            Debug::pagedump($second_keyword . " is a specific variable", __LINE__, __CLASS__);
+        } else {
+            $new_line .= "" . $second_keyword;
+        }
+
+        switch ($third_keyword) {
+            case "equals":
+                $new_line .= " " . "==";
+                break;
+            case "!equals":
+                $new_line .= " ". "!=";
+                break;
+        }
+
+        if (Str::contains($fourth_keyword, "$")) {
+            Debug::pagedump($second_keyword . " is a specific variable", __LINE__, __CLASS__);
+        } else {
+            $new_line .= " " . $fourth_keyword. ") { ?>";
         }
 
         return $new_line;

@@ -32,6 +32,28 @@ class Str {
 
 	/**
 	 * @param $string
+	 * @param $index1
+	 * @param $index2
+	 * @return string
+	 *
+	 * Returns substring between 2 character indexes
+     */
+	public static function substringint($string, $index1, $index2) {
+		$split = str_split($string);
+
+		$substring = "";
+
+		for ($ii = 0; $ii < count($split); $ii++) {
+			if ($ii >= $index1 && $ii <= $index2) {
+				$substring .= $split[$ii];
+			}
+		}
+
+		return $substring;
+	}
+
+	/**
+	 * @param $string
 	 * @param $char
 	 * @return boolean
 	 *
