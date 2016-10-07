@@ -113,8 +113,8 @@ class Controller {
 	 * variables we send to the view
 	 * with the set() method
 	 */
-	public function config_view_array() {
-		$this->view->var = $this->variables;
+	public function config_globals_array() {
+		$this->view->globals = $this->variables;
 	}
 
 	/**

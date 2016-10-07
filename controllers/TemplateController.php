@@ -13,14 +13,15 @@ class TemplateController extends Controller {
          * lower section it won't function properly
          * ========================================
          */
-        $this->config_view_array();
+        $this->config_globals_array();
 
         /**
          * Render the correct
          * content based on the
          * parameter
          */
-        $te = new TemplateEngine();
+        $te = new TemplateEngine($this->view->get_globals());
+
         $te->render_template("template", [
              "title" => "my new website",
              "page_content" => "testestest",

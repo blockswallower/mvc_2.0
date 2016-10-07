@@ -14,6 +14,11 @@ class TemplateEngine {
     public $view;
 
     /*
+     * @var Mixed array
+     */
+    public $globals;
+
+    /*
      * @var Array
      *
      * All tags that resemble a "Template tag"
@@ -33,9 +38,14 @@ class TemplateEngine {
     /*
      * TemplateEngine Constructor
      */
-    public function __construct() {
+    public function __construct($view_array) {
         $this->set_base_view_path("./views/");
         $this->view = new View();
+
+        /*
+         * set global variables
+         */
+        $this->globals = $view_array;
     }
 
     /**
@@ -220,6 +230,41 @@ class TemplateEngine {
         }
 
         return $new_line;
+    }
+
+    /**
+     * @param null $key
+     * @return mixed
+     *
+     * returns a value from the "var" variable
+     * can be used in views like this:
+     *
+     * $this->get([KEY]);
+     */
+    public function get($key = null) {
+        /*
+         * @var String
+         */
+        $cur_controller = Controller::return_current_controller();
+
+        if (!empty($this->globals[$cur_controller])) {
+            if (!empty($key)) {
+                $value = $this->globals[$cur_controller][$key];
+
+                if (!empty($value)) {
+                    return $value;
+                } else {
+                    Debug::pagedump('The value you are trying to access is empty or NULL', __LINE__, __CLASS__);
+                }
+            } else {
+                Debug::pagedump('Please enter an array key as an argument: $this->get([KEY])', __LINE__, __CLASS__);
+            }
+        } else {
+            Debug::pagedump("No variables has been send from this controller yet: " . ucfirst($cur_controller) . "Controller",
+                __LINE__, __CLASS__);
+        }
+
+        return $key;
     }
 
     /**

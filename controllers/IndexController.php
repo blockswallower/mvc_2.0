@@ -21,7 +21,7 @@ class IndexController extends Controller {
          * ========================================
          */
 
-        $this->config_view_array();
+        $this->config_globals_array();
 
         /**
          * Render the correct

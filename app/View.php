@@ -10,7 +10,7 @@ class View {
 	/**
 	 * @var array global
 	 */
-	public $var;
+	public $globals;
 
 	/**
 	 * @var String
@@ -47,9 +47,9 @@ class View {
 		 */
 		$cur_controller = Controller::return_current_controller();
 
-		if (!empty($this->var[$cur_controller])) {
+		if (!empty($this->globals[$cur_controller])) {
 			if (!empty($key)) {
-				$value = $this->var[$cur_controller][$key];
+				$value = $this->globals[$cur_controller][$key];
 
 				if (!empty($value)) {
 					return $value;
@@ -170,5 +170,14 @@ class View {
 	 */
 	public function get_view_path($view) {
 		return $this->basepath.$view.".php";
+	}
+
+	/**
+	 * @return array
+	 *
+	 * returns globals array
+     */
+	public function get_globals() {
+		return $this->globals;
 	}
 }
