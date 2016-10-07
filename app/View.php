@@ -36,7 +36,7 @@ class View {
 	 * @param null $key
 	 * @return mixed
 	 *
-	 * returns a value from the "var" variable
+	 * returns a value from the "gloabals" variable
 	 * can be used in views like this:
 	 *
 	 * $this->get([KEY]);

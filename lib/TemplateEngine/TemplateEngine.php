@@ -242,8 +242,8 @@ class TemplateEngine {
      * @param null $key
      * @return mixed
      *
-     * returns a value from the "var" variable
-     * can be used in views like this:
+     * returns a value from the "globals" variable
+     * can be used in templates like this:
      *
      * $this->get([KEY]);
      */
