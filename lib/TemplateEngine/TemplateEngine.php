@@ -33,7 +33,8 @@ class TemplateEngine {
     public $template_keywords = ["for", "while", "if", "ifnot",
                                  "do", "equals", "!equals", "==",
                                  "!=", "-", "+", "plus", "else",
-                                 "minus", "times", "*", "end"];
+                                 "minus", "times", "*", "end",
+                                 "greater", "less"];
 
     /*
      * TemplateEngine Constructor
@@ -220,13 +221,19 @@ class TemplateEngine {
                 $new_line .= " " . "==";
                 break;
             case "!equals":
-                $new_line .= " ". "!=";
+                $new_line .= " " . "!=";
                 break;
             case "==":
                 $new_line .= " " . "==";
                 break;
             case "!=":
-                $new_line .= " ". "!=";
+                $new_line .= " " . "!=";
+                break;
+            case "greater":
+                $new_line .= " " . ">";
+                break;
+            case "less":
+                $new_line .= " " . "<";
                 break;
         }
 
