@@ -32,7 +32,7 @@ class TemplateEngine {
                                  "do", "equals", "!equals", "==",
                                  "!=", "-", "+", "plus", "else",
                                  "minus", "times", "*", "end",
-                                 "greater", "less"];
+                                 "greater", "less", "print"];
 
     /*
      * TemplateEngine Constructor
@@ -137,6 +137,9 @@ class TemplateEngine {
 
         if (Str::contains($substring, $this->template_keywords)) {
             $substring = Str::substringint($substring, 2, strlen($substring) - 3);
+            /*
+             * TODO: Fix indexing issue
+             */
             $substring_exploded = explode(" ", $substring);
 
             /*
@@ -158,6 +161,17 @@ class TemplateEngine {
 
             if ($first_keyword == "end") {
                 $new_line = "<?php } ?>";
+            } else if ($first_keyword == "print") {
+                $array_size = Arr::size($substring_exploded);
+
+                $second_keyword = $substring_exploded[$array_size >= 4 ? 2: 1];
+
+                if (Str::contains($second_keyword, "$")) {
+                    Debug::pagedump($second_keyword . " is a specific variable", __LINE__, __CLASS__);
+                    exit;
+                }
+
+                $new_line .= 'echo "' . $second_keyword . '"; ?>';
             } else {
                 $new_line = $this->map_substring_keywords($substring_exploded, $new_line,
                                                           $first_keyword, Arr::size($substring_exploded));
