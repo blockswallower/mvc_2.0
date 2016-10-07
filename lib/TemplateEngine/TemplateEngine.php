@@ -176,6 +176,7 @@ class TemplateEngine {
 
         if (!in_array($array_size, $valid_arrays_sizes)) {
             Debug::pagedump("Wrong syntax, keep the amount of spaces under 3", __LINE__, __CLASS__);
+            exit;
         }
 
         /*
