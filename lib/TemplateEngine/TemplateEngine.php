@@ -27,7 +27,7 @@ class TemplateEngine {
      */
     public $template_keywords = ["for", "while", "if", "ifnot",
                                  "do", "equals", "!equals", "==",
-                                 "!=", "-", "+", "plus",
+                                 "!=", "-", "+", "plus", "else",
                                  "minus", "times", "*", "end"];
 
     /*
@@ -114,15 +114,28 @@ class TemplateEngine {
      * en checks for template keywords
      */
     public function decrypt_template_tag($line, $values, $value_index) {
+        /*
+         * @var String
+         */
         $substring = Str::substring($line, "{", "}") . "}";
+
+        /*
+         * @var String
+         */
         $new_line = "";
 
         if (Str::contains($substring, $this->template_keywords)) {
             $substring = Str::substringint($substring, 2, strlen($substring) - 3);
             $substring_exploded = explode(" ", $substring);
 
+            /*
+             * @var String
+             */
             $first_keyword = "";
 
+            /*
+             * @var String
+             */
             $new_line .= "<?php ";
 
             foreach ($substring_exploded as $str) {
@@ -153,8 +166,19 @@ class TemplateEngine {
      * @return mixed
      */
     public function map_substring_keywords($substring_exploded , $new_line, $first_keyword) {
+        /*
+         * @var String
+         */
         $second_keyword = $substring_exploded[2];
+
+        /*
+         * @var String
+         */
         $third_keyword = $substring_exploded[3];
+
+        /*
+         * @var String
+         */
         $fourth_keyword = $substring_exploded[4];
 
         $new_line .= "" . $first_keyword . " (";
