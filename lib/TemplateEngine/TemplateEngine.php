@@ -178,6 +178,8 @@ class TemplateEngine {
      * @param $new_line
      * @param $first_keyword
      * @return mixed
+     *
+     * Step by step mapping of all keywords found
      */
     public function map_substring_keywords($substring_exploded , $new_line, $first_keyword, $array_size) {
         /*
@@ -216,6 +218,26 @@ class TemplateEngine {
             $new_line .= "" . $second_keyword;
         }
 
+        $new_line = $this->set_operator($third_keyword, $new_line);
+
+        if (Str::contains($fourth_keyword, "$")) {
+            Debug::pagedump($second_keyword . " is a specific variable", __LINE__, __CLASS__);
+            exit;
+        } else {
+            $new_line .= " " . $fourth_keyword. ") { ?>";
+        }
+
+        return $new_line;
+    }
+
+    /**
+     * @param $third_keyword
+     * @param $new_line
+     * @return string
+     *
+     * Adds a operator based on the third_keyword found
+     */
+    public function set_operator($third_keyword, $new_line) {
         switch ($third_keyword) {
             case "equals":
                 $new_line .= " " . "==";
@@ -235,13 +257,6 @@ class TemplateEngine {
             case "less":
                 $new_line .= " " . "<";
                 break;
-        }
-
-        if (Str::contains($fourth_keyword, "$")) {
-            Debug::pagedump($second_keyword . " is a specific variable", __LINE__, __CLASS__);
-            exit;
-        } else {
-            $new_line .= " " . $fourth_keyword. ") { ?>";
         }
 
         return $new_line;
