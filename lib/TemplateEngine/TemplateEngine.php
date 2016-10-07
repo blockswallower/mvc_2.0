@@ -14,11 +14,6 @@ class TemplateEngine {
     public $view;
 
     /*
-     * @var String
-     */
-    public $temp_view = "TempView.php";
-
-    /*
      * @var Array
      *
      * All tags that resemble a "Template tag"
