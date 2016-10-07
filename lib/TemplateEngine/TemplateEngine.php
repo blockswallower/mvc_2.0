@@ -37,8 +37,10 @@ class TemplateEngine {
 
     /*
      * TemplateEngine Constructor
+     *
+     * @param $global_array
      */
-    public function __construct($global_array) {
+    public function __construct($global_array = null) {
         $this->set_base_view_path("./views/");
         $this->view = new View();
 
