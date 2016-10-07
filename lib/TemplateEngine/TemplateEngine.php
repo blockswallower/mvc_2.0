@@ -38,14 +38,14 @@ class TemplateEngine {
     /*
      * TemplateEngine Constructor
      */
-    public function __construct($view_array) {
+    public function __construct($global_array) {
         $this->set_base_view_path("./views/");
         $this->view = new View();
 
         /*
          * set global variables
          */
-        $this->globals = $view_array;
+        $this->globals = $global_array;
     }
 
     /**
