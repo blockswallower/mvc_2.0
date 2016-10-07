@@ -220,6 +220,12 @@ class TemplateEngine {
             case "!equals":
                 $new_line .= " ". "!=";
                 break;
+            case "==":
+                $new_line .= " " . "==";
+                break;
+            case "!=":
+                $new_line .= " ". "!=";
+                break;
         }
 
         if (Str::contains($fourth_keyword, "$")) {

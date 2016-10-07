@@ -4,7 +4,7 @@
         <title>my new website</title>
     </head>
     <body>
-        {{ if 4 !equals 3 }}
+        {{ if 4 != 3 }}
             <h1>{{ title }}</h1>
         {{ end }}
 
