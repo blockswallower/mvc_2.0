@@ -148,7 +148,8 @@ class TemplateEngine {
             if ($first_keyword == "end") {
                 $new_line = "<?php } ?>";
             } else {
-                $new_line = $this->map_substring_keywords($substring_exploded, $new_line, $first_keyword);
+                $new_line = $this->map_substring_keywords($substring_exploded, $new_line,
+                                                          $first_keyword, Arr::size($substring_exploded));
             }
         } else {
             $keys = array_keys($values);
@@ -165,26 +166,38 @@ class TemplateEngine {
      * @param $first_keyword
      * @return mixed
      */
-    public function map_substring_keywords($substring_exploded , $new_line, $first_keyword) {
+    public function map_substring_keywords($substring_exploded , $new_line, $first_keyword, $array_size) {
         /*
-         * @var String
+         * @var Array
          */
-        $second_keyword = $substring_exploded[2];
+        $valid_arrays_sizes = [
+            "4", "5", "6", "7", "8"
+        ];
+
+        if (!in_array($array_size, $valid_arrays_sizes)) {
+            Debug::pagedump("Wrong syntax, keep the amount of spaces under 3", __LINE__, __CLASS__);
+        }
 
         /*
          * @var String
          */
-        $third_keyword = $substring_exploded[3];
+        $second_keyword = $substring_exploded[$array_size >= 5 ? 2: 1];
 
         /*
          * @var String
          */
-        $fourth_keyword = $substring_exploded[4];
+        $third_keyword = $substring_exploded[$array_size >= 5 ? 3: 2];
+
+        /*
+         * @var String
+         */
+        $fourth_keyword = $substring_exploded[$array_size >= 5 ? 4: 3];
 
         $new_line .= "" . $first_keyword . " (";
 
         if (Str::contains($second_keyword, "$")) {
             Debug::pagedump($second_keyword . " is a specific variable", __LINE__, __CLASS__);
+            exit;
         } else {
             $new_line .= "" . $second_keyword;
         }
@@ -200,6 +213,7 @@ class TemplateEngine {
 
         if (Str::contains($fourth_keyword, "$")) {
             Debug::pagedump($second_keyword . " is a specific variable", __LINE__, __CLASS__);
+            exit;
         } else {
             $new_line .= " " . $fourth_keyword. ") { ?>";
         }
