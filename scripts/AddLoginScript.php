@@ -12,18 +12,20 @@ class LoginController extends Controller {
 
         $this->loadmodel("login");
 
-        $this->config_view_array();
+        $this->config_globals_array();
 
         $this->view->show("login");
     }
 
     public function login() {
-        if (empty($_POST["username"]) || empty($_POST["password"])) {
-            Debug::pagedump("Please fill in the required fields");
-            return false;
-        }
-
-        $this->login->login();
+	    if (validate_request()) {
+	        if (empty($_POST["username"]) || empty($_POST["password"])) {
+	            Debug::pagedump("Please fill in the required fields");
+	            return false;
+	        }
+	
+	        $this->login->login();
+	    }
     }
 }
     ');
@@ -82,6 +84,7 @@ if (!file_exists('views/login.php')) {
 <form class=\"login-form\" method=\"post\" action=\"<?php echo __URL__; ?>login/login\">
     <input type=\"text\" class=\"username\" name=\"username\" placeholder=\"username\">
     <input  type=\"password\" class=\"password\" name=\"password\" placeholder=\"Password\">
+    <?php echo csrf_token_tag(); ?>
     <input type=\"submit\" name=\"login\" value=\"Login\"/>
 </form>
     ");

@@ -12,7 +12,7 @@ class RegisterController extends Controller {
 
         $this->loadModel(\'register\');
 
-        $this->config_view_array();
+        $this->config_globals_array();
 
         $this->view->show(\'register\');
     }
@@ -104,29 +104,31 @@ class RegisterModel extends Model {
     }
 
     public function register() {
-        $hash = md5(rand(0,1000).time());
-        $result = $this->user_check();
-
-        if ($result) {
-            $result = $this->email_sent($hash);
-        } else {
-            Debug::pagedump(\'Username and/or email address is already registered\');
-            return false;
-        }
-
-        if ($result) {
-            $result = $this->after_successful_check($hash);
-        } else {
-            Debug::pagedump(\'Verify email has not been send, please try again\');
-            return false;
-        }
-
-        if ($result) {
-            Debug::pagedump(\'You are successfully registered, <br /> please verify youre email address by clicking the activation link that  to your email address\');
-            return true;
-        } else {
-            Debug::pagedump(\'Something went wrong, please try again\');
-            return false;
+    	if (validate_request()) {
+	        $hash = md5(rand(0,1000).time());
+	        $result = $this->user_check();
+	
+	        if ($result) {
+	            $result = $this->email_sent($hash);
+	        } else {
+	            Debug::pagedump(\'Username and/or email address is already registered\');
+	            return false;
+	        }
+	
+	        if ($result) {
+	            $result = $this->after_successful_check($hash);
+	        } else {
+	            Debug::pagedump(\'Verify email has not been send, please try again\');
+	            return false;
+	        }
+	
+	        if ($result) {
+	            Debug::pagedump(\'You are successfully registered, <br /> please verify youre email address by clicking the activation link that  to your email address\');
+	            return true;
+	        } else {
+	            Debug::pagedump(\'Something went wrong, please try again\');
+	            return false;
+	        }
         }
     }
 
@@ -185,6 +187,7 @@ if (!file_exists("views/register.php")) {
     <input type="email" name="email_confirm" placeholder="email address confirm" />
     <input  type="password" name="password" placeholder="Password">
     <input  type="password" name="password_confirm" placeholder="Password confirm">
+    <?php echo csrf_token_tag(); ?>
     <button type="submit" style = "margin-top: 10px">register</button>
 </form>
     ');
