@@ -163,12 +163,32 @@ class TemplateEngine {
             } else if ($keywords[0] == "print") {
                 $second_keyword = $keywords[1];
 
-                if (Str::contains($second_keyword, "$")) {
-                    Debug::pagedump($second_keyword . " is a specific variable", __LINE__, __CLASS__);
-                    exit;
+                if (Str::contains($second_keyword, "%")) {
+                    /*
+                    * @var Array
+                    */
+                    $split = str_split($second_keyword);
+
+                    /*
+                     * @var Integer
+                     */
+                    $index = Arr::find_index($split, "%");
+
+                    unset($split[$index]);
+
+                    /*
+                     * @var String
+                     */
+                    $second_keyword = "";
+
+                    foreach ($split as $char) {
+                        $second_keyword .= $char;
+                    }
+
+                    $global = $this->get($second_keyword);
                 }
 
-                $new_line .= 'echo "' . $second_keyword . '"; ?>';
+                $new_line .= 'echo "' . $global . '"; ?>';
             } else {
                 $new_line = $this->map_substring_keywords($new_line, $keywords);
             }
@@ -234,11 +254,6 @@ class TemplateEngine {
             }
 
             $global = $this->get($second_keyword);
-
-            if (empty($global)) {
-                Debug::pagedump('The value you are trying to access is empty or NULL', __LINE__, __CLASS__);
-            }
-
             $new_line .= $global;
         } else {
             $new_line .= "" . $second_keyword;
@@ -269,11 +284,6 @@ class TemplateEngine {
             }
 
             $global = $this->get($fourth_keyword);
-
-            if (empty($global)) {
-                Debug::pagedump('The value you are trying to access is empty or NULL', __LINE__, __CLASS__);
-            }
-
             $new_line .= $global. ") { ?>";
         } else {
             $new_line .= " " . $fourth_keyword. ") { ?>";
