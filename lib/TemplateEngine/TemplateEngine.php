@@ -211,7 +211,7 @@ class TemplateEngine {
 
         $new_line .= "" . $first_keyword . " (";
 
-        if (Str::contains($second_keyword, "$")) {
+        if (Str::contains($second_keyword, "%")) {
             /*
              * @var Array
              */
@@ -220,7 +220,7 @@ class TemplateEngine {
             /*
              * @var Integer
              */
-            $index = Arr::find_index($split, "$");
+            $index = Arr::find_index($split, "%");
 
             unset($split[$index]);
 
@@ -246,7 +246,7 @@ class TemplateEngine {
 
         $new_line = $this->set_operator($third_keyword, $new_line);
 
-        if (Str::contains($fourth_keyword, "$")) {
+        if (Str::contains($fourth_keyword, "%")) {
             /*
              * @var Array
              */
@@ -255,7 +255,7 @@ class TemplateEngine {
             /*
              * @var Integer
              */
-            $index = Arr::find_index($split, "$");
+            $index = Arr::find_index($split, "%");
 
             unset($split[$index]);
 

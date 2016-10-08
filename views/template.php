@@ -21,7 +21,7 @@
             <h1>4 does not equal 3</h1>
         {{ end }}
 
-        {{ if $number equals $number }}
+        {{ if %number equals %number }}
             <h3>We can also use globals</h3>
         {{ end }}
 
