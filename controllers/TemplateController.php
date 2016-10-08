@@ -25,7 +25,8 @@ class TemplateController extends Controller {
         $te->render_template("template", [
              "title" => "my new website",
              "page_content" => "testestest",
-             "description" => "Hello my name is Dennis and i'm 18 years old!"
+             "description" => "Hello my name is Dennis and i'm 18 years old!",
+             "footer" => "created by Dennis Slimmers"
         ]);
     }
 }

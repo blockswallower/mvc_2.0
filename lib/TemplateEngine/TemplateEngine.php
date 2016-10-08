@@ -138,33 +138,30 @@ class TemplateEngine {
         if (Str::contains($substring, $this->template_keywords)) {
             $substring = Str::substringint($substring, 2, strlen($substring) - 3);
             /*
-             * TODO: Fix indexing issue
+             * @var Array
              */
             $substring_exploded = explode(" ", $substring);
 
             /*
-             * @var String
+             * @var Array
              */
-            $first_keyword = "";
+            $keywords = [];
+
+            for ($ii = 0; $ii < Arr::size($substring_exploded); $ii++) {
+                if ($substring_exploded[$ii] != "") {
+                    $keywords[] = $substring_exploded[$ii];
+                }
+            }
 
             /*
              * @var String
              */
             $new_line .= "<?php ";
 
-            foreach ($substring_exploded as $str) {
-                if ($str != "") {
-                    $first_keyword = $str;
-                    break;
-                }
-            }
-
-            if ($first_keyword == "end") {
+            if ($keywords[0] == "end") {
                 $new_line = "<?php } ?>";
-            } else if ($first_keyword == "print") {
-                $array_size = Arr::size($substring_exploded);
-
-                $second_keyword = $substring_exploded[$array_size >= 4 ? 2: 1];
+            } else if ($keywords[0] == "print") {
+                $second_keyword = $keywords[1];
 
                 if (Str::contains($second_keyword, "$")) {
                     Debug::pagedump($second_keyword . " is a specific variable", __LINE__, __CLASS__);
@@ -173,8 +170,7 @@ class TemplateEngine {
 
                 $new_line .= 'echo "' . $second_keyword . '"; ?>';
             } else {
-                $new_line = $this->map_substring_keywords($substring_exploded, $new_line,
-                                                          $first_keyword, Arr::size($substring_exploded));
+                $new_line = $this->map_substring_keywords($new_line, $keywords);
             }
         } else {
             $keys = array_keys($values);
@@ -186,40 +182,32 @@ class TemplateEngine {
     }
 
     /**
-     * @param $substring_exploded
+     * @param $keywords
      * @param $new_line
-     * @param $first_keyword
      * @return mixed
      *
      * Step by step mapping of all keywords found
      */
-    public function map_substring_keywords($substring_exploded , $new_line, $first_keyword, $array_size) {
+    public function map_substring_keywords($new_line, $keywords) {
         /*
-         * @var Array
+         * @var String
          */
-        $valid_arrays_sizes = [
-            "4", "5", "6", "7", "8"
-        ];
-
-        if (!in_array($array_size, $valid_arrays_sizes)) {
-            Debug::pagedump("Wrong syntax, keep the amount of spaces under 3", __LINE__, __CLASS__);
-            exit;
-        }
+        $first_keyword = $keywords[0];
 
         /*
          * @var String
          */
-        $second_keyword = $substring_exploded[$array_size >= 5 ? 2: 1];
+        $second_keyword = $keywords[1];
 
         /*
          * @var String
          */
-        $third_keyword = $substring_exploded[$array_size >= 5 ? 3: 2];
+        $third_keyword = $keywords[2];
 
         /*
          * @var String
          */
-        $fourth_keyword = $substring_exploded[$array_size >= 5 ? 4: 3];
+        $fourth_keyword = $keywords[3];
 
         $new_line .= "" . $first_keyword . " (";
 
