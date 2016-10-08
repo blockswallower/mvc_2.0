@@ -4,7 +4,7 @@
         <title>my new website</title>
     </head>
     <body>
-        {{ print test }}
+        {{ print %number }}
         {{ if 3 less 4 }}
             <h1>3 is less then 4!</h1>
         {{ end }}
@@ -19,6 +19,10 @@
 
         {{ if 4 !equals 3 }}
             <h1>4 does not equal 3</h1>
+        {{ end }}
+
+        {{ if %number equals %number }}
+            <h3>We can also use globals</h3>
         {{ end }}
 
         <p>{{ page_content }}</p>
