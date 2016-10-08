@@ -21,6 +21,10 @@
             <h1>4 does not equal 3</h1>
         {{ end }}
 
+        {{ if $number equals $number }}
+            <h3>We can also use globals</h3>
+        {{ end }}
+
         <p>{{ page_content }}</p>
 
         <h3>{{ description }}</h3>

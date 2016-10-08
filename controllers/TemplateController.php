@@ -13,6 +13,8 @@ class TemplateController extends Controller {
          * lower section it won't function properly
          * ========================================
          */
+        $this->set("template", "number", 33);
+
         $this->config_globals_array();
 
         /**

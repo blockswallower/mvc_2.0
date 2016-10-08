@@ -212,8 +212,34 @@ class TemplateEngine {
         $new_line .= "" . $first_keyword . " (";
 
         if (Str::contains($second_keyword, "$")) {
-            Debug::pagedump($second_keyword . " is a specific variable", __LINE__, __CLASS__);
-            exit;
+            /*
+             * @var Array
+             */
+            $split = str_split($second_keyword);
+
+            /*
+             * @var Integer
+             */
+            $index = Arr::find_index($split, "$");
+
+            unset($split[$index]);
+
+            /*
+             * @var String
+             */
+            $second_keyword = "";
+
+            foreach ($split as $char) {
+                $second_keyword .= $char;
+            }
+
+            $global = $this->get($second_keyword);
+
+            if (empty($global)) {
+                Debug::pagedump('The value you are trying to access is empty or NULL', __LINE__, __CLASS__);
+            }
+
+            $new_line .= $global;
         } else {
             $new_line .= "" . $second_keyword;
         }
@@ -221,8 +247,34 @@ class TemplateEngine {
         $new_line = $this->set_operator($third_keyword, $new_line);
 
         if (Str::contains($fourth_keyword, "$")) {
-            Debug::pagedump($second_keyword . " is a specific variable", __LINE__, __CLASS__);
-            exit;
+            /*
+             * @var Array
+             */
+            $split = str_split($fourth_keyword);
+
+            /*
+             * @var Integer
+             */
+            $index = Arr::find_index($split, "$");
+
+            unset($split[$index]);
+
+            /*
+             * @var String
+             */
+            $fourth_keyword = "";
+
+            foreach ($split as $char) {
+                $fourth_keyword .= $char;
+            }
+
+            $global = $this->get($fourth_keyword);
+
+            if (empty($global)) {
+                Debug::pagedump('The value you are trying to access is empty or NULL', __LINE__, __CLASS__);
+            }
+
+            $new_line .= $global. ") { ?>";
         } else {
             $new_line .= " " . $fourth_keyword. ") { ?>";
         }
