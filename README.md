@@ -91,4 +91,4 @@ you will get the correct view
 
 **_Snail - PHP Micro Framework_** is licensed under the Open Source MIT license, so you can use it for any personal or corporate projects! 
 
-Built by Dennis Slimmers and [Bas van der Ploeg](www.linkedin.com/in/bas-van-der-ploeg-836830ba)
+Built by Dennis Slimmers and [Bas van der Ploeg](https://www.linkedin.com/in/bas-van-der-ploeg-836830ba)
