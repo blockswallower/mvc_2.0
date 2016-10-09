@@ -18,6 +18,12 @@ Website link soon!
 In the meantime you can download the zip/rar here.
 https://github.com/dennisslimmers01/Snail-MVC/
 
+# Requirements
+
+* Composer
+* PHP 5.3+
+* PDO if using the Database
+
 # Routing
 
 Routing in Snail is very simple. <br>
@@ -31,18 +37,11 @@ The next thing is creating your controller.<br>
 Right click on **controllers** and create a new php file.<br>
 The name you give this controller has to be **camelcase** and it has to match the name of your view.<br>
 So for example if the name of your view is **_'index.php'_**, your controller has to be called **_'IndexController.php'_**.<br><br>
-Controller content:<br>
+Basic controller content:<br>
 ```php
 class IndexController extends Controller {
     public function __construct() {
         parent::__construct();
-        /**
-         * Loads the correct model
-         * based on the parameter
-         *
-         * access with: $this->[LOADMODEL_PARAMETER]->[FUNCTION_CALL]
-         */
-        $this->loadmodel('index');
 
         /**
          * ========================================
@@ -53,7 +52,7 @@ class IndexController extends Controller {
          * lower section it won't function properly
          * ========================================
          */
-
+         
         $this->config_globals_array();
 
         /**
@@ -80,12 +79,6 @@ $this->urls = [
 Just add the name of your view to the urls array.<br>
 Now if you try to navigate to for example http://localhost/snail/index <br>
 you will get the correct view
-
-# Requirements
-
-* Composer
-* PHP 5.3+
-* PDO if using the Database
 
 # License 
 
