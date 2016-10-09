@@ -81,8 +81,14 @@ Just add the name of your view to the urls array.<br>
 Now if you try to navigate to for example http://localhost/snail/index <br>
 you will get the correct view
 
+# Requirements
+
+* Composer
+* PHP 5.3+
+* PDO if using the Database
+
 # License 
 
 **_Snail - PHP Micro Framework_** is licensed under the Open Source MIT license, so you can use it for any personal or corporate projects! 
 
-Built by Dennis Slimmers and Bas van der Ploeg
+Built by Dennis Slimmers and [Bas van der Ploeg](www.linkedin.com/in/bas-van-der-ploeg-836830ba)
