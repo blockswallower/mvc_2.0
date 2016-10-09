@@ -80,3 +80,9 @@ $this->urls = [
 Just add the name of your view to the urls array.<br>
 Now if you try to navigate to for example http://localhost/snail/index <br>
 you will get the correct view
+
+# License 
+
+**_Snail - PHP Micro Framework_** is licensed under the Open Source MIT license, so you can use it for any personal or corporate projects! 
+
+Built by Dennis Slimmers and Bas van der Ploeg
