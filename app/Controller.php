@@ -103,6 +103,10 @@ class Controller {
 	 * View:
 	 *
 	 * $this->var[CONTROLLER_NAME][KEY]
+	 *
+	 * or:
+	 *
+	 * $this->get([KEY])
      */
 	public function set($controller, $key, $value) {
 		$this->globals[$controller][$key] = $value;
