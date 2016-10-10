@@ -4,23 +4,22 @@ class TemplateController extends Controller {
     public function __construct() {
         parent::__construct();
 
-        /**
-         * ========================================
-         * If you would like to send variables
-         * to the view, it should be done in this section
-         *
-         * If you try to accomplish this in a
-         * lower section it won't function properly
-         * ========================================
+        /*
+         * Sending variables to your template should
+         * be done before the config_template_globals
+         * method call
          */
         $this->set("template", "number", 33);
 
-        $this->config_globals_array();
+        /*
+         * This method allows templates
+         * to access global variables
+         */
+        $this->config_template_globals();
 
-        /**
-         * Render the correct
-         * content based on the
-         * parameter
+        /*
+         * Render a template / view using
+         * the TemplateEngine
          */
         $te = new TemplateEngine($this->view->get_globals());
 

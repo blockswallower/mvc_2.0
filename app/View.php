@@ -69,6 +69,7 @@ class View {
 
 	/**
 	 * @param $view
+	 * @param $globals
 	 *
 	 * This method renders
 	 * the requested view
@@ -76,10 +77,17 @@ class View {
 	 * with header and footer
 	 * included
 	 */
-	public function show_hf($view) {
+	public function show_hf($view, $globals = null) {
 		if (file_exists($this->get_view_path($view))) {
 			if (file_exists($this->header)) {
 				if (file_exists($this->footer)) {
+					/*
+					 * Configure global variables
+					 */
+					if (!empty($globals)) {
+						$this->globals = $globals;
+					}
+
 					$this->require_header();
 					$this->render_view($view);
 					$this->require_footer();
@@ -112,13 +120,21 @@ class View {
 
 	/**
 	 * @param $view
+	 * @param $globals
 	 *
 	 * This method renders
 	 * the requested view
 	 * from the controller
 	 */
-	public function show($view) {
+	public function show($view, $globals = null) {
 		if (file_exists($this->get_view_path($view))) {
+			/*
+			 * Configure global variables
+			 */
+			if (!empty($globals)) {
+				$this->globals = $globals;
+			}
+
 			$this->render_view($view);
 		} else {
 			Debug::pagedump("The view '". $this->get_view_path($view) ."' does not exist");

@@ -10,7 +10,7 @@ class Controller {
 	/**
 	 * @var array
 	 */
-	protected $variables;
+	protected $globals;
 
 	/**
 	 * @var object
@@ -105,16 +105,15 @@ class Controller {
 	 * $this->var[CONTROLLER_NAME][KEY]
      */
 	public function set($controller, $key, $value) {
-		$this->variables[$controller][$key] = $value;
+		$this->globals[$controller][$key] = $value;
 	}
 
 	/**
-	 * This allows us to access the
-	 * variables we send to the view
-	 * with the set() method
+	 * This allows templates to access
+	 * global variables
 	 */
-	public function config_globals_array() {
-		$this->view->globals = $this->variables;
+	public function config_template_globals() {
+		$this->view->globals = $this->globals;
 	}
 
 	/**

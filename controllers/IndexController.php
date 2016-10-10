@@ -11,23 +11,26 @@ class IndexController extends Controller {
          */
         $this->loadmodel('index');
 
-        /**
-         * ========================================
-         * If you would like to send variables
-         * to the view, it should be done in this section
+        /*
+         * Sending variables to your view should be done
+         * before rendering your view.
          *
-         * If you try to accomplish this in a
-         * lower section it won't function properly
-         * ========================================
+         * for example: $this->set('index', 'test', 'testvalue');
+         *
+         * just add the globals array as second argument to the
+         * show / show_hf method.
+         *
+         * for example: $this->view->show('index', $this->globals);
+         *
+         * Access in views: <?php echo $this->get('test'); ?>
+         * 
          */
-
-        $this->config_globals_array();
 
         /**
          * Render the correct
          * content based on the
          * parameter
          */
-        $this->view->show('index');
+        $this->view->show('index', $this->globals);
     }
 }

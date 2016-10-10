@@ -4,8 +4,6 @@ class PageNotFoundController extends Controller {
 	public function __construct() {
 		parent::__construct();
 		
-		$this->config_globals_array();
-
 		/**
 		 * Render the correct
 		 * content based on the
