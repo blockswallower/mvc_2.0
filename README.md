@@ -44,23 +44,11 @@ class IndexController extends Controller {
         parent::__construct();
 
         /**
-         * ========================================
-         * If you would like to send variables
-         * to the view, it should be done in this section
-         *
-         * If you try to accomplish this in a
-         * lower section it won't function properly
-         * ========================================
-         */
-         
-        $this->config_globals_array();
-
-        /**
          * Render the correct
          * content based on the
          * parameter
          */
-        $this->view->show('index');
+        $this->view->show('index', $this->globals);
     }
 }
 ```
