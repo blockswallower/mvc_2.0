@@ -1,12 +1,22 @@
 <?php
 class ScriptLoader {
+	/*
+	 * Class ScriptLoader
+	 */
 	public function __construct() {
 		$this->load_scripts();
 	}
-	
+
+	/*
+	 * Loads in every script in Settings::config
+     */
 	private function load_scripts() {
 		if (Settings::$config['SCRIPT']['EVERY_TIME_EXECUTION'] != 'NONE') {
 			$dirname = Settings::$config['SCRIPT']['EVERY_TIME_EXECUTION'];
+
+			/*
+			 * @var String
+			 */
 			$dir = './scripts/';
 			
 			if (is_array($dirname)) {
@@ -15,8 +25,13 @@ class ScriptLoader {
 						if (!is_dir($dir . $name)) {
 							Debug::exitdump('Script directory not found');
 						}
+
 						$files = array_diff(scandir($dir . $name), ['..', '.']);
+
 						foreach ($files as $file) {
+							/*
+							 * @var String
+							 */
 							$myfile = file_get_contents($dir . $name . '/' . $file);
 							
 							if (strpos($file, 'Model')) {
@@ -34,8 +49,13 @@ class ScriptLoader {
 					if (!is_dir($dir . $dirname)) {
 						Debug::exitdump('Script directory not found');
 					}
+
 					$files = array_diff(scandir($dir . $dirname), ['..', '.']);
+
 					foreach ($files as $file) {
+						/*
+						 * @var String
+						 */
 						$myfile = file_get_contents($dir . $dirname . '/' . $file);
 						
 						if (strpos($file, 'Model')) {
@@ -51,8 +71,19 @@ class ScriptLoader {
 		}
 		
 		if (Settings::$config['SCRIPT']['ONE_TIME_EXECUTION'] != 'NONE') {
+			/*
+			 * @var String
+			 */
 			$settingsContent = './app/Settings.php';
+
+			/*
+			 * @var String / Array
+			 */
 			$dirname = Settings::$config['SCRIPT']['ONE_TIME_EXECUTION'];
+
+			/*
+			 * @var String
+			 */
 			$dir = './scripts';
 			
 			if (is_array($dirname)) {
@@ -61,8 +92,13 @@ class ScriptLoader {
 						if (!is_dir($dir . '/' . $name)) {
 							Debug::exitdump('Script directory not found');
 						}
+
 						$files = array_diff(scandir($dir . '/' . $name), ['..', '.']);
+
 						foreach ($files as $file) {
+							/*
+							 * @var String
+							 */
 							$myfile = file_get_contents($dir . '/' . $name . '/' . $file);
 							
 							if (strpos($file, 'Model')) {
@@ -80,8 +116,13 @@ class ScriptLoader {
 					if (!is_dir($dir . '/' . $dirname)) {
 						Debug::exitdump('Script directory not found');
 					}
+
 					$files = array_diff(scandir($dir . '/' . $dirname), ['..', '.']);
+
 					foreach ($files as $file) {
+						/*
+						 * @var String
+						 */
 						$myfile = file_get_contents($dir . '/' . $dirname . '/' . $file);
 						
 						if (strpos($file, 'Model')) {
@@ -106,7 +147,13 @@ class ScriptLoader {
 			}
 		}
 	}
-	
+
+	/**
+	 * @param $fileContents
+	 * @param $name
+	 *
+	 * Creates Model
+     */
 	function makeModel($fileContents, $name) {
 		if (!file_exists('models/' . $name)) {
 			$model = fopen('./models/' . $name, 'w');
@@ -114,7 +161,13 @@ class ScriptLoader {
 			fwrite($model, $fileContents);
 		}
 	}
-	
+
+	/**
+	 * @param $fileContents
+	 * @param $name
+	 *
+	 * Creates Controller
+     */
 	function makeController($fileContents, $name) {
 		if (!file_exists('controllers/' . $name)) {
 			$view = fopen('./controllers/' . $name, 'w');
@@ -122,7 +175,13 @@ class ScriptLoader {
 			fwrite($view, $fileContents);
 		}
 	}
-	
+
+	/**
+	 * @param $fileContents
+	 * @param $name
+	 *
+	 * Creates View
+     */
 	function makeView($fileContents, $name) {
 		if (!file_exists('views/' . $name)) {
 			$view = fopen('./views/' . $name, 'w');
