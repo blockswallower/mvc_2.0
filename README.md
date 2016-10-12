@@ -45,11 +45,6 @@ class IndexController extends Controller {
     }
 
     public function show() {
-        /**
-         * Render the correct
-         * content based on the
-         * parameter
-         */
         $this->view->show("index");
     }
 }
