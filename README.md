@@ -42,29 +42,32 @@ Basic controller content:<br>
 class IndexController extends Controller {
     public function __construct() {
         parent::__construct();
+    }
 
+    public function show() {
         /**
          * Render the correct
          * content based on the
          * parameter
          */
-        $this->view->show('index', $this->globals);
+        $this->view->show("index");
     }
 }
 ```
 
 
-The last thing you have to do is give permission for every view you create.<br>
-Navigate to app/Urls.php. Here you will see the array that contains all the routing permissions
+The last thing you have to do is add your route to the routes array<br>
+Navigate to http/Routes.php. Here you will see the array that contains all the routes
 
 ```php
-$this->urls = [
-    "index",
-    "debug",
+$this->routes = [
+    "index" => "IndexController.show",
+    "debug" => "DebugController.show",
+    "404" => "PageNotFoundController.show",
 ];
 ```
 
-Just add the name of your view to the urls array.<br>
+Just add the name of your view and the method that renders your view to the routes array.<br>
 Now if you try to navigate to for example http://localhost/snail/index <br>
 you will get the correct view
 
