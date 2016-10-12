@@ -21,7 +21,7 @@ https://github.com/dennisslimmers01/Snail-MVC/
 # Requirements
 
 * Composer
-* PHP 5.3+
+* PHP 5.6+
 * PDO if using the Database
 
 # Routing

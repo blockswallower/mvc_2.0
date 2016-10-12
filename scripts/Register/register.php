@@ -5,6 +5,6 @@
 	<input type="email" name="email_confirm" placeholder="email address confirm" />
 	<input  type="password" name="password" placeholder="Password">
 	<input  type="password" name="password_confirm" placeholder="Password confirm">
-	<?php echo csrf_token_tag(); ?>
+	<?php echo Csrf::csrf_token_tag(); ?>
 	<button type="submit" style = "margin-top: 10px">register</button>
 </form>
