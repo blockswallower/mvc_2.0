@@ -20,6 +20,8 @@ class Settings {
 		 * Settings::$config[ARRAY_INDEX]
 		 */
 		self::$config = array(
+			'SNAIL_VERSION' => 0.5,
+			
 			'DEBUG' => true,
 
 			'DB_TYPE' => 'mysql',
