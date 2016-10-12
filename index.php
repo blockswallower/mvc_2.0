@@ -9,6 +9,7 @@
  */
 $directories = array(
     './helpers',
+    './lib/ScriptEngine',
     './lib/TemplateEngine',
     './app'
 );
@@ -37,54 +38,6 @@ function autoload($directories) {
     }
 }
 
-
-/**
- * loads in every scripts given
- * in the settings array
- */
-function load_scripts() {
-    if (Settings::$config['SCRIPT']['EVERY_TIME_EXECUTION'] != 'NONE') {
-        $scripts = Settings::$config['SCRIPT']['EVERY_TIME_EXECUTION'];
-        $dir = './scripts';
-
-        if (is_array($scripts)) {
-            foreach($scripts as $script) {
-                if ($script != "NONE")
-                    require $dir. '/' .$script;
-            }
-        } else {
-            if ($scripts != "NONE")
-                require $dir. '/' .$scripts;
-        }
-    }
-
-    if (Settings::$config['SCRIPT']['ONE_TIME_EXECUTION'] != 'NONE') {
-        $settingsContent = './app/Settings.php';
-        $scripts = Settings::$config['SCRIPT']['ONE_TIME_EXECUTION'];
-        $dir = './scripts';
-
-        if (is_array($scripts)) {
-            foreach($scripts as $script) {
-                if ($script != "NONE")
-                    require $dir. '/' .$script;
-            }
-        } else {
-            if ($scripts != "NONE")
-                require $dir. '/' .$scripts;
-        }
-
-        if (is_array($scripts)) {
-            foreach ($scripts as $script) {
-                $newSettingsContent = str_replace($script, 'NONE', file_get_contents($settingsContent));
-                file_put_contents($settingsContent, $newSettingsContent);
-            }
-        } else {
-            $newSettingsContent = str_replace($scripts, 'NONE', file_get_contents($settingsContent));
-            file_put_contents($settingsContent, $newSettingsContent);
-        }
-    }
-}
-
 /**
  * autoloads every directory
  * in the $directories array
@@ -99,10 +52,12 @@ autoload($directories);
 $settings = new Settings();
 
 /**
+ * @var object
+ * 
  * loads in every script given
- * in the settings array
+ * in the settings array/string
  */
-load_scripts();
+$script = new ScriptLoader();
 
 /**
  * @var object
