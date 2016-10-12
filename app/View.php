@@ -40,7 +40,7 @@ class View {
 	 * can be used in views like this:
 	 *
 	 * $this->get([KEY]);
-     */
+	 */
 	public function get($key = null) {
 		/*
 		 * @var String
@@ -61,7 +61,7 @@ class View {
 			}
 		} else {
 			Debug::pagedump("No variables has been send from this controller yet: " . ucfirst($cur_controller) . "Controller",
-						    __LINE__, __CLASS__);
+				__LINE__, __CLASS__);
 		}
 
 		return $key;
@@ -91,6 +91,12 @@ class View {
 					$this->require_header();
 					$this->render_view($view);
 					$this->require_footer();
+
+					/*
+					 * Requires post request handler
+					 * for capturing post requests
+					 */
+					$this->require_post_request_handler();
 				} else {
 					Debug::pagedump("The view: '$this->footer' does not exist");
 				}
@@ -108,7 +114,7 @@ class View {
 	 * Does the same as '$this->show([VIEW])'
 	 * but this naming convention is more
 	 * readable if used in a view
-     */
+	 */
 	public function extend($view) {
 		if (file_exists($this->get_view_path($view))) {
 			include_once $this->get_view_path($view);
@@ -136,6 +142,12 @@ class View {
 			}
 
 			$this->render_view($view);
+
+			/*
+			 * Requires post request handler
+			 * for capturing post requests
+			 */
+			$this->require_post_request_handler();
 		} else {
 			Debug::pagedump("The view '". $this->get_view_path($view) ."' does not exist");
 		}
@@ -177,6 +189,22 @@ class View {
 		}
 	}
 
+	/*
+	 * Requires post request handler
+	 */
+	public function require_post_request_handler() {
+		/*
+		 * @var String
+		 */
+		$post_request_handler = "./http/PostRequestHandler.php";
+
+		if (file_exists($post_request_handler)) {
+			require $post_request_handler;
+		} else {
+			Debug::pagedump($post_request_handler."' does not exist");
+		}
+	}
+
 	/**
 	 * @param $view
 	 * @return String
@@ -192,7 +220,7 @@ class View {
 	 * @return array
 	 *
 	 * returns globals array
-     */
+	 */
 	public function get_globals() {
 		return $this->globals;
 	}

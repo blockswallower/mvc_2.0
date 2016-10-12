@@ -16,7 +16,9 @@ class TemplateController extends Controller {
          * to access global variables
          */
         $this->config_template_globals();
+    }
 
+    public function show() {
         /*
          * Render a template / view using
          * the TemplateEngine
@@ -24,10 +26,10 @@ class TemplateController extends Controller {
         $te = new TemplateEngine($this->view->get_globals());
 
         $te->render_template("template", [
-             "title" => "my new website",
-             "page_content" => "testestest",
-             "description" => "Hello my name is Dennis and i'm 18 years old!",
-             "footer" => "created by Dennis Slimmers"
+            "title" => "my new website",
+            "page_content" => "testestest",
+            "description" => "Hello my name is Dennis and i'm 18 years old!",
+            "footer" => "created by Dennis Slimmers"
         ]);
     }
 }

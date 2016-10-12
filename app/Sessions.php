@@ -28,14 +28,16 @@ class Sessions {
      * @var integer
      */
     private static $max_elapsed = 86400;
-    
+
     /**
      * Starts a session
-     * 
+     *
      * 1 day
      */
     public static function init() {
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
     }
 
     /**
@@ -77,9 +79,9 @@ class Sessions {
         }
     }
 
-	/**
+    /**
      * @param $session
-     * 
+     *
      * unset a specific session
      */
     public static function end_session($session) {
@@ -254,7 +256,7 @@ class Sessions {
     }
 
 
-	/**
+    /**
      * Exit the programme if no ajax call was made
      */
     public static function access_ajax_only() {
@@ -263,7 +265,7 @@ class Sessions {
         }
 
         $pos = strpos($_SERVER['HTTP_REFERER'],getenv('HTTP_HOST'));
-        
+
         if($pos === false) {
             die('Restricted access');
         }

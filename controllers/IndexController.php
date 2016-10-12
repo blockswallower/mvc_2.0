@@ -25,12 +25,14 @@ class IndexController extends Controller {
          * Access in views: <?php echo $this->get('test'); ?>
          * 
          */
+    }
 
+    public function show() {
         /**
          * Render the correct
          * content based on the
          * parameter
          */
-        $this->view->show('index', $this->globals);
+        $this->view->show("index");
     }
 }

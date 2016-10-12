@@ -65,5 +65,5 @@ $script = new ScriptLoader();
  * stores the Application object
  * and starts the MVC system
  */
-$app = new Application();
+$router = new Router();
 
