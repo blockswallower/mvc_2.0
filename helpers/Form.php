@@ -63,26 +63,26 @@ class Form {
         echo '<input type="text" name="'.$name.'" class="'.$css.'" placeholder="'.$placeholder.'"/>';
     }
 	
-	public static function request_is_same_domain() {
-		/**
-	     * Use with request_is_post() to block posting from off-site forms
-	     */
-		if(!isset($_SERVER['HTTP_REFERER'])) {
+		public static function request_is_same_domain() {
 			/**
-			 * No refererer sent, so can't be same domain
-			 */
-			return false;
-		} else {
-			$referer_host = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST);
-			$server_host = $_SERVER['HTTP_HOST'];
-			
-			/**
-			 * Uncomment for debugging
-			 */
-//			 echo 'Request from: ' . $referer_host . "<br />";
-//			 echo 'Request to: ' . $server_host . "<br />";
-			
-			return ($referer_host == $server_host) ? true : false;
+		     * Use with request_is_post() to block posting from off-site forms
+		     */
+			if(!isset($_SERVER['HTTP_REFERER'])) {
+				/**
+				 * No refererer sent, so can't be same domain
+				 */
+				return false;
+			} else {
+				$referer_host = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST);
+				$server_host = $_SERVER['HTTP_HOST'];
+				
+				/**
+				 * Uncomment for debugging
+				 */
+	//			 echo 'Request from: ' . $referer_host . "<br />";
+	//			 echo 'Request to: ' . $server_host . "<br />";
+				
+				return ($referer_host == $server_host) ? true : false;
+			}
 		}
-	}
 }
