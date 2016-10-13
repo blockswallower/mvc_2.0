@@ -32,7 +32,7 @@ class TemplateEngine {
                                  "do", "equals", "!equals", "==",
                                  "!=", "-", "+", "plus", "else",
                                  "minus", "times", "*", "end",
-                                 "greater", "less", "print"];
+                                 "greater", "less", "print", "to"];
 
     /*
      * TemplateEngine Constructor
@@ -229,8 +229,25 @@ class TemplateEngine {
          */
         $fourth_keyword = $keywords[3];
 
+        /*
+         * @var Boolean
+         */
+        $is_for_loop = false;
+
+        if ($first_keyword == "for") {
+            $is_for_loop = true;
+        }
+
+        /*
+         * =====================================
+         * Set first keyword
+         */
         $new_line .= "" . $first_keyword . " (";
 
+        /*
+         * ======================================
+         * Set second keyword
+         */
         if (Str::contains($second_keyword, "%")) {
             /*
              * @var Array
@@ -256,11 +273,33 @@ class TemplateEngine {
             $global = $this->get($second_keyword);
             $new_line .= $global;
         } else {
-            $new_line .= "" . $second_keyword;
+            /*
+             * Check if the tag contains for loop keywords
+             */
+            if ($is_for_loop) {
+                /*
+                 * Check if the for loop is numeric
+                 */
+                if ($third_keyword == "to") {
+                    $new_line .= '$i = ' . $second_keyword . '; $i <= ' . $fourth_keyword . ';' . '$i++) { ?>';
+                }
+            } else {
+                $new_line .= "" . $second_keyword;
+            }
         }
 
-        $new_line = $this->set_operator($third_keyword, $new_line);
+        /*
+         * ========================================
+         * Set third keyword
+         */
+        if (!$is_for_loop) {
+            $new_line = $this->set_operator($third_keyword, $new_line);
+        }
 
+        /*
+         * ========================================
+         * Set fourth keyword
+         */
         if (Str::contains($fourth_keyword, "%")) {
             /*
              * @var Array
@@ -286,7 +325,9 @@ class TemplateEngine {
             $global = $this->get($fourth_keyword);
             $new_line .= $global. ") { ?>";
         } else {
-            $new_line .= " " . $fourth_keyword. ") { ?>";
+            if (!$is_for_loop) {
+                $new_line .= " " . $fourth_keyword. ") { ?>";
+            }
         }
 
         return $new_line;
