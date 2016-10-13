@@ -164,28 +164,7 @@ class TemplateEngine {
                 $second_keyword = $keywords[1];
 
                 if (Str::contains($second_keyword, "%")) {
-                    /*
-                    * @var Array
-                    */
-                    $split = str_split($second_keyword);
-
-                    /*
-                     * @var Integer
-                     */
-                    $index = Arr::find_index($split, "%");
-
-                    unset($split[$index]);
-
-                    /*
-                     * @var String
-                     */
-                    $second_keyword = "";
-
-                    foreach ($split as $char) {
-                        $second_keyword .= $char;
-                    }
-
-                    $global = $this->get($second_keyword);
+                    $global = $this->get($this->decrypt_global_var_keyword($second_keyword));
                 }
 
                 $new_line .= 'echo "' . $global . '"; ?>';
@@ -248,29 +227,12 @@ class TemplateEngine {
          * ======================================
          * Set second keyword
          */
-        if (Str::contains($second_keyword, "%")) {
-            /*
-             * @var Array
-             */
-            $split = str_split($second_keyword);
-
-            /*
-             * @var Integer
-             */
-            $index = Arr::find_index($split, "%");
-
-            unset($split[$index]);
-
+        if (Str::contains($second_keyword, "%") && !$is_for_loop) {
             /*
              * @var String
              */
-            $second_keyword = "";
+            $global = $this->get($this->decrypt_global_var_keyword($second_keyword));
 
-            foreach ($split as $char) {
-                $second_keyword .= $char;
-            }
-
-            $global = $this->get($second_keyword);
             $new_line .= $global;
         } else {
             /*
@@ -281,7 +243,15 @@ class TemplateEngine {
                  * Check if the for loop is numeric
                  */
                 if ($third_keyword == "to") {
-                    $new_line .= '$i = ' . $second_keyword . '; $i <= ' . $fourth_keyword . ';' . '$i++) { ?>';
+                    if (Str::contains($second_keyword, "%")) {
+                        $second_keyword = $this->get($this->decrypt_global_var_keyword($second_keyword));
+                    }
+
+                    if (Str::contains($fourth_keyword, "%")) {
+                        $fourth_keyword = $this->get($this->decrypt_global_var_keyword($fourth_keyword));
+                    }
+
+                    $new_line .= '$i = ' . $second_keyword . '; $i < ' . $fourth_keyword . ';' . '$i++) { ?>';
                 }
             } else {
                 $new_line .= "" . $second_keyword;
@@ -300,32 +270,15 @@ class TemplateEngine {
          * ========================================
          * Set fourth keyword
          */
-        if (Str::contains($fourth_keyword, "%")) {
-            /*
-             * @var Array
-             */
-            $split = str_split($fourth_keyword);
+        if (!$is_for_loop) {
+            if (Str::contains($fourth_keyword, "%")) {
+                /*
+                 * @var String
+                 */
+                $global = $this->get($this->decrypt_global_var_keyword($fourth_keyword));
 
-            /*
-             * @var Integer
-             */
-            $index = Arr::find_index($split, "%");
-
-            unset($split[$index]);
-
-            /*
-             * @var String
-             */
-            $fourth_keyword = "";
-
-            foreach ($split as $char) {
-                $fourth_keyword .= $char;
-            }
-
-            $global = $this->get($fourth_keyword);
-            $new_line .= $global. ") { ?>";
-        } else {
-            if (!$is_for_loop) {
+                $new_line .= $global. ") { ?>";
+            } else {
                 $new_line .= " " . $fourth_keyword. ") { ?>";
             }
         }
@@ -366,6 +319,37 @@ class TemplateEngine {
     }
 
     /**
+     * @param $keyword
+     * @return string
+     *
+     * Decrypt global variable keyword
+     */
+    function decrypt_global_var_keyword($keyword) {
+        /*
+             * @var Array
+             */
+        $split = str_split($keyword);
+
+        /*
+         * @var Integer
+         */
+        $index = Arr::find_index($split, "%");
+
+        unset($split[$index]);
+
+        /*
+         * @var String
+         */
+        $keyword = "";
+
+        foreach ($split as $char) {
+            $keyword .= $char;
+        }
+
+        return $keyword;
+    }
+
+    /**
      * @param null $key
      * @return mixed
      *
@@ -384,7 +368,7 @@ class TemplateEngine {
             if (!empty($key)) {
                 $value = $this->globals[$cur_controller][$key];
 
-                if (!empty($value)) {
+                if (isset($value)) {
                     return $value;
                 } else {
                     Debug::pagedump('The value you are trying to access is empty or NULL', __LINE__, __CLASS__);

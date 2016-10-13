@@ -4,11 +4,16 @@
         <title>my new website</title>
     </head>
     <body>
-        {{ for 1 to 10 }}
+        {{ for %number to %number2 }}
             <p>test</p>
         {{ end }}
 
+        {{ for 0 to 5 }}
+            <p>test2</p>
+        {{ end }}
+
         {{ print %number }}
+
         {{ if 3 less 4 }}
             <h1>3 is less then 4!</h1>
         {{ end }}

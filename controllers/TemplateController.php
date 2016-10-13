@@ -9,7 +9,8 @@ class TemplateController extends Controller {
          * be done before the config_template_globals
          * method call
          */
-        $this->set("template", "number", 33);
+        $this->set("template", "number", 0);
+        $this->set("template", "number2", 10);
 
         /*
          * This method allows templates
