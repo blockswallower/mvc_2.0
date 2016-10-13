@@ -10,7 +10,6 @@
 $directories = array(
     './helpers',
     './lib/ScriptEngine',
-    './lib/TemplateEngine',
     './app'
 );
 

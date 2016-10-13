@@ -9,7 +9,7 @@ class IndexController extends Controller {
          *
          * access with: $this->[LOADMODEL_PARAMETER]->[FUNCTION_CALL]
          */
-        $this->loadmodel('index');
+        $this->load_model('index');
 
         /*
          * Sending variables to your view should be done

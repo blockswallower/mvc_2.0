@@ -4,6 +4,8 @@ class TemplateController extends Controller {
     public function __construct() {
         parent::__construct();
 
+        $this->load_library("TemplateEngine");
+
         /*
          * Sending variables to your template should
          * be done before the config_template_globals

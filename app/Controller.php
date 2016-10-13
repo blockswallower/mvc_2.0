@@ -1,18 +1,18 @@
 <?php
 
 class Controller {
-	/**
+	/*
 	 * This class is the standard
 	 * blueprint for all the other
 	 * controllers
 	 */
 	
-	/**
+	/*
 	 * @var array
 	 */
 	protected $globals;
 
-	/**
+	/*
 	 * @var object
 	 */
 	protected $view;
@@ -22,15 +22,20 @@ class Controller {
 	 */
 	protected $model;
 
-	/**
+	/*
 	 * @var array
 	 */
 	protected $settings;
 
-	/**
+	/*
 	 * @var string
 	 */
 	protected $modelsdir = 'models/';
+
+	/*
+	 * @var string
+	 */
+	protected $libsdir = 'lib/';
 
 	public function __construct() {
 		/**
@@ -73,17 +78,44 @@ class Controller {
 	 *
 	 * $this->index->[FUCTION_CALL]
      */
-	public function loadmodel($model) {
+	public function load_model($model) {
+		/*
+		 * @var String
+		 */
 		$ucfirstModel = ucfirst($model)."Model";
 
-		$path = $this->modelsdir.$ucfirstModel.".php";
+		/*
+		 * @var String
+		 */
+		$path = $this->modelsdir . $ucfirstModel.".php";
 
 		if (file_exists($path)) {
 			require $path;
 
+			/*
+			 * @var Object
+			 */
 			$this->$model = new $ucfirstModel();
 		} else {
-			Debug::exitdump($ucfirstModel." Doesn't exist");
+			Debug::exitdump($ucfirstModel . ".php doesn't exist");
+		}
+	}
+
+	/**
+	 * @param $library
+	 *
+	 * loads in library based on the parameter
+     */
+	public function load_library($library) {
+		/*
+		 * @var String
+		 */
+		$path = $this->libsdir . $library . '/' . $library . '.php';
+
+		if (file_exists($path)) {
+			require $path;
+		} else {
+			Debug::exitdump($library . ".php doesn't exist");
 		}
 	}
 
