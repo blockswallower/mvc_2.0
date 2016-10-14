@@ -14,10 +14,10 @@ class Routes {
          * for example: "index" => "IndexController.show",
          */
         $this->routes = [
-            "index" => "IndexController.show",
-            "debug" => "DebugController.show",
-            "404" => "PageNotFoundController.show",
-            "template" => "TemplateController.show",
+             "index" => "IndexController.show",
+             "debug" => "DebugController.show",
+             "404" => "PageNotFoundController.show",
+             "template" => "TemplateController.show",
         ];
     }
 
