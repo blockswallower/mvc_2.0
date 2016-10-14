@@ -1,6 +1,6 @@
-# Snail - PHP Micro Framework
+# Snail - PHP Framework
 
-**_Snail_** is a small but very fast and efficient PHP framework
+**_Snail_** is a very fast and efficient PHP framework
 and contains a lot of optional features like:
 
   - Helper classes
