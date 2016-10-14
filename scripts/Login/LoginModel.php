@@ -30,9 +30,10 @@ class LoginModel extends Model {
 
     private function after_successful_login() {
         session_regenerate_id();
-        $_SESSION['logged_in'] = true;
-        $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
-        $_SESSION['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
-        $_SESSION['last_login'] = time();
+
+        Sessions::set("logged_in", true);
+        Sessions::set("ip", $_SERVER['REMOTE_ADDR']);
+        Sessions::set("user_agent", $_SERVER['HTTP_USER_AGENT']);
+        Sessions::set("last_login", time());
     }
 }
