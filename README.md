@@ -8,6 +8,7 @@ and contains a lot of optional features like:
   - Easy routing
   - Before runtime script execution
   - Backend security
+  - Symfony command-line interface
   - _(Still in development)_ Database migrations
   - _(Still in development)_ Language translator
   - _(Still in development)_ Build in PHP server
