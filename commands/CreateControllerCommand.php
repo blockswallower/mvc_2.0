@@ -67,6 +67,6 @@ class CreateControllerCommand extends Command {
 
         $routes = file_put_contents("./http/Routes.php", $content);
 
-        $output->writeln($routes);
+        $output->writeln("View/Controller successfully created!");
     }
 }
