@@ -90,7 +90,7 @@ class Debug {
 
             Sessions::set("debug_info", $debug_info);
             Sessions::set(self::$standard_error_session, $data);
-            Redirect::to("debug");
+            Url::redirect("debug");
         }
     }
 }

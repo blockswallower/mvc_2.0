@@ -1,6 +1,6 @@
 <?php
 
-class Redirect {
+class Url {
     /**
      * This class will mainly be used
      * to make redirecting easy
@@ -10,7 +10,7 @@ class Redirect {
      * Redirect the user to
      * the previous page
      */
-    public static function back() {
+    public static function previous() {
         /**
          * @var string
          */
@@ -24,7 +24,7 @@ class Redirect {
      *
      * Redirects the user to a specific page
      */
-    public static function to($page) {
+    public static function redirect($page) {
         header("Location: " . __URL__ . $page);
     }
 }

@@ -21,7 +21,7 @@ class LoginModel extends Model {
             $this->after_successful_login();
             $_SESSION['username'] = $username;
 
-            Redirect::to("index");
+            Url::redirect("index");
         } else {
             Debug::pagedump("Login failed");
             return false;
