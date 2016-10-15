@@ -26,21 +26,39 @@ class Config {
 		 *
 		 */
 		self::$config = array(
-			'SNAIL_VERSION' => 0.5,
-			
+			/*
+			 * Application information
+			 */
+			'APP_NAME' => 'Snail - PHP framework',
+			'APP_VERSION' => 0.5,
+			'APP_LANGUAGE' => 'en',
+			'APP_MAIL' => 'info@snailframework.com',
+
+			/*
+			 * Debug
+			 */
 			'DEBUG' => true,
 
+			/*
+			 * Database
+			 */
 			'DB_TYPE' => 'mysql',
 			'DB_HOST' => 'localhost',
 			'DB_NAME' => '',
 			'DB_USERNAME' => 'root',
 			'DB_PASSWORD' => '',
 
+			/*
+			 * Scripts
+			 */
 			'SCRIPT' => array(
 				'EVERY_TIME_EXECUTION' => 'NONE',
 				'ONE_TIME_EXECUTION' => 'NONE'
 			),
 
+			/*
+			 * Reserved file names
+			 */
 			'STANDARD_CONTROLLER' => "index"
 		);
 	}
