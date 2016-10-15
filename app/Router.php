@@ -47,7 +47,7 @@ class Router {
                 /*
                  * Replace with standard controller
                  */
-                $standard_controller = ucfirst(Settings::$config["STANDARD_CONTROLLER"]) . "Controller";
+                $standard_controller = ucfirst(Config::get("STANDARD_CONTROLLER")) . "Controller";
 
                 require 'controllers/' . $standard_controller . '.php';
 

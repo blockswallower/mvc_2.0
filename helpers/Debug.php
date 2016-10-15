@@ -64,7 +64,7 @@ class Debug {
      * Debug::pagedump("This is a dump!", __LINE__, __CLASS__);
      */
     public static function pagedump($data, $linenumber = null, $coreSnailClass = null) {
-        if (Settings::$config['DEBUG']) {
+        if (Config::get('DEBUG')) {
             /*
              * @var String
              */

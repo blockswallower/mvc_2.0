@@ -8,11 +8,11 @@ class ScriptLoader {
 	}
 
 	/*
-	 * Loads in every script in Settings::config
+	 * Loads in every script in Config::config
      */
 	private function load_scripts() {
-		if (Settings::$config['SCRIPT']['EVERY_TIME_EXECUTION'] != 'NONE') {
-			$dirname = Settings::$config['SCRIPT']['EVERY_TIME_EXECUTION'];
+		if (Config::$config['SCRIPT']['EVERY_TIME_EXECUTION'] != 'NONE') {
+			$dirname = Config::$config['SCRIPT']['EVERY_TIME_EXECUTION'];
 
 			/*
 			 * @var String
@@ -70,16 +70,16 @@ class ScriptLoader {
 			}
 		}
 		
-		if (Settings::$config['SCRIPT']['ONE_TIME_EXECUTION'] != 'NONE') {
+		if (Config::$config['SCRIPT']['ONE_TIME_EXECUTION'] != 'NONE') {
 			/*
 			 * @var String
 			 */
-			$settingsContent = './app/Settings.php';
+			$settingsContent = './app/Config.php';
 
 			/*
 			 * @var String / Array
 			 */
-			$dirname = Settings::$config['SCRIPT']['ONE_TIME_EXECUTION'];
+			$dirname = Config::$config['SCRIPT']['ONE_TIME_EXECUTION'];
 
 			/*
 			 * @var String

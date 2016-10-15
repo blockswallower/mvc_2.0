@@ -1,6 +1,6 @@
 <?php
 
-class Settings {
+class Config {
 	/**
 	 * This class contains the general
 	 * settings for the application
@@ -17,7 +17,13 @@ class Settings {
 		 * in the other controllers
 		 * 
 		 * access in other PHP files:
-		 * Settings::$config[ARRAY_INDEX]
+		 *
+		 * Config::$config[KEY]
+		 *
+		 * or
+		 *
+		 * Config::get(KEY)
+		 *
 		 */
 		self::$config = array(
 			'SNAIL_VERSION' => 0.5,
@@ -37,5 +43,20 @@ class Settings {
 
 			'STANDARD_CONTROLLER' => "index"
 		);
+	}
+
+	/**
+	 * @param $key
+	 * @return bool
+	 *
+	 * returns value from config array
+     */
+	public static function get($key) {
+		if (isset(self::$config[$key])) {
+			return self::$config[$key];
+		}
+
+		Debug::exitdump("Key doesn't exist in config array");
+		return false;
 	}
 }

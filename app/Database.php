@@ -38,11 +38,11 @@ class Database extends PDO {
     private $db_password;
 
     public function __construct() {
-        $this->db_type = Settings::$config["DB_TYPE"];
-        $this->db_host = Settings::$config["DB_HOST"];
-        $this->db_name = Settings::$config["DB_NAME"];
-        $this->db_username = Settings::$config["DB_USERNAME"];
-        $this->db_password = Settings::$config["DB_PASSWORD"];
+        $this->db_type = Config::get("DB_TYPE");
+        $this->db_host = Config::get("DB_HOST");
+        $this->db_name = Config::get("DB_NAME");
+        $this->db_username = Config::get("DB_USERNAME");
+        $this->db_password = Config::get("DB_PASSWORD");
 
         /**
          * @var String

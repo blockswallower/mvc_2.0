@@ -61,9 +61,16 @@ class Controller {
 		/**
 		 * Create a new Settings object
 		 *
-		 * Access with: Settings::$config[ARRAY_INDEX]
+		 * Access with:
+		 *
+		 * Config::$config[KEY]
+		 *
+		 * or:
+		 *
+		 * Config::get(KEY)
+		 *
 		 */
-		$this->settings = new Settings();
+		$this->settings = new Config();
 	}
 
 	/**
@@ -165,10 +172,10 @@ class Controller {
 		if (empty($url[0])) {
 			/*
 			 * Will set the current controller
-			 * to Settings::$config["STANDARD_CONTROLLER"]
+			 * to Config::get("STANDARD_CONTROLLER")
 			 * if no controller was found
 			 */
-			$url[0] = Settings::$config["STANDARD_CONTROLLER"];
+			$url[0] = Config::get("STANDARD_CONTROLLER");
 		}
 
 		return $url[0];
