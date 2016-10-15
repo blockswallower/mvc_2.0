@@ -29,7 +29,7 @@ class Link {
      * Generates a stylesheet link
      */
      public static function style($css_file) {
-          echo '<link href="' . self::$absolute_style_path.$css_file . '" rel="stylesheet">' . "\n";
+          echo '<link href="' . self::$absolute_style_path . $css_file . '" rel="stylesheet">' . "\n";
      }
 
     /**
@@ -48,7 +48,7 @@ class Link {
      * Generates a google font style tag
      */
     public static function google_font($font) {
-        echo '<link href="' . $font . '" rel="stylesheet">'."\n";
+        echo '<link href="' . $font . '" rel="stylesheet">' . "\n";
     }
 
     /**
