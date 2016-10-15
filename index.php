@@ -48,7 +48,7 @@ autoload($directories);
  *
  * stores the settings object
  */
-$settings = new Settings();
+$settings = new Config();
 
 /**
  * @var object
