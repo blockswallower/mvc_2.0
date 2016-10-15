@@ -67,4 +67,34 @@ class Link {
         echo '<img src="' . $src . '" class="' . empty($css) ? "" : $css . '"
                width="' . $width . '" height="' . $height.'">' . "\t";
     }
+
+    /**
+     * @param $search_term
+     * @param $between_tags
+     *
+     * Googles the given search term
+     */
+    public static function google($search_term, $between_tags) {
+        /*
+         * @var Array
+         */
+        $split = explode(" ", $search_term);
+
+        /*
+         * @var String
+         */
+        $search_term = "https://www.google.nl/#q=";
+
+        /*
+         * @var Integer
+         */
+        $last_index = Arr::find_index($split, Arr::last($split));
+
+        for ($ii = 0; $ii < Arr::size($split); $ii++) {
+            $search_term .= $split[$ii];
+            $search_term .= $last_index != $ii ? "+" : "";
+        }
+
+        echo '<a href="' . $search_term .'">' . $between_tags . '</a>';
+    }
 }
