@@ -126,6 +126,32 @@ class Router {
      * @return array
      */
     public function get_url() {
-        return explode("/", $_SERVER['REQUEST_URI']);
+        /*
+         * @var Array
+         */
+        $split = explode("/", $_SERVER['REQUEST_URI']);
+
+        if (!empty($split[2])) {
+            if (Str::contains($split[2], ["?", "="], true)) {
+                /*
+                 * @var Array
+                 */
+                $strsplit = str_split($split[2]);
+
+                /*
+                 * @var Integer
+                 */
+                $question_mark_index = Arr::find_index($strsplit, "?");
+
+                /*
+                 * @var String
+                 */
+                $cut_string = Str::substringint($split[2], 0, $question_mark_index - 1);
+
+                $split[2] = $cut_string;
+            }
+        }
+
+        return $split;
     }
 }
