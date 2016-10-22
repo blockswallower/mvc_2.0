@@ -6,8 +6,8 @@ class LoginModel extends Model {
     }
 
     public function login() {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        $username = Request::post("username");
+        $password = Request::post("password");
 
         $result = $this->db->prepare('SELECT * FROM users WHERE username = :username AND password = :password;');
         $result->execute(array(
@@ -19,7 +19,7 @@ class LoginModel extends Model {
 
         if ($count > 0) {
             $this->after_successful_login();
-            $_SESSION['username'] = $username;
+            Sessions::set("username", $username);
 
             Url::redirect("index");
         } else {

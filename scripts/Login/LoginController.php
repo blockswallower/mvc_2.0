@@ -4,14 +4,14 @@ class LoginController extends Controller {
     public function __construct(){
         parent::__construct();
 
-        $this->loadmodel("login");
+        $this->load_model("login");
 
         $this->view->show("login");
     }
 
     public function login() {
-	    if (validate_request()) {
-	        if (empty($_POST["username"]) || empty($_POST["password"])) {
+	    if (Csrf::validate_request()) {
+	        if (empty(Request::post("username")) || empty(Request::post("password"))) {
 	            Debug::pagedump("Please fill in the required fields");
 	            return false;
 	        }

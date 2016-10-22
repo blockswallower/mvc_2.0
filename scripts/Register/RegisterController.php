@@ -4,14 +4,15 @@ class RegisterController extends Controller {
 	public function __construct(){
 		parent::__construct();
 		
-		$this->loadModel('register');
+		$this->load_model('register');
 
         $this->view->show('register');
     }
 
     public function register() {
-        if (empty($_POST['username']) || empty($_POST['email']) || empty($_POST['email_confirm']) || empty($_POST['password'])
-        || empty($_POST['password_confirm'])) {
+        if (empty(Request::post("username")) || empty(Request::post("email")) || empty(Request::post("email_confirm"))
+            || empty(Request::post("password")) || empty(Request::post("password_confirm"))) {
+
             Debug::pagedump("Please fill in the required fields");
         }
 
@@ -25,27 +26,27 @@ class RegisterController extends Controller {
     }
 
     public function password_check() {
-        if ($_POST['password'] !== $_POST['password_confirm']) {
+        if (Request::post("password") !== $_POST['password_confirm']) {
            Debug::pagedump("Please fill in the required fields");
            return false;
         }
 
-        if (strlen($_POST['password']) < 5) {
+        if (strlen(Request::post("password")) < 5) {
             Debug::pagedump('Password most be longer than 5 characters');
             return false;
         }
 
-        if (strlen($_POST['password']) > 20) {
+        if (strlen(Request::post("password")) > 20) {
             Debug::pagedump('Password most be shorter than 20 characters');
             return false;
         }
 
-        if( !preg_match("#[a-z]+#", $_POST['password']) ) {
+        if( !preg_match("#[a-z]+#", Request::post("password")) ) {
             Debug::pagedump('Password must include at least one lowercase letter');
             return false;
         }
 
-        if( !preg_match("#[A-Z]+#", $_POST['password']) ) {
+        if( !preg_match("#[A-Z]+#", Request::post("password")) ) {
             Debug::pagedump('Password must include at least one uppercase letter');
             return false;
         }
@@ -54,12 +55,12 @@ class RegisterController extends Controller {
     }
 
     public function email_check() {
-        if ($_POST['email'] !== $_POST['email_confirm']) {
+        if (Request::post("email") !== $_POST['email_confirm']) {
             Debug::pagedump('Email addresses do not match');
             return false;
         }
 
-        if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) === false) {
+        if (filter_var(Request::post("email"), FILTER_VALIDATE_EMAIL) === false) {
             Debug::pagedump('Email addresses is not valid');
             return false;
         }
@@ -68,12 +69,12 @@ class RegisterController extends Controller {
     }
 
     public function username_check() {
-        if (strlen($_POST['username']) > 20) {
+        if (strlen(Request::post("username")) > 20) {
             Debug::pagedump('Username most be shorter than 20 characters');
             return false;
         }
 
-        if (strlen($_POST['username']) < 5) {
+        if (strlen(Request::post("username")) < 5) {
             Debug::pagedump('Username most be longer than 5 characters');
             return false;
         }

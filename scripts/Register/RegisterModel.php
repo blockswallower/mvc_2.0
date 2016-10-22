@@ -6,7 +6,7 @@ class RegisterModel extends Model {
 	}
 	
 	public function register() {
-		if (validate_request()) {
+		if (Csrf::validate_request()) {
 			$hash = md5(rand(0,1000).time());
 			$result = $this->user_check();
 			
@@ -35,8 +35,9 @@ class RegisterModel extends Model {
     }
 
     private function user_check() {
-        $username = htmlspecialchars($_POST['username']);
-        $email = $_POST['email'];
+        $username = htmlspecialchars(Request::post("username"));
+        $email = Request::post("email");
+
         $result = $this->db->prepare('SELECT * FROM users WHERE username = :username OR email = :email;');
         $result->execute(array(
             ':username' => $username,
@@ -52,9 +53,10 @@ class RegisterModel extends Model {
     }
 
     private function after_successful_check($hash) {
-        $username = htmlspecialchars($_POST['username']);
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+        $username = htmlspecialchars(Request::post("username"));
+        $email = Request::post("email");
+        $password = Request::post("password");
+
         $result = $this->db->prepare('INSERT INTO users (username, password, email, hash, active) VALUES (:username, :password, :email, :hash, :active);');
         $insert = $result->execute(array(
             ':username' => $username,
@@ -68,10 +70,11 @@ class RegisterModel extends Model {
     }
 
     private function email_sent($hash) {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $username = $_POST['username'];
-        $result = Email::verification_email($email, $username, $password, $hash);
+        $email = Request::post("email");
+        $password = Request::post("password");
+        $username = Request::post("username");
+
+        $result = Email::send_verification_email($email, $username, $password, $hash);
         return $result;
     }
 }
