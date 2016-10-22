@@ -59,7 +59,8 @@ class Config {
 			/*
 			 * Reserved file names
 			 */
-			'STANDARD_CONTROLLER' => "index"
+			'STANDARD_CONTROLLER' => "index",
+			'STANDARD_RENDERING_METHOD' => 'show'
 		);
 	}
 

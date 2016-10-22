@@ -57,9 +57,14 @@ class Router {
                 $controller = new $standard_controller;
 
                 /*
+                 * @var String
+                 */
+                $rendering_method = Config::get("STANDARD_RENDERING_METHOD");
+
+                /*
                  * Render view
                  */
-                $controller->show();
+                $controller->$rendering_method();
             }
         }
     }
