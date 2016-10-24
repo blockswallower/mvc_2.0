@@ -1,14 +1,14 @@
 <?php
 
 class View {
-	/**
-	 * This class is the standard
+	/*
+	 * This class is the a
 	 * blueprint for all the other
 	 * views
 	 */
 
 	/**
-	 * @var array global
+	 * @var array
 	 */
 	public $globals;
 
@@ -97,6 +97,12 @@ class View {
 					 * for capturing post requests
 					 */
 					$this->require_post_request_handler();
+
+					/*
+					 * Confirms that everything
+					 * has rendered properly
+					 */
+					$this->rendered = true;
 				} else {
 					Debug::pagedump("The view: '$this->footer' does not exist");
 				}
@@ -148,6 +154,12 @@ class View {
 			 * for capturing post requests
 			 */
 			$this->require_post_request_handler();
+
+			/*
+			 * Confirms that everything
+			 * has rendered properly
+			 */
+			$this->rendered = true;
 		} else {
 			Debug::pagedump("The view '". $this->get_view_path($view) ."' does not exist");
 		}

@@ -13,7 +13,6 @@ class Str {
 	 * @return String
 	 *
 	 * Returns substring between 2 characters
-	 *
 	 */
 	public static function substring($string, $char1, $char2) {
 		$split = str_split($string);

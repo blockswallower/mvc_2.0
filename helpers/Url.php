@@ -16,7 +16,7 @@ class Url {
          */
         $previous_page = 'javascript://history.go(-1)';
 
-        header("location:" . $previous_page);
+        header("Location:" . $previous_page);
     }
 
     /**

@@ -2,11 +2,11 @@
 
 class Controller {
 	/*
-	 * This class is the standard
+	 * This class is a
 	 * blueprint for all the other
 	 * controllers
 	 */
-	
+
 	/*
 	 * @var array
 	 */
@@ -17,7 +17,7 @@ class Controller {
 	 */
 	protected $view;
 
-	/**
+	/*
 	 * @var string
 	 */
 	protected $model;
@@ -25,7 +25,7 @@ class Controller {
 	/*
 	 * @var array
 	 */
-	protected $settings;
+	protected $config;
 
 	/*
 	 * @var string
@@ -38,28 +38,26 @@ class Controller {
 	protected $libsdir = 'lib/';
 
 	public function __construct() {
-		/**
+		/*
 		 * This is needed for 
 		 * being able to redirect 
 		 * after a function call
 		 */
 		ob_start();
 
-		/**
+		/*
 		 * Starts the session
-		 * on every new page
+		 * on every page
 		 */
 		Sessions::init();
 		
-		/**
-		 * Create a new View object.
-		 * This will be created for 
-		 * every child controller
+		/*
+		 * Create a new View object on every page
 		 */
 		$this->view = new View();
 
 		/**
-		 * Create a new Settings object
+		 * Create a new Config object
 		 *
 		 * Access with:
 		 *
@@ -70,10 +68,10 @@ class Controller {
 		 * Config::get(KEY)
 		 *
 		 */
-		$this->settings = new Config();
+		$this->config = new Config();
 	}
 
-	/**
+	/*
 	 * @param $model
 	 *
 	 * Loads the model in the given
@@ -89,12 +87,12 @@ class Controller {
 		/*
 		 * @var String
 		 */
-		$ucfirstModel = ucfirst($model)."Model";
+		$model = ucfirst($model)."Model";
 
 		/*
 		 * @var String
 		 */
-		$path = $this->modelsdir . $ucfirstModel.".php";
+		$path = $this->modelsdir . $model.".php";
 
 		if (file_exists($path)) {
 			require $path;
@@ -102,13 +100,13 @@ class Controller {
 			/*
 			 * @var Object
 			 */
-			$this->$model = new $ucfirstModel();
+			$this->$model = new $model();
 		} else {
-			Debug::exitdump($ucfirstModel . ".php doesn't exist");
+			Debug::exitdump($model . ".php doesn't exist");
 		}
 	}
 
-	/**
+	/*
 	 * @param $library
 	 *
 	 * loads in library based on the parameter
@@ -126,32 +124,32 @@ class Controller {
 		}
 	}
 
-	/**
+	/*
 	 * @param $controller
 	 * @param $key
 	 * @param $value
 	 *
 	 * This method will 'send' a variable
-	 * to the current view
+	 * to your view
 	 *
 	 * Controller:
 	 *
 	 * $test = [VALUE];
-	 * $this->set([CONTROLLER_NAME], [KEY], [VALUE])
+	 * $this->set([CONTROLLER_NAME], [KEY], $test);
 	 *
 	 * View:
 	 *
-	 * $this->var[CONTROLLER_NAME][KEY]
+	 * $this->var[CONTROLLER_NAME][KEY];
 	 *
 	 * or:
 	 *
-	 * $this->get([KEY])
+	 * $this->get([KEY]);
      */
 	public function set($controller, $key, $value) {
 		$this->globals[$controller][$key] = $value;
 	}
 
-	/**
+	/*
 	 * This allows templates to access
 	 * global variables
 	 */
@@ -159,9 +157,9 @@ class Controller {
 		$this->view->globals = $this->globals;
 	}
 
-	/**
+	/*
 	 * Returns the controller the user
-	 * is currently in
+	 * is currently using
 	 */
 	public static function return_current_controller() {
 		$url = isset($_GET['url']) ? $_GET['url'] : null;

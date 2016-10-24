@@ -34,6 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      * @var Object
      */
     $PostRequests = new PostRequests();
+
+    /*
+     * @var Array
+     */
     $post_requests = $PostRequests->getPostRequests();
 
     if (strstr($post_requests[$current_page], ".")) {

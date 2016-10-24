@@ -2,7 +2,9 @@
 class Email {
     /**
      * This helper class will contain
-     * everything related
+     * everything related to sending emails
+     * 
+     * TODO: Add PHP Mailer to Snail - PHP Framework
      */
 
     /**

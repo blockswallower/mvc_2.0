@@ -24,6 +24,9 @@ class Form {
         echo "<form method='".$method." class=".$css."' action='".$action."' role='form'>";
     }
 
+    /*
+     * Closes the form
+     */
     public static function close() {
         /**
          * Closes the form
@@ -62,25 +65,27 @@ class Form {
          */
         echo '<input type="text" name="'.$name.'" class="'.$css.'" placeholder="'.$placeholder.'"/>';
     }
-	
-	public static function request_is_same_domain() {
-		/**
-	     * Use with request_is_post() to block posting from off-site forms
-	     */
+
+
+    /**
+     * @return bool
+     *
+     * Use with request_is_post() to block posting from off-site forms
+     */
+    public static function request_is_same_domain() {
 		if(!isset($_SERVER['HTTP_REFERER'])) {
-			/**
+			/*
 			 * No refererer sent, so can't be same domain
 			 */
 			return false;
 		} else {
 			$referer_host = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST);
 			$server_host = $_SERVER['HTTP_HOST'];
-			
-			/**
-			 * Uncomment for debugging
-			 */
-//			 echo 'Request from: ' . $referer_host . "<br />";
-//			 echo 'Request to: ' . $server_host . "<br />";
+
+            if (Config::get("DEBUG")) {
+                echo 'Request from: ' . $referer_host . "<br />";
+                echo 'Request to: ' . $server_host . "<br />";
+            }
 			
 			return ($referer_host == $server_host) ? true : false;
 		}

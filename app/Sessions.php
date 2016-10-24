@@ -35,6 +35,9 @@ class Sessions {
      * 1 day
      */
     public static function init() {
+        /*
+         * Starts a sessions if no sessions was started
+         */
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }

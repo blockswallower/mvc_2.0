@@ -5,7 +5,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CreateControllerCommand extends Command {
+class CreateViewCommand extends Command {
     /*
      * @var String
      */

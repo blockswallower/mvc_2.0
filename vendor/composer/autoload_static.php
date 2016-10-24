@@ -17,8 +17,9 @@ class ComposerStaticInit0bd6f17a6f1073c59aa1f718fb297dfd
     );
 
     public static $classMap = array (
-        'CreateControllerCommand' => __DIR__ . '/../..' . '/Commands/CreateControllerCommand.php',
-        'GreetCommand' => __DIR__ . '/../..' . '/Commands/GreetCommand.php',
+        'CreateViewCommand' => __DIR__ . '/../..' . '/Commands/CreateViewCommand.php',
+        'ExampleController' => __DIR__ . '/../..' . '/Commands/examples/ExampleController.php',
+        'ScriptCommand' => __DIR__ . '/../..' . '/Commands/ScriptCommand.php',
         'Symfony\\Component\\Console\\Application' => __DIR__ . '/..' . '/symfony/console/Symfony/Component/Console/Application.php',
         'Symfony\\Component\\Console\\Command\\Command' => __DIR__ . '/..' . '/symfony/console/Symfony/Component/Console/Command/Command.php',
         'Symfony\\Component\\Console\\Command\\HelpCommand' => __DIR__ . '/..' . '/symfony/console/Symfony/Component/Console/Command/HelpCommand.php',

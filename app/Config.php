@@ -3,7 +3,7 @@
 class Config {
 	/**
 	 * This class contains the general
-	 * settings for the application
+	 * settings for the Snail framework
 	 */
 
 	/**
@@ -12,9 +12,9 @@ class Config {
 	public static $config;
 	
 	public function __construct() {
-		/**
+		/*
 		 * This config array can be accessed 
-		 * in the other controllers
+		 * in every other file
 		 * 
 		 * access in other PHP files:
 		 *
@@ -57,7 +57,7 @@ class Config {
 			),
 
 			/*
-			 * Reserved file names
+			 * Reserved names
 			 */
 			'STANDARD_CONTROLLER' => "index",
 			'STANDARD_RENDERING_METHOD' => 'show'
@@ -68,11 +68,18 @@ class Config {
 	 * @param $key
 	 * @return bool
 	 *
-	 * returns value from config array
+	 * Returns value from config array
      */
 	public static function get($key) {
-		if (isset(self::$config[$key])) {
-			return self::$config[$key];
+		/*
+		 * @var String
+		 */
+		$value = self::$config[$key];
+
+		if (isset($value)) {
+			if (!empty($value)) {
+				return $value;
+			}
 		}
 
 		Debug::exitdump("Key doesn't exist in config array");

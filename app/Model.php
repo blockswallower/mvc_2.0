@@ -13,8 +13,8 @@ class Model {
 
     public function __construct() {
         /**
-         * Sets up the db object
-         * for the other models
+         * Sets up the database
+         * for every other child model
          */
         $this->db = new Database();
     }

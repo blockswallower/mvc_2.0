@@ -95,6 +95,6 @@ class Link {
             $search_term .= $last_index != $ii ? "+" : "";
         }
 
-        echo '<a href="' . $search_term .'">' . $between_tags . '</a>';
+        echo '<a href="' . $search_term . '">' . $between_tags . '</a>';
     }
 }
