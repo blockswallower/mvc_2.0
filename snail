@@ -9,5 +9,6 @@ $application = new Application();
 # add our commands
 $application->add(new CreateViewCommand());
 $application->add(new ScriptCommand());
+$application->add(new MigrationCommand());
 
 $application->run();

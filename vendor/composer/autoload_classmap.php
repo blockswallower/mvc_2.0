@@ -6,9 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'CreateViewCommand' => $baseDir . '/Commands/CreateViewCommand.php',
-    'ExampleController' => $baseDir . '/Commands/examples/ExampleController.php',
-    'ScriptCommand' => $baseDir . '/Commands/ScriptCommand.php',
+    'CreateViewCommand' => $baseDir . '/commands/CreateViewCommand.php',
+    'ExampleController' => $baseDir . '/commands/examples/ExampleController.php',
+    'MigrationCommand' => $baseDir . '/commands/MigrationCommand.php',
+    'ScriptCommand' => $baseDir . '/commands/ScriptCommand.php',
     'Symfony\\Component\\Console\\Application' => $vendorDir . '/symfony/console/Symfony/Component/Console/Application.php',
     'Symfony\\Component\\Console\\Command\\Command' => $vendorDir . '/symfony/console/Symfony/Component/Console/Command/Command.php',
     'Symfony\\Component\\Console\\Command\\HelpCommand' => $vendorDir . '/symfony/console/Symfony/Component/Console/Command/HelpCommand.php',

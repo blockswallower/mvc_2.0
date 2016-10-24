@@ -9,8 +9,8 @@
  */
 $directories = array(
     './helpers',
+    './app',
     './lib/ScriptEngine',
-    './app'
 );
 
 /**
