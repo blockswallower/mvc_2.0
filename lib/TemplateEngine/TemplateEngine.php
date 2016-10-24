@@ -168,6 +168,11 @@ class TemplateEngine {
                 }
 
                 $new_line .= 'echo "' . $global . '"; ?>';
+            } else if ($keywords[0] == "@extend") {
+                /*
+                 * Extends given view
+                 */
+                $new_line .= '$this->view->extend("'. $keywords[1] .'"); ?>';
             } else {
                 $new_line = $this->map_substring_keywords($new_line, $keywords);
             }
