@@ -1,6 +1,13 @@
 <?php
 
 class DatabaseMigrator {
+    /**
+     * @param $db_type
+     * @param $db_host
+     * @param $db_name
+     * @param $db_username
+     * @param $db_password
+     */
     public function create_database($db_type, $db_host, $db_name, $db_username, $db_password) {
         /*
          * @var Object
