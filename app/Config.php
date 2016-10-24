@@ -77,9 +77,7 @@ class Config {
 		$value = self::$config[$key];
 
 		if (isset($value)) {
-			if (!empty($value)) {
-				return $value;
-			}
+			return $value;
 		}
 
 		Debug::exitdump("Key doesn't exist in config array");
