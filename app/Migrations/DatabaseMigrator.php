@@ -19,7 +19,7 @@ class DatabaseMigrator {
          * Create the database!
          */
         if ($PDO->query("CREATE DATABASE IF NOT EXISTS $db_name")) {
-            echo "Database successfully created! \n";
+            echo "Database: '$db_name' has been successfully created! \n";
         }
 
         $PDO->query("use $db_name");
