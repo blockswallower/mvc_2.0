@@ -38,7 +38,7 @@ class MigrationCommand extends Command {
     protected function execute(InputInterface $input, OutputInterface $output) {
         $method = $input->getArgument($this->commandArgumentName);
 
-        require '././app/Migrations/Migrations.php';
+        require '././lib/Migrations/Migrations.php';
         $migrations = new Migrations();
 
         if (method_exists($migrations, "migrate")) {

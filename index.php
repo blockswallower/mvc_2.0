@@ -26,13 +26,16 @@ function autoload($directories) {
         }
 
         foreach (scandir($dir) as $file) {
-            if ('.' === $file)
+            if ('.' === $file) {
                 continue;
+            }
 
-            if ('..' === $file)
+            if ('..' === $file) {
                 continue;
+            }
 
             require $dir. '/' .$file;
+
         }
     }
 }
