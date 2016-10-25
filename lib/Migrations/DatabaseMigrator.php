@@ -21,6 +21,12 @@ class DatabaseMigrator {
 
     /*
      * @var String
+     * Database name
+     */
+    private $db_name;
+
+    /*
+     * @var String
      * Database password
      */
     private $db_password;
@@ -51,7 +57,51 @@ class DatabaseMigrator {
             echo "Database: '$db_name' has been successfully created! \n";
         }
 
-        $this->PDO->query("use $db_name");
+        $this->db_name = $db_name;
+
+        /*
+         * Optional:
+         */
+        $this->PDO->exec("USE $db_name");
+    }
+
+    /**
+     * @param $table_name
+     * @param $columns
+     * @param $database
+     *
+     * Creates table and inserts given columns using PDO
+     */
+    public function create_table($table_name, $columns, $database = null) {
+        if (is_array($columns)) {
+            /*
+             * Set PDO error mode to exception
+             */
+            $this->PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $table_columns = "";
+
+            for ($ii = 0; $ii < count($columns); $ii++) {
+                $comma = count($columns) - 1 == $ii ? "" : ", ";
+
+                /*
+                 * Don't add a comma if the current column
+                 * in the loop is the last given column
+                 */
+                $table_columns .= $columns[$ii] . $comma;
+            }
+
+            /*
+             * Set the database to the given database if not null
+             */
+            $database = $database === null ? "" : $database . ".";
+
+            if ($this->PDO->query("CREATE TABLE IF NOT EXISTS $database$table_name ($table_columns)")) {
+                echo "Table : '$table_name' has been successfully created \n";
+            }
+        } else {
+            echo "Please enter an array as second argument";
+        }
     }
 
     /**

@@ -11,5 +11,11 @@ class Migrations extends DatabaseMigrator {
         $this->set_database_requirements("mysql", "localhost", "root", "");
 
         $this->create_database("Snail");
+
+        $this->create_table("users", [
+           "id INT(11) AUTO_INCREMENT PRIMARY KEY",
+           "username VARCHAR(55) NOT NULL",
+           "password VARCHAR(150) NOT NULL"
+        ]);
     }
 }

@@ -19,6 +19,7 @@ class ComposerStaticInit0bd6f17a6f1073c59aa1f718fb297dfd
     public static $classMap = array (
         'CreateViewCommand' => __DIR__ . '/../..' . '/Commands/CreateViewCommand.php',
         'ExampleController' => __DIR__ . '/../..' . '/Commands/examples/ExampleController.php',
+        'MigrationCommand' => __DIR__ . '/../..' . '/Commands/MigrationCommand.php',
         'ScriptCommand' => __DIR__ . '/../..' . '/Commands/ScriptCommand.php',
         'Symfony\\Component\\Console\\Application' => __DIR__ . '/..' . '/symfony/console/Symfony/Component/Console/Application.php',
         'Symfony\\Component\\Console\\Command\\Command' => __DIR__ . '/..' . '/symfony/console/Symfony/Component/Console/Command/Command.php',
