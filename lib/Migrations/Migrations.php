@@ -8,6 +8,8 @@ class Migrations extends DatabaseMigrator {
      * to create databases, fields, tables etc
      */
     public function migrate() {
-        $this->create_database("mysql", "localhost", "Snail", "root", "");
+        $this->set_database_requirements("mysql", "localhost", "root", "");
+
+        $this->create_database("Snail");
     }
 }
