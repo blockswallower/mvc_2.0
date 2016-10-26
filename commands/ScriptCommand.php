@@ -38,6 +38,11 @@ class ScriptCommand extends Command {
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $folder_name = $input->getArgument($this->commandArgumentName);
+	
+	    if (!is_dir("./scripts/" . $folder_name)) {
+		    $output->writeln("Script directory not found!");
+		    exit;
+	    }
 	    
 	    $files = array_diff(scandir("./scripts/" . $folder_name), ['..', '.']);
 	
