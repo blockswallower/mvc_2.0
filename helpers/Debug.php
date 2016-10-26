@@ -25,17 +25,57 @@ class Debug {
 
     /**
      * @param $data
+     * @param $linenumber
+     * @param $coreSnailClass
      *
      * dumps data between
      * <pre> tags and ends
      * the programme
+     *
+     * if you want the linenumber from where
+     * this dump is executed to appear,
+     * use the Magic constants build in PHP as the second argument:
+     *
+     * Debug::exitdump("This is a dump!", __LINE__);
+     *
+     * If you are using a core snail functionality class and
+     * you don't want to dump the current controller, just fill
+     * in the file (as String) where you execute the dump as a third argument.
+     *
+     * Debug::exitdump("This is a dump!", __LINE__, [NAME OF FILE]);
+     *
+     * or use the PHP magic constant:
+     *
+     * Debug::exitdump("This is a dump!", __LINE__, __CLASS__);
      */
-    public static function exitdump($data) {
-        echo '<pre>';
+    public static function exitdump($data, $linenumber = null, $coreSnailClass = null) {
+        if (Config::get("DEBUG")) {
+            /*
+             * @var String
+             */
+            $cur_controller = ucfirst(Controller::return_current_controller())."Controller";
+
+            echo '<pre>';
+
+            echo "Something went wrong!\n\n";
+
+            if ($linenumber !== null) {
+                echo "Page dump call: line " . $linenumber ."\n";
+            }
+
+            if ($coreSnailClass !== null) {
+                echo "Controller/Class: " . $coreSnailClass;
+            } else {
+                echo "Controller/Class: " . $cur_controller ."\n\n";
+                echo "=============================================";
+            }
+
             var_dump($data);
-        echo '</pre>';
-        
-        exit;
+
+            echo '</pre>';
+
+            exit;
+        }
     }
 
     /**
