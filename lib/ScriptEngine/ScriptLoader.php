@@ -154,7 +154,7 @@ class ScriptLoader {
 	 *
 	 * Creates Model
      */
-	function makeModel($fileContents, $name) {
+	private function makeModel($fileContents, $name) {
 		if (!file_exists('models/' . $name)) {
 			$model = fopen('./models/' . $name, 'w');
 			
@@ -168,7 +168,7 @@ class ScriptLoader {
 	 *
 	 * Creates Controller
      */
-	function makeController($fileContents, $name) {
+	private function makeController($fileContents, $name) {
 		if (!file_exists('controllers/' . $name)) {
 			$view = fopen('./controllers/' . $name, 'w');
 			
@@ -182,7 +182,7 @@ class ScriptLoader {
 	 *
 	 * Creates View
      */
-	function makeView($fileContents, $name) {
+	private function makeView($fileContents, $name) {
 		if (!file_exists('views/' . $name)) {
 			$view = fopen('./views/' . $name, 'w');
 			

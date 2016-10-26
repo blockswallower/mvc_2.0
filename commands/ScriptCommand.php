@@ -72,7 +72,7 @@ class ScriptCommand extends Command {
 	 *
 	 * Creates Model
 	 */
-	function makeModel($fileContents, $name) {
+	protected function makeModel($fileContents, $name) {
 		if (!file_exists(getcwd() . 'models/' . $name)) {
 			$model = fopen('./models/' . $name, 'w');
 			
@@ -86,7 +86,7 @@ class ScriptCommand extends Command {
 	 *
 	 * Creates Controller
 	 */
-	function makeController($fileContents, $name) {
+	protected function makeController($fileContents, $name) {
 		if (!file_exists(getcwd() . 'controllers/' . $name)) {
 			$view = fopen('./controllers/' . $name, 'w');
 			
@@ -100,7 +100,7 @@ class ScriptCommand extends Command {
 	 *
 	 * Creates View
 	 */
-	function makeView($fileContents, $name) {
+	protected function makeView($fileContents, $name) {
 		if (!file_exists(getcwd() . 'views/' . $name)) {
 			$view = fopen('./views/' . $name, 'w');
 			
