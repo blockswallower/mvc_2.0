@@ -197,7 +197,7 @@ class View {
 		if (file_exists($this->get_view_path($view))) {
 			require $this->get_view_path($view);
 		} else {
-			Debug::pagedump("The view: '". $this->get_view_path($view) ."' does not exist", __LINE__, __CLASS__);
+			Debug::exitdump("The view: '". $this->get_view_path($view) ."' does not exist", __LINE__, __CLASS__);
 		}
 	}
 
@@ -213,7 +213,7 @@ class View {
 		if (file_exists($post_request_handler)) {
 			require $post_request_handler;
 		} else {
-			Debug::pagedump($post_request_handler."' does not exist", __LINE__, __CLASS__);
+			Debug::exitdump($post_request_handler."' does not exist", __LINE__, __CLASS__);
 		}
 	}
 
