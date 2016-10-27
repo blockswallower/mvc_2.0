@@ -10,7 +10,7 @@
 				echo '<pre>'. Sessions::get("debug_info") .'</pre>';
 				Debug::dump(Sessions::get("Error"));
 			} else {
-				Redirect::back();
+				Url::previous();
 			}
 		?>
 	</body>
