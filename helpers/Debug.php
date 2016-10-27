@@ -55,6 +55,15 @@ class Debug {
              */
             $cur_controller = ucfirst(Controller::return_current_controller())."Controller";
 
+            /*
+             * Blanks out the page using javascript
+             */
+            echo("
+                <script type='text/javascript'>
+                    document.body.innerHTML = '';
+                </script>
+            ");
+
             echo "Something went wrong!<br><br>\n";
 
             if ($linenumber !== null) {
