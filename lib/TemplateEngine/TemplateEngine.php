@@ -376,13 +376,13 @@ class TemplateEngine {
                 if (isset($value)) {
                     return $value;
                 } else {
-                    Debug::pagedump('The value you are trying to access is empty or NULL', __LINE__, __CLASS__);
+                    Debug::exitdump('The value you are trying to access is empty or NULL', __LINE__, __CLASS__);
                 }
             } else {
-                Debug::pagedump('Please enter an array key as an argument: $this->get([KEY])', __LINE__, __CLASS__);
+                Debug::exitdump('Please enter an array key as an argument: $this->get([KEY])', __LINE__, __CLASS__);
             }
         } else {
-            Debug::pagedump("No variables has been send from this controller yet: " . ucfirst($cur_controller) . "Controller",
+            Debug::exitdump("No variables has been send from this controller yet: " . ucfirst($cur_controller) . "Controller",
                 __LINE__, __CLASS__);
         }
 

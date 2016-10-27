@@ -95,7 +95,7 @@ class Router {
                      * Checks if given controller exists
                      */
                     if (!file_exists('controllers/' . $split[0] . '.php')) {
-                        Debug::exitdump('controllers/' . $split[0] . '.php does not exist!');
+                        Debug::exitdump('controllers/' . $split[0] . '.php does not exist!', __LINE__, __CLASS__);
                     } else {
                         require 'controllers/' . $split[0] . '.php';
 

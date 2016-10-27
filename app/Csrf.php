@@ -68,7 +68,7 @@ class Csrf {
 			
 			return $user_token === $stored_token;
 		} else {
-			Debug::pagedump("POST CSRF token is not identical to stored SESSION", __LINE__, __CLASS__);
+			Debug::exitdump("POST CSRF token is not identical to stored SESSION", __LINE__, __CLASS__);
 		}
 	}
 	
@@ -79,7 +79,7 @@ class Csrf {
 	 */
 	public static function die_on_csrf_token_failure() {
 		if (!self::csrf_token_is_valid()) {
-			Debug::pagedump("CSRF token validation failed", __LINE__, __CLASS__);
+			Debug::exitdump("CSRF token validation failed", __LINE__, __CLASS__);
 		}
 	}
 	
@@ -102,7 +102,7 @@ class Csrf {
 			 * Remove expired token
 			 */
 			self::destroy_csrf_token();
-			Debug::pagedump("CSRF Token is not recent!", __LINE__, __CLASS__);
+			Debug::exitdump("CSRF Token is not recent!", __LINE__, __CLASS__);
 		}
 	}
 	
@@ -131,16 +131,16 @@ class Csrf {
 				if (self::csrf_token_is_recent()) {
 					return true;
 				} else {
-					Debug::pagedump("CSRF Token is not recent!", __LINE__, __CLASS__);
+					Debug::exitdump("CSRF Token is not recent!", __LINE__, __CLASS__);
 				}
 			} else {
-				Debug::pagedump("CSRF Token is not valid!", __LINE__, __CLASS__);
+				Debug::exitdump("CSRF Token is not valid!", __LINE__, __CLASS__);
 			}
 		} else {
 			/*
 			 * form not submitted or was GET request
 			 */
-			Debug::pagedump("Form not submitted or was GET request", __LINE__, __CLASS__);
+			Debug::exitdump("Form not submitted or was GET request", __LINE__, __CLASS__);
 		}
 	}
 }

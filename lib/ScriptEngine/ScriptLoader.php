@@ -23,7 +23,7 @@ class ScriptLoader {
 				foreach ($dirname as $name) {
 					if ($name != "NONE") {
 						if (!is_dir($dir . $name)) {
-							Debug::exitdump('Script directory not found');
+							Debug::exitdump('Script directory not found', __LINE__, __CLASS__);
 						}
 
 						$files = array_diff(scandir($dir . $name), ['..', '.']);
@@ -47,7 +47,7 @@ class ScriptLoader {
 			} else {
 				if ($dirname != "NONE") {
 					if (!is_dir($dir . $dirname)) {
-						Debug::exitdump('Script directory not found');
+						Debug::exitdump('Script directory not found', __LINE__, __CLASS__);
 					}
 
 					$files = array_diff(scandir($dir . $dirname), ['..', '.']);
@@ -90,7 +90,7 @@ class ScriptLoader {
 				foreach ($dirname as $name) {
 					if ($name != "NONE") {
 						if (!is_dir($dir . '/' . $name)) {
-							Debug::exitdump('Script directory not found');
+							Debug::exitdump('Script directory not found', __LINE__, __CLASS__);
 						}
 
 						$files = array_diff(scandir($dir . '/' . $name), ['..', '.']);
@@ -114,7 +114,7 @@ class ScriptLoader {
 			} else {
 				if ($dirname != "NONE") {
 					if (!is_dir($dir . '/' . $dirname)) {
-						Debug::exitdump('Script directory not found');
+						Debug::exitdump('Script directory not found', __LINE__, __CLASS__);
 					}
 
 					$files = array_diff(scandir($dir . '/' . $dirname), ['..', '.']);

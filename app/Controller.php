@@ -102,7 +102,7 @@ class Controller {
 			 */
 			$this->$model = new $model();
 		} else {
-			Debug::exitdump($model . ".php doesn't exist");
+			Debug::exitdump($model . ".php doesn't exist", __LINE__, __CLASS__);
 		}
 	}
 
@@ -120,7 +120,7 @@ class Controller {
 		if (file_exists($path)) {
 			require $path;
 		} else {
-			Debug::exitdump($library . ".php doesn't exist");
+			Debug::exitdump($library . ".php doesn't exist", __LINE__, __CLASS__);
 		}
 	}
 

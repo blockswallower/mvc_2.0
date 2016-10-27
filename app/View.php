@@ -54,13 +54,13 @@ class View {
 				if (!empty($value)) {
 					return $value;
 				} else {
-					Debug::pagedump('The value you are trying to access is empty or NULL', __LINE__, __CLASS__);
+					Debug::exitdump('The value you are trying to access is empty or NULL', __LINE__, __CLASS__);
 				}
 			} else {
-				Debug::pagedump('Please enter an array key as an argument: $this->get([KEY])', __LINE__, __CLASS__);
+				Debug::exitdump('Please enter an array key as an argument: $this->get([KEY])', __LINE__, __CLASS__);
 			}
 		} else {
-			Debug::pagedump("No variables has been send from this controller yet: " . ucfirst($cur_controller) . "Controller",
+			Debug::exitdump("No variables has been send from this controller yet: " . ucfirst($cur_controller) . "Controller",
 				__LINE__, __CLASS__);
 		}
 
@@ -104,13 +104,13 @@ class View {
 					 */
 					$this->rendered = true;
 				} else {
-					Debug::pagedump("The view: '$this->footer' does not exist");
+					Debug::exitdump("The view: '$this->footer' does not exist", __LINE__, __CLASS__);
 				}
 			} else {
-				Debug::pagedump("The view: '$this->header' does not exist");
+				Debug::exitdump("The view: '$this->header' does not exist", __LINE__, __CLASS__);
 			}
 		} else {
-			Debug::pagedump("The view: '". $this->get_view_path($view) ."' does not exist");
+			Debug::exitdump("The view: '". $this->get_view_path($view) ."' does not exist", __LINE__, __CLASS__);
 		}
 	}
 
@@ -125,8 +125,8 @@ class View {
 		if (file_exists($this->get_view_path($view))) {
 			include_once $this->get_view_path($view);
 		} else {
-			Debug::pagedump("The view '". $this->get_view_path($view) ."' you are trying to extend
-							 does not exist");
+			Debug::exitdump("The view '". $this->get_view_path($view) ."' you are trying to extend
+							 does not exist", __LINE__, __CLASS__);
 		}
 	}
 
@@ -161,7 +161,7 @@ class View {
 			 */
 			$this->rendered = true;
 		} else {
-			Debug::pagedump("The view '". $this->get_view_path($view) ."' does not exist");
+			Debug::exitdump("The view '". $this->get_view_path($view) ."' does not exist", __LINE__, __CLASS__);
 		}
 	}
 
@@ -172,7 +172,7 @@ class View {
 		if (file_exists($this->header)) {
 			require $this->header;
 		} else {
-			Debug::pagedump("The view: '$this->header' does not exist");
+			Debug::exitdump("The view: '$this->header' does not exist", __LINE__, __CLASS__);
 		}
 	}
 
@@ -183,7 +183,7 @@ class View {
 		if (file_exists($this->footer)) {
 			require $this->footer;
 		} else {
-			Debug::pagedump("The view: '$this->footer' does not exist");
+			Debug::exitdump("The view: '$this->footer' does not exist", __LINE__, __CLASS__);
 		}
 	}
 
@@ -197,7 +197,7 @@ class View {
 		if (file_exists($this->get_view_path($view))) {
 			require $this->get_view_path($view);
 		} else {
-			Debug::pagedump("The view: '". $this->get_view_path($view) ."' does not exist");
+			Debug::pagedump("The view: '". $this->get_view_path($view) ."' does not exist", __LINE__, __CLASS__);
 		}
 	}
 
@@ -213,7 +213,7 @@ class View {
 		if (file_exists($post_request_handler)) {
 			require $post_request_handler;
 		} else {
-			Debug::pagedump($post_request_handler."' does not exist");
+			Debug::pagedump($post_request_handler."' does not exist", __LINE__, __CLASS__);
 		}
 	}
 

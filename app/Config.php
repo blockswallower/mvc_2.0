@@ -80,7 +80,7 @@ class Config {
 			return $value;
 		}
 
-		Debug::exitdump("Key doesn't exist in config array");
+		Debug::exitdump("Key doesn't exist in config array", __LINE__, __CLASS__);
 		return false;
 	}
 }

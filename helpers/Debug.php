@@ -18,8 +18,8 @@ class Debug {
      * <pre> tags
      */
     public static function dump($data) {
-        echo '<pre>';
-            var_dump($data);
+        echo '<pre style="color: red">';
+            print_r($data);
         echo '</pre>';
     }
 
@@ -55,24 +55,23 @@ class Debug {
              */
             $cur_controller = ucfirst(Controller::return_current_controller())."Controller";
 
-            echo '<pre>';
-
-            echo "Something went wrong!\n\n";
+            echo "Something went wrong!<br><br>\n";
 
             if ($linenumber !== null) {
-                echo "Page dump call: line " . $linenumber ."\n";
+                echo "Page dump call: line " . $linenumber . "<br>\n";
             }
 
             if ($coreSnailClass !== null) {
-                echo "Controller/Class: " . $coreSnailClass;
+                echo "Controller/Class: " . $coreSnailClass . "<br><br>\n";
+                echo "=============================================<br>";
             } else {
-                echo "Controller/Class: " . $cur_controller ."\n\n";
-                echo "=============================================";
+                echo "Controller/Class: " . $cur_controller ."<br><br>\n";
+                echo "=============================================<br>\n";
             }
 
-            var_dump($data);
+            self::dump($data);
 
-            echo '</pre>';
+            echo "=============================================<br>\n";
 
             exit;
         }
