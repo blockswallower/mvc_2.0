@@ -152,7 +152,7 @@ class Debug {
 
                 for ($ii = 0; $ii < Arr::size($lines); $ii++) {
                     if ($ii + 1 == $linenumber) {
-                        echo "Code: <code>$ii " . htmlentities($lines[$ii]) . "</code>";
+                        echo "Code: <code>$linenumber " . htmlentities($lines[$ii]) . "</code>";
                     }
                 }
             }
