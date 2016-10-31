@@ -48,6 +48,40 @@ class Database extends PDO {
          * @var String
          * PDO Configurations
          */
+
+        if (!empty($this->db_name)) {
+            /*
+             * @var Object
+             *
+             * create a temporary PDO object to test
+             * database connections
+             */
+            $PDO = new PDO("$this->db_type:host=$this->db_host", $this->db_username, $this->db_password);
+
+            $result = $PDO->prepare("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '"
+                                     . $this->db_name ."'");
+            $result->execute();
+
+            /*
+             * @var Array
+             *
+             * Returns an array if the given database exists
+             * Data should look like this:
+             *
+             * Array ( [0] => Array ( [SCHEMA_NAME] => snail [0] => snail ) )
+             */
+            $found_database = $result->fetchAll();
+
+            if (empty($found_database)) {
+                /*
+                 * @var String
+                 */
+                $data = "The database: <i>'" . $this->db_name . "'</i> does not exist!";
+
+                Debug::exitdump($data, __LINE__, "app/Database");
+            }
+        }
+
         $dsn = "$this->db_type:dbname=$this->db_name;host=$this->db_host";
 
         parent::__construct($dsn, $this->db_username, $this->db_password);
