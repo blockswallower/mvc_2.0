@@ -14,10 +14,10 @@ class Request {
             if (!empty($_POST[$key])) {
                 return $_POST[$key];
             } else {
-                Debug::exitdump("post request->" . $key . " is empty");
+                Debug::exitdump("post request->" . $key . " is empty", __LINE__, "helpers/Request");
             }
         } else {
-            Debug::exitdump("post request->" . $key . " has not been set");
+            Debug::exitdump("post request->" . $key . " has not been set", __LINE__, "helpers/Request");
         }
 
         return null;
@@ -35,10 +35,10 @@ class Request {
             if (!empty($_GET[$key])) {
                 return $_GET[$key];
             } else {
-                Debug::exitdump("get request->" . $key . " is empty");
+                Debug::exitdump("get request->" . $key . " is empty", __LINE__, "helpers/Request");
             }
         } else {
-            Debug::exitdump("get request->" . $key . " has not been set");
+            Debug::exitdump("get request->" . $key . " has not been set", __LINE__, "helpers/Request");
         }
 
         return null;

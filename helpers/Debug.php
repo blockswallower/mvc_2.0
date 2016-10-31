@@ -6,10 +6,10 @@ class Debug {
      * debug methods
      */
 
-    /**
+    /*
      * @var String
      */
-    public static $standard_error_session = "Error";
+    private static $standard_path = "./";
 
     /**
      * @param $data
@@ -18,7 +18,7 @@ class Debug {
      * <pre> tags
      */
     public static function dump($data) {
-        echo '<pre style="color: red">';
+        echo '<code style="color: #1b6d85">';
             print_r($data);
         echo '</pre>';
     }
@@ -61,84 +61,104 @@ class Debug {
             echo("
                 <script type='text/javascript'>
                     document.body.innerHTML = '';
-                </script>
+                </script>\n
             ");
 
-            echo "Something went wrong!<br><br>\n";
+            echo "<div style='width: 100%;
+                        background-color: lightgoldenrodyellow;
+                        margin-top: -10px;
+                        margin-left: -10px;
+                        padding-left: 30px;
+                        padding-top: 10px;
+                        padding-bottom: 30px;'>\n";
+
+            echo "<h1 style='color: #1b6d85'>Something went wrong!</h1>\n";
+
+            /*
+             * Debug::dump the dump value
+             */
+            echo "Debug value: <br>\n";
+
+            /*
+             * If $data is an array Debug::dump it,
+             * if not just print the value
+             */
+            if (is_array($data)) {
+                Debug::dump($data);
+            } else {
+                echo "<h3 style='color: #1b6d85'>$data</h3>\n";
+            }
+
+            /*
+             * Print the Server Request Method
+             */
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                echo "Request method: Post<br>\n";
+            } else {
+                echo "Request method: Get<br>\n";
+            }
+
+            /*
+             * @var String
+             */
+            $url = '';
+
+            foreach(Router::get_url() as $route) {
+                $url .= $route . "/";
+            }
+
+            /*
+             * Print the Request URL
+             */
+            echo "Request URL: " . $url . "<br>\n";
+
+            /*
+             * Print the Snail Version
+             */
+            echo "Snail version: " . Config::get("APP_VERSION") . "<br>\n";
+
+            /*
+             * Print the file where the exitdump was executed
+             */
+            if ($coreSnailClass !== null) {
+                echo "Given class: " . $coreSnailClass . "<br>\n";
+            } else {
+                echo "View rendered from: " . $cur_controller . "<br>\n";
+            }
+
+            /*
+             * Print the line number
+             */
+            if ($linenumber !== null) {
+                echo "Execution line: " . $linenumber . "<br>\n";
+            }
+
+            /*
+             * Print actual date and time of execution
+             */
+            echo "Server time: " . date('l jS \of F Y h:i:s A') . "<br>\n";
 
             if ($linenumber !== null) {
-                echo "Page dump call: line " . $linenumber . "<br>\n";
+                /*
+                 * @var String
+                 */
+                $filename = $coreSnailClass !== null ? $coreSnailClass : "controllers/" . $cur_controller . ".php";
+
+                /*
+                 * @var Array
+                 */
+                $lines = file(self::$standard_path . $filename . ".php");
+
+                for ($ii = 0; $ii < Arr::size($lines); $ii++) {
+                    if ($ii + 1 == $linenumber) {
+                        echo "Code: <code>$ii " . htmlentities($lines[$ii]) . "</code>";
+                    }
+                }
             }
 
-            if ($coreSnailClass !== null) {
-                echo "Controller/Class: " . $coreSnailClass . "<br><br>\n";
-                echo "=============================================<br>";
-            } else {
-                echo "Controller/Class: " . $cur_controller ."<br><br>\n";
-                echo "=============================================<br>\n";
-            }
-
-            self::dump($data);
-
-            echo "=============================================<br>\n";
+            echo "</div>";
 
             exit;
-        }
-    }
-
-    /**
-     * @param $data
-     * @param $linenumber
-     * @param $coreSnailClass
-     *
-     * dumps data between
-     * <pre> tags on a different page 
-     * and ends the programme
-     *
-     * If you want the linenumber from where
-     * this dump is executed to appear,
-     * use the Magic constants build in PHP as the second argument:
-     *
-     * Debug::pagedump("This is a dump!", __LINE__);
-     *
-     * If you are using a core snail functionality class and
-     * you don't want to dump the current controller, just fill
-     * in the file (as String) where you execute the dump as a third argument.
-     *
-     * Debug::pagedump("This is a dump!", __LINE__, [NAME OF FILE]);
-     *
-     * or use the PHP magic constant:
-     *
-     * Debug::pagedump("This is a dump!", __LINE__, __CLASS__);
-     */
-    public static function pagedump($data, $linenumber = null, $coreSnailClass = null) {
-        if (Config::get('DEBUG')) {
-            /*
-             * @var String
-             */
-            $cur_controller = ucfirst(Controller::return_current_controller())."Controller";
-
-            /*
-             * @var String
-             */
-            $debug_info = "";
-
-            if ($linenumber != null && $coreSnailClass == null) {
-                $debug_info = "Page dump call: line ". $linenumber ."<br>Controller/Class: ". $cur_controller;
-            } else if ($linenumber == null && $coreSnailClass == null) {
-                $debug_info = "Controller/Class: ". $cur_controller;
-            }
-
-            if ($linenumber != null && $coreSnailClass != null) {
-                $debug_info = "Page dump call: line ". $linenumber ."<br>Controller/Class: ". $coreSnailClass. ".php";
-            } else if ($linenumber == null && $coreSnailClass != null) {
-                $debug_info = "Controller/Class: ". $coreSnailClass . ".php";
-            }
-
-
-            Sessions::set("debug_info", $debug_info);
-            Sessions::set(self::$standard_error_session, $data);
-            Url::redirect("debug");
         }
     }
 }

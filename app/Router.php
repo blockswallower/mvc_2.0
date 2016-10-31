@@ -95,7 +95,7 @@ class Router {
                      * Checks if given controller exists
                      */
                     if (!file_exists('controllers/' . $split[0] . '.php')) {
-                        Debug::exitdump('controllers/' . $split[0] . '.php does not exist!', __LINE__, __CLASS__);
+                        Debug::exitdump('controllers/' . $split[0] . '.php does not exist!', __LINE__, "app/Router");
                     } else {
                         require 'controllers/' . $split[0] . '.php';
 
@@ -130,7 +130,7 @@ class Router {
     /**
      * @return array
      */
-    public function get_url() {
+    public static function get_url() {
         /*
          * @var Array
          */
