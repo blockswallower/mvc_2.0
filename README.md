@@ -67,6 +67,36 @@ Just add the name of your view and the method that renders your view to the rout
 Now if you try to navigate to for example http://localhost/snail/index <br>
 you will get the correct view
 
+# Database Configurations
+
+Snail uses PDO to handle database logic. <br>
+To change your database configurations go to app/config.php. <br>
+In this file you will find the config array which contains everything<br>
+relating Snail configurations. <br>
+
+The standard database values:
+
+```php
+'DB_TYPE' => 'mysql',
+'DB_HOST' => 'localhost',
+'DB_NAME' => '',
+'DB_USERNAME' => 'root',
+'DB_PASSWORD' => '',
+```
+
+Just edit these values however you like and the Database class will automatically be updated.<br>
+Your configurations should look something similar to this:
+
+```php
+'DB_TYPE' => 'mysql',
+'DB_HOST' => 'localhost',
+'DB_NAME' => 'Snail',
+'DB_USERNAME' => 'Dennis',
+'DB_PASSWORD' => 'MyPassword',
+```
+
+
+
 # License 
 
 **_Snail - PHP Micro Framework_** is licensed under the Open Source MIT license, so you can use it for any personal or corporate projects! 
