@@ -20,7 +20,7 @@ class Debug {
     public static function dump($data) {
         echo '<code style="color: #1b6d85">';
             print_r($data);
-        echo '</pre>';
+        echo '</code>';
     }
 
     /**
@@ -85,6 +85,7 @@ class Debug {
              */
             if (is_array($data)) {
                 Debug::dump($data);
+                echo "<br><br>";
             } else {
                 echo "<h3 style='color: #1b6d85'>$data</h3>\n";
             }
@@ -142,7 +143,7 @@ class Debug {
                 /*
                  * @var String
                  */
-                $filename = $coreSnailClass !== null ? $coreSnailClass : "controllers/" . $cur_controller . ".php";
+                $filename = $coreSnailClass !== null ? $coreSnailClass : "controllers/" . $cur_controller;
 
                 /*
                  * @var Array

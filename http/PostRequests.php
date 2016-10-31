@@ -13,7 +13,7 @@ class PostRequests {
          * for example: "index" => "IndexController.test",
          */
         $this->post_requests = [
-            
+
         ];
     }
 
