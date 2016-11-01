@@ -40,6 +40,14 @@ class Config {
 			'DEBUG' => true,
 
 			/*
+			 * Csrf
+			 *
+			 * If this value is true a csrf token
+			 * must be provided when the form submits
+			 */
+			'CSRF' => true,
+
+			/*
 			 * Database
 			 */
 			'DB_TYPE' => 'mysql',

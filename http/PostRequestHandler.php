@@ -21,6 +21,19 @@ require_once './http/PostRequests.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     /*
+     * If the csrf config value is true
+     * a csrf token needs to be provided
+     *
+     * If this is not the case return an error
+     */
+    if (Config::get("CSRF")) {
+        if (!isset($_POST["csrf_token"])) {
+            Debug::exitdump("Be sure to add a csrf token to your post!: <code>echo Csrf::csrf_token</code>",
+                __LINE__, "http/PostRequestHandler");
+        }
+    }
+
+    /*
      * @var Array
      */
     $url = Router::get_url();
@@ -40,27 +53,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      */
     $post_requests = $PostRequests->getPostRequests();
 
-    if (strstr($post_requests[$current_page], ".")) {
-        /*
-         * @var Array
-         */
-        $split = explode(".", $post_requests[$current_page]);
+    if (!empty($post_requests[$current_page])) {
+        if (strstr($post_requests[$current_page], ".")) {
+            /*
+             * @var Array
+             */
+            $split = explode(".", $post_requests[$current_page]);
 
-        /*
-         * @var String
-         */
-        $controller = $split[0];
+            /*
+             * @var String
+             */
+            $controller = $split[0];
 
-        require_once 'controllers/' . $controller . '.php';
+            require_once 'controllers/' . $controller . '.php';
 
-        /*
-         * @var Object
-         */
-        $controller = new $split[0];
+            /*
+             * @var Object
+             */
+            $controller = new $split[0];
 
-        /*
-         * Runs method given in post_requests
-         */
-        $controller->$split[1]();
+            /*
+             * Runs method given in post_requests
+             */
+            $controller->$split[1]();
+        }
     }
 }
