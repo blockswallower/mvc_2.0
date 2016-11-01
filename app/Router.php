@@ -27,8 +27,16 @@ class Router {
          */
         $page_not_found_controller = "PageNotFoundController";
 
+        /*
+         * @var String
+         */
+        $page_not_found_rendering_method = "show";
+
         if (!empty($current_page)) {
             if (!empty($routes->getRoutes()[$current_page])) {
+                /*
+                 * Route to the correct view
+                 */
                 $this->http($routes->getRoutes()[$current_page], $url);
             } else {
                 require 'controllers/' . $page_not_found_controller . ".php";
@@ -40,7 +48,7 @@ class Router {
                 /*
                  * Renders 404 page
                  */
-                $controller->show();
+                $controller->$page_not_found_rendering_method();
             }
         } else {
             if (!isset($standard_controller)) {
