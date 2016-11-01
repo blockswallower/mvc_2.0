@@ -17,13 +17,13 @@
  * "index" => "IndexController.test"
  */
 
-require_once 'PostRequests.php';
+require_once './http/PostRequests.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     /*
      * @var Array
      */
-    $url = get_url();
+    $url = Router::get_url();
 
     /*
      * @var String
@@ -63,37 +63,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
          */
         $controller->$split[1]();
     }
-}
-
-/**
- * @return array
- */
-function get_url() {
-    /*
-     * @var Array
-     */
-    $split = explode("/", $_SERVER['REQUEST_URI']);
-
-    if (!empty($split[2])) {
-        if (Str::contains($split[2], ["?", "="], true)) {
-            /*
-             * @var Array
-             */
-            $strsplit = str_split($split[2]);
-
-            /*
-             * @var Integer
-             */
-            $question_mark_index = Arr::find_index($strsplit, "?");
-
-            /*
-             * @var String
-             */
-            $cut_string = Str::substringint($split[2], 0, $question_mark_index - 1);
-
-            $split[2] = $cut_string;
-        }
-    }
-
-    return $split;
 }

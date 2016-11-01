@@ -126,7 +126,6 @@ class Router {
         }
     }
 
-
     /**
      * @return array
      */
