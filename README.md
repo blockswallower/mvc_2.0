@@ -10,7 +10,6 @@ and contains a lot of optional features like:
   - Backend security
   - Symfony command-line interface
   - Database migrations
-  - _(Still in development)_ Language translator
   - _(Still in development)_ Build in PHP server
 
 # Download
@@ -58,8 +57,6 @@ Navigate to http/Routes.php. Here you will see the array that contains all the r
 ```php
 $this->routes = [
     "index" => "IndexController.show",
-    "debug" => "DebugController.show",
-    "404" => "PageNotFoundController.show",
 ];
 ```
 
@@ -69,8 +66,8 @@ you will get the correct view
 
 # Database Configurations
 
-Snail uses PDO to handle database logic. <br>
-To change your database configurations go to app/config.php. <br>
+Snail uses **PDO** to handle database logic. <br>
+To change your database configurations go to **app/config.php**. <br>
 In this file you will find the config array which contains everything<br>
 relating Snail configurations. <br>
 
@@ -99,6 +96,6 @@ Your configurations should look something similar to this:
 
 # License 
 
-**_Snail - PHP Micro Framework_** is licensed under the Open Source MIT license, so you can use it for any personal or corporate projects! 
+**_Snail - PHP Framework_** is licensed under the Open Source MIT license, so you can use it for any personal or corporate projects! 
 
 Built by Dennis Slimmers and [Bas van der Ploeg](https://www.linkedin.com/in/bas-van-der-ploeg-836830ba)
