@@ -95,7 +95,7 @@ class Controller {
 		$path = $this->modelsdir . $model.".php";
 
 		if (file_exists($path)) {
-			require $path;
+			require_once $path;
 
 			/*
 			 * @var Object
