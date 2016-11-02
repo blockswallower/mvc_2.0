@@ -17,10 +17,23 @@ class Router {
          */
         $url = $this->get_url();
 
-        /*
-         * @var String
-         */
-        $current_page = $url[2];
+        if (Arr::size($url) > 2) {
+            /*
+             * @var String
+             */
+            $current_page = '';
+
+            for ($ii  = 2; $ii < Arr::size($url); $ii++) {
+                $slash =  Arr::last($url) == $url[$ii] ? "" : "/";
+
+                $current_page .= $url[$ii] . $slash;
+            }
+        } else {
+            /*
+             * @var String
+             */
+            $current_page = $url[2];
+        }
 
         /*
          * @var String
@@ -82,7 +95,7 @@ class Router {
      *
      * This method routes the user based on http/Routes.php
      */
-    public function http($controller = null, $url) {
+    private function http($controller = null, $url) {
         $current_page = $url[2];
 
         if (!empty($current_page)) {
@@ -120,6 +133,8 @@ class Router {
                              * Executes given method
                              */
                             $controller->$split[1]();
+                        } else {
+                            Debug::exitdump("The method '$split[1]' does not exist in '$split[0]'!", __LINE__, "app/Router");
                         }
                     }
                 } else {
