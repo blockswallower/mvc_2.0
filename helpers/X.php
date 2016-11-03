@@ -14,7 +14,7 @@ class X {
      * Returns string|array secured
      * against cross site scripting
      */
-    public static function xss_prevent($data) {
+    public static function _prevent($data) {
         if (!is_array($data)) {
             return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
         }
@@ -23,7 +23,7 @@ class X {
 
         foreach ($data as $key => $value) {
             if (is_array($value)) {
-                $ret[$key] = self::xss_prevent($data[$key]);
+                $ret[$key] = self::_prevent($data[$key]);
                 continue;
             }
 
@@ -41,7 +41,7 @@ class X {
      * Returns string|array decode
      * against cross site scripting
      */
-    public static function xss_decode($data) {
+    public static function _decode($data) {
         if (!is_array($data)) {
             return htmlspecialchars_decode($data, ENT_QUOTES);
         }
@@ -50,7 +50,7 @@ class X {
 
         foreach ($data as $key => $value) {
             if (is_array($value)) {
-                $ret[$key] = self::xss_decode($data[$key]);
+                $ret[$key] = self::_decode($data[$key]);
                 continue;
             }
 
@@ -71,7 +71,7 @@ class X {
      *
      * $this->fix($_POST, file_get_contents('php://input'));
      */
-    public static function fix(&$target, $source, $discard = true) {
+    public static function _fix(&$target, $source, $discard = true) {
         if ($discard) {
             $target = array();
         }
@@ -96,10 +96,10 @@ class X {
      */
     public static function _echo($data) {
         if (!is_array($data)) {
-            echo self::xss_prevent($data);
+            echo self::_prevent($data);
         } else {
             foreach($data as $item) {
-                echo self::xss_prevent($item)."</br>";
+                echo self::_prevent($item)."</br>";
             }
         }
     }
@@ -111,7 +111,7 @@ class X {
      * Cleans string for javascript/vb
      * encodings
      */
-    public static function xss_clean($data) {
+    public static function _clean($data) {
         /**
          * Fix &entity\n;
          */
