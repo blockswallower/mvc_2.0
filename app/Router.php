@@ -183,12 +183,12 @@ class Router {
          */
         $split = explode("/", $_SERVER['REQUEST_URI']);
 
-        if (!empty($split[2])) {
-            if (Str::contains($split[2], ["?", "="], true)) {
+        if (!empty(Arr::last($split))) {
+            if (Str::contains(Arr::last($split), ["?", "="], true)) {
                 /*
                  * @var Array
                  */
-                $strsplit = str_split($split[2]);
+                $strsplit = str_split(Arr::last($split));
 
                 /*
                  * @var Integer
@@ -198,9 +198,14 @@ class Router {
                 /*
                  * @var String
                  */
-                $cut_string = Str::substringint($split[2], 0, $question_mark_index - 1);
+                $cut_string = Str::substringint(Arr::last($split), 0, $question_mark_index - 1);
 
-                $split[2] = $cut_string;
+                /*
+                 * @var Integer
+                 */
+                $last_item_index = Arr::find_index($split, Arr::last($split));
+
+                $split[$last_item_index] = $cut_string;
             }
         }
 
