@@ -22,14 +22,16 @@ class Form {
     /**
      * @param $method
      * @param $action
+     * @param $css
      */
-    public static function open($method, $action, $css) {
+    public static function open($method = "", $action = "", $css = "") {
         /**
          * Instantiates a new form.
          * parameters will fill in the
          * required
          */
-        echo "<form method='" . $method." class=" . $css . "' action='" . $action . "' role='form'>";
+        echo "<form method='" . $method == "" ? self::$standard_method : $method ."
+              class=" . $css . "' action='" . $action . "' role='form'>";
     }
 
     /**
@@ -44,8 +46,9 @@ class Form {
 
     /**
      * @param $name
+     * @param $css
      */
-    public static function submit($name, $css) {
+    public static function submit($name = "", $css = "") {
         /**
          * Generates a submit button
          */
@@ -56,7 +59,7 @@ class Form {
      * @param $value
      * @param $name
      */
-    public static function hidden($name, $value) {
+    public static function hidden($value, $name = "") {
         /**
          * Generates hidden input field
          */
@@ -67,7 +70,7 @@ class Form {
      * @param $name
      * @param $placeholder
      */
-    public static function text($name, $placeholder, $css) {
+    public static function text($name = "", $placeholder = "", $css = "") {
         /**
          * Generates text input field
          */
