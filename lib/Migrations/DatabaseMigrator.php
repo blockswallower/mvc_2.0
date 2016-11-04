@@ -1,37 +1,37 @@
 <?php
 
 class DatabaseMigrator {
-    /*
+    /**
      * @var String
      * Database type
      */
     private $db_type;
 
-    /*
+    /**
      * @var String
      * Database host
      */
     private $db_host;
 
-    /*
+    /**
      * @var String
      * Database username
      */
     private $db_username;
 
-    /*
+    /**
      * @var String
      * Database name
      */
     private $db_name;
 
-    /*
+    /**
      * @var String
      * Database password
      */
     private $db_password;
 
-    /*
+    /**
      * @var Object
      * PDO Configuration
      */
@@ -43,14 +43,14 @@ class DatabaseMigrator {
      * Creates a database using PDO
      */
     public function create_database($db_name) {
-        /*
+        /**
          * Set PDO error mode to exception
          */
         $this->PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $db_name = "`".str_replace("`", "``", $db_name) . "`";
 
-        /*
+        /**
          * Create the database!
          */
         if ($this->PDO->query("CREATE DATABASE IF NOT EXISTS $db_name")) {
@@ -59,7 +59,7 @@ class DatabaseMigrator {
 
         $this->db_name = $db_name;
 
-        /*
+        /**
          * Optional:
          */
         $this->PDO->exec("USE $db_name");
@@ -74,24 +74,29 @@ class DatabaseMigrator {
      */
     public function create_table($table_name, $columns, $database = null) {
         if (is_array($columns)) {
-            /*
+            /**
              * Set PDO error mode to exception
              */
             $this->PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+            /**
+             * @var String
+             */
             $table_columns = "";
 
             for ($ii = 0; $ii < count($columns); $ii++) {
                 $comma = count($columns) - 1 == $ii ? "" : ", ";
 
-                /*
+                /**
                  * Don't add a comma if the current column
                  * in the loop is the last given column
                  */
                 $table_columns .= $columns[$ii] . $comma;
             }
 
-            /*
+            /**
+             * @var String
+             *
              * Set the database to the given database if not null
              */
             $database = $database === null ? "" : $database . ".";
@@ -118,10 +123,10 @@ class DatabaseMigrator {
         $this->db_username = $db_username;
         $this->db_password = $db_password;
 
-        /*
-        * @var Object
-        * PDO Configuration
-        */
+        /**
+         * @var Object
+         * PDO Configuration
+         */
         $this->PDO = new PDO("$this->db_type:host=$this->db_host", $this->db_username, $this->db_password);
     }
 }

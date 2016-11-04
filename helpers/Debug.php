@@ -50,12 +50,12 @@ class Debug {
      */
     public static function exitdump($data, $linenumber = null, $coreSnailClass = null) {
         if (Config::get("DEBUG")) {
-            /*
+            /**
              * @var String
              */
             $cur_controller = ucfirst(Controller::return_current_controller())."Controller";
 
-            /*
+            /**
              * Blanks out the page using javascript
              */
             echo("
@@ -74,12 +74,12 @@ class Debug {
 
             echo "<h1 style='color: #1b6d85'>Something went wrong!</h1>\n";
 
-            /*
+            /**
              * Debug::dump the dump value
              */
             echo "Debug value: <br>\n";
 
-            /*
+            /**
              * If $data is an array Debug::dump it,
              * if not just print the value
              */
@@ -90,7 +90,7 @@ class Debug {
                 echo "<h3 style='color: #1b6d85'>$data</h3>\n";
             }
 
-            /*
+            /**
              * Print the Server Request Method
              */
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -99,7 +99,7 @@ class Debug {
                 echo "Request method: Get<br>\n";
             }
 
-            /*
+            /**
              * @var String
              */
             $url = '';
@@ -108,17 +108,17 @@ class Debug {
                 $url .= $route . "/";
             }
 
-            /*
+            /**
              * Print the Request URL
              */
             echo "Request URL: " . $url . "<br>\n";
 
-            /*
+            /**
              * Print the Snail Version
              */
             echo "Snail version: " . Config::get("APP_VERSION") . "<br>\n";
 
-            /*
+            /**
              * Print the file where the exitdump was executed
              */
             if ($coreSnailClass !== null) {
@@ -127,26 +127,26 @@ class Debug {
                 echo "View rendered from: " . $cur_controller . "<br>\n";
             }
 
-            /*
+            /**
              * Print the line number
              */
             if ($linenumber !== null) {
                 echo "Execution line: " . $linenumber . "<br>\n";
             }
 
-            /*
+            /**
              * Print actual date and time of execution
              */
             echo "Server time: " . date('l jS \of F Y h:i:s A') . "<br>\n";
 
             if ($linenumber !== null) {
-                /*
+                /**
                  * @var String
                  */
                 $filename = $coreSnailClass !== null ? $coreSnailClass : "controllers/" . $cur_controller;
 
-                /*
-                 * @var Array
+                /**
+                 * @var array
                  */
                 $lines = file(self::$standard_path . $filename . ".php");
 

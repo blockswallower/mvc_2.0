@@ -44,13 +44,8 @@ class Database extends PDO {
         $this->db_username = Config::get("DB_USERNAME");
         $this->db_password = Config::get("DB_PASSWORD");
 
-        /**
-         * @var String
-         * PDO Configurations
-         */
-
         if (!empty($this->db_name)) {
-            /*
+            /**
              * @var Object
              *
              * create a temporary PDO object to test
@@ -62,8 +57,8 @@ class Database extends PDO {
                                      . $this->db_name ."'");
             $result->execute();
 
-            /*
-             * @var Array
+            /**
+             * @var array
              *
              * Returns an array if the given database exists
              * Data should look like this:
@@ -73,7 +68,7 @@ class Database extends PDO {
             $found_database = $result->fetchAll();
 
             if (empty($found_database)) {
-                /*
+                /**
                  * @var String
                  */
                 $data = "The database: <i>'" . $this->db_name . "'</i> does not exist!";

@@ -1,13 +1,13 @@
 <?php
 
 class PostRequests {
-    /*
-     * @var Array
+    /**
+     * @var array
      */
     public $post_requests;
 
     public function __construct() {
-        /*
+        /**
          * This array contains all post requests
          *
          * for example: "index" => "IndexController.test",
@@ -17,7 +17,7 @@ class PostRequests {
         ];
     }
 
-    /*
+    /**
      * @return array
      */
     public function getPostRequests() {

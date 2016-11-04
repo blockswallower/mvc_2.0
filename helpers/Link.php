@@ -59,7 +59,7 @@ class Link {
      * generates img tag
      */
     public static function img($src, $width, $height, $css = null) {
-        /*
+        /**
          * @var String
          */
         $src = self::$absolute_img_path . $src;
@@ -75,17 +75,17 @@ class Link {
      * Googles the given search term
      */
     public static function google($search_term, $between_tags) {
-        /*
-         * @var Array
+        /**
+         * @var array
          */
         $split = explode(" ", $search_term);
 
-        /*
+        /**
          * @var String
          */
         $search_term = "https://www.google.nl/#q=";
 
-        /*
+        /**
          * @var Integer
          */
         $last_index = Arr::find_index($split, Arr::last($split));

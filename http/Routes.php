@@ -1,13 +1,13 @@
 <?php
 
 class Routes {
-    /*
-     * @var Array
+    /**
+     * @var array
      */
     private $routes;
 
     public function __construct() {
-        /*
+        /**
          * This array contains all routing
          * information
          *
@@ -19,7 +19,7 @@ class Routes {
         ];
     }
 
-    /*
+    /**
      * @return array
      */
     public function getRoutes() {

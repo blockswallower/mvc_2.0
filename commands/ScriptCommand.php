@@ -47,7 +47,7 @@ class ScriptCommand extends Command {
 	    $files = array_diff(scandir("./scripts/" . $folder_name), ['..', '.']);
 	
 	    foreach ($files as $file) {
-		    /*
+		    /**
 			 * @var String
 			 */
 		    $myfile = file_get_contents(getcwd() . "/scripts/" . $folder_name .'/' . $file);

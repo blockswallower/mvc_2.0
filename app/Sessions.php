@@ -35,7 +35,7 @@ class Sessions {
      * 1 day
      */
     public static function init() {
-        /*
+        /**
          * Starts a sessions if no sessions was started
          */
         if (session_status() == PHP_SESSION_NONE) {
@@ -70,9 +70,6 @@ class Sessions {
     }
 
     /**
-     * @param $key
-     * @return mixed
-     *
      * forcibly end the session
      */
     public static function end_all_sessions() {
@@ -109,7 +106,7 @@ class Sessions {
     public static function confirm_user_logged_in() {
         if (!self::is_logged_in()) {
             self::end_all_sessions();
-            /*
+            /**
              * Note that header redirection requires output buffering
              * to be turned on or requires nothing has been output
              * (not even whitespace).
@@ -120,18 +117,18 @@ class Sessions {
         }
     }
 
-    /*
+    /**
      * If session is not valid,
      * end and redirect to login page.
      */
     public static function confirm_session_is_valid() {
         if (!self::is_session_valid()) {
             self::end_all_sessions();
-            /*
-            * Note that header redirection requires output buffering
-            * to be turned on or requires nothing has been output
-            * (not even whitespace).
-            */
+            /**
+             * Note that header redirection requires output buffering
+             * to be turned on or requires nothing has been output
+             * (not even whitespace).
+             */
 
             header("Location: index");
             exit;

@@ -24,7 +24,7 @@ class Form {
         echo "<form method='" . $method." class=" . $css . "' action='" . $action . "' role='form'>";
     }
 
-    /*
+    /**
      * Closes the form
      */
     public static function close() {
@@ -74,7 +74,7 @@ class Form {
      */
     public static function request_is_same_domain() {
 		if(!isset($_SERVER['HTTP_REFERER'])) {
-			/*
+			/**
 			 * No refererer sent, so can't be same domain
 			 */
 			return false;

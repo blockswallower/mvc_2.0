@@ -1,57 +1,57 @@
 <?php
 
 class Controller {
-	/*
+	/**
 	 * This class is a
 	 * blueprint for all the other
 	 * controllers
 	 */
 
-	/*
+	/**
 	 * @var array
 	 */
 	protected $globals;
 
-	/*
+	/**
 	 * @var object
 	 */
 	protected $view;
 
-	/*
+	/**
 	 * @var string
 	 */
 	protected $model;
 
-	/*
+	/**
 	 * @var array
 	 */
 	protected $config;
 
-	/*
+	/**
 	 * @var string
 	 */
 	protected $modelsdir = 'models/';
 
-	/*
+	/**
 	 * @var string
 	 */
 	protected $libsdir = 'lib/';
 
 	public function __construct() {
-		/*
+		/**
 		 * This is needed for 
 		 * being able to redirect 
 		 * after a function call
 		 */
 		ob_start();
 
-		/*
+		/**
 		 * Starts the session
 		 * on every page
 		 */
 		Sessions::init();
 		
-		/*
+		/**
 		 * Create a new View object on every page
 		 */
 		$this->view = new View();
@@ -71,7 +71,7 @@ class Controller {
 		$this->config = new Config();
 	}
 
-	/*
+	/**
 	 * @param $model
 	 *
 	 * Loads the model in the given
@@ -84,12 +84,12 @@ class Controller {
 	 * $this->index->[FUCTION_CALL]
      */
 	public function load_model($model) {
-		/*
+		/**
 		 * @var String
 		 */
 		$model = ucfirst($model)."Model";
 
-		/*
+		/**
 		 * @var String
 		 */
 		$path = $this->modelsdir . $model.".php";
@@ -97,7 +97,7 @@ class Controller {
 		if (file_exists($path)) {
 			require_once $path;
 
-			/*
+			/**
 			 * @var Object
 			 */
 			$this->$model = new $model();
@@ -106,13 +106,13 @@ class Controller {
 		}
 	}
 
-	/*
+	/**
 	 * @param $library
 	 *
 	 * loads in library based on the parameter
      */
 	public function load_library($library) {
-		/*
+		/**
 		 * @var String
 		 */
 		$path = $this->libsdir . $library . '/' . $library . '.php';
@@ -124,7 +124,7 @@ class Controller {
 		}
 	}
 
-	/*
+	/**
 	 * @param $controller
 	 * @param $key
 	 * @param $value
@@ -149,7 +149,7 @@ class Controller {
 		$this->globals[$controller][$key] = $value;
 	}
 
-	/*
+	/**
 	 * This allows templates to access
 	 * global variables
 	 */
@@ -157,7 +157,7 @@ class Controller {
 		$this->view->globals = $this->globals;
 	}
 
-	/*
+	/**
 	 * Returns the controller the user
 	 * is currently using
 	 */
@@ -168,7 +168,7 @@ class Controller {
 		$url = explode('/', $url);
 
 		if (empty($url[0])) {
-			/*
+			/**
 			 * Will set the current controller
 			 * to Config::get("STANDARD_CONTROLLER")
 			 * if no controller was found

@@ -3,7 +3,7 @@
 require 'DatabaseMigrator.php';
 
 class Migrations extends DatabaseMigrator {
-    /*
+    /**
      * Call methods from the DatabaseMigrator class
      * to create databases, fields, tables etc
      */

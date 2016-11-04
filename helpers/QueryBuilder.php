@@ -1,7 +1,7 @@
 <?php
 
 class QueryBuilder {
-    /*
+    /**
      * @var object
      * Database object
      */

@@ -12,7 +12,7 @@ class Config {
 	public static $config;
 	
 	public function __construct() {
-		/*
+		/**
 		 * This config array can be accessed 
 		 * in every other file
 		 * 
@@ -26,7 +26,7 @@ class Config {
 		 *
 		 */
 		self::$config = array(
-			/*
+			/**
 			 * Application information
 			 */
 			'APP_NAME' => 'Snail - PHP framework',
@@ -34,12 +34,12 @@ class Config {
 			'APP_LANGUAGE' => 'en',
 			'APP_MAIL' => 'info@snailframework.com',
 
-			/*
+			/**
 			 * Debug
 			 */
 			'DEBUG' => true,
 
-			/*
+			/**
 			 * Csrf
 			 *
 			 * If this value is true a csrf token
@@ -47,7 +47,7 @@ class Config {
 			 */
 			'CSRF' => true,
 
-			/*
+			/**
 			 * Database
 			 */
 			'DB_TYPE' => 'mysql',
@@ -56,7 +56,7 @@ class Config {
 			'DB_USERNAME' => 'root',
 			'DB_PASSWORD' => '',
 
-			/*
+			/**
 			 * Scripts
 			 */
 			'SCRIPT' => array(
@@ -64,7 +64,7 @@ class Config {
 				'ONE_TIME_EXECUTION' => 'NONE'
 			),
 
-			/*
+			/**
 			 * Reserved names
 			 */
 			'STANDARD_CONTROLLER' => "index",
@@ -79,7 +79,7 @@ class Config {
 	 * Returns value from config array
      */
 	public static function get($key) {
-		/*
+		/**
 		 * @var String
 		 */
 		$value = self::$config[$key];

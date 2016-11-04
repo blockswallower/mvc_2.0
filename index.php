@@ -47,14 +47,14 @@ function autoload($directories) {
 autoload($directories);
 
 /**
- * @var object
+ * @var Object
  *
  * stores the settings object
  */
 $settings = new Config();
 
 /**
- * @var object
+ * @var Object
  * 
  * loads in every script given
  * in the settings array/string
@@ -62,7 +62,7 @@ $settings = new Config();
 $script = new ScriptLoader();
 
 /**
- * @var object
+ * @var Object
  *
  * stores the Application object
  * and starts the MVC system

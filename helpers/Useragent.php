@@ -1,7 +1,7 @@
 <?php
 
 class Useragent {
-    /*
+    /**
      * This class will mainly be used
      * for handling user agent related
      * actions
@@ -21,7 +21,7 @@ class Useragent {
      *
      */
     public static function get_browser() {
-        /*
+        /**
          * @var String
          */
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
@@ -49,18 +49,18 @@ class Useragent {
      * Returns Operating System
      */
     public static function get_OS() {
-        /*
+        /**
          * @var String
          */
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
-        /*
+        /**
          * @var String
          */
         $os_platform = "Unknown OS Platform";
 
-        /*
-         * @var Array
+        /**
+         * @var array
          */
         $os_array = array (
             '/windows nt 10/i'      =>  'Windows 10',

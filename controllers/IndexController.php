@@ -11,7 +11,7 @@ class IndexController extends Controller {
          */
         $this->load_model('index');
 
-        /*
+        /**
          * Sending variables to your view should be done
          * before rendering your view.
          *

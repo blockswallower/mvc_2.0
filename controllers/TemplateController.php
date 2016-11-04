@@ -6,7 +6,7 @@ class TemplateController extends Controller {
 
         $this->load_library("TemplateEngine");
 
-        /*
+        /**
          * Sending variables to your template should
          * be done before the config_template_globals
          * method call
@@ -14,7 +14,7 @@ class TemplateController extends Controller {
         $this->set("template", "number", 0);
         $this->set("template", "number2", 10);
 
-        /*
+        /**
          * This method allows templates
          * to access global variables
          */
@@ -22,7 +22,7 @@ class TemplateController extends Controller {
     }
 
     public function show() {
-        /*
+        /**
          * Render a template / view using
          * the TemplateEngine
          */

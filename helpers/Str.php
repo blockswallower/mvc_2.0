@@ -18,6 +18,10 @@ class Str {
 		$split = str_split($string);
 		$char1_index = Arr::find_index($split, $char1);
 		$char2_index = Arr::find_index($split, $char2);
+
+		/**
+		 * @var String
+		 */
 		$substring = "";
 
 		for ($ii = 0; $ii < count($split); $ii++) {
@@ -38,8 +42,14 @@ class Str {
 	 * Returns substring between 2 character indexes
      */
 	public static function substringint($string, $index1, $index2) {
+		/**
+		 * @var array
+		 */
 		$split = str_split($string);
 
+		/**
+		 * @var String
+		 */
 		$substring = "";
 
 		for ($ii = 0; $ii < count($split); $ii++) {
@@ -61,7 +71,14 @@ class Str {
 	 * given character
 	 */
 	public static function last_char($string, $char) {
+		/**
+		 * @var array
+		 */
 		$string = str_split($string);
+
+		/**
+		 * @var String
+		 */
 		$last_char = $string[count($string) -1];
 		
 		if ($last_char == $char) {
@@ -81,7 +98,14 @@ class Str {
 	 * given character
 	 */
 	public static function first_char($string, $char) {
+		/**
+		 * @var array
+		 */
 		$string = str_split($string);
+
+		/*
+		 * @var String
+		 */
 		$first_char = $string[0];
 
 		if ($first_char == $char) {
@@ -101,8 +125,8 @@ class Str {
 	 * contains the given substring
 	 */
 	public static function contains($haystack, $needle, $checkall = false) {
-		/*
-		 * @var string
+		/**
+		 * @var boolean
 		 */
 		$contains = false;
 
@@ -119,6 +143,9 @@ class Str {
 				}
 			}
 		} else if (is_array($needle) && $checkall) {
+			/**
+			 * @var array
+			 */
 			$checked_needles = [];
 
 			foreach ($needle as $check) {
@@ -143,7 +170,11 @@ class Str {
 	 * replaced with slugs
 	 */
 	public static function slug($string) {
+		/**
+		 * @var String
+		 */
 		$string = str_replace(" ", "-", $string);
+
 		return $string;
 	}
 
@@ -155,7 +186,11 @@ class Str {
 	 * replaced with underscores
 	 */
 	public static function under($string) {
+		/**
+		 * @var String
+		 */
 		$string = str_replace(" ", "_", $string);
+
 		return $string;
 	}
 
@@ -168,7 +203,14 @@ class Str {
 	 * given string
 	 */
 	public static function limit($string, $index) {
+		/**
+		 * @var array
+		 */
 		$string = str_split($string);
+
+		/*
+		 * @var String
+		 */
 		$output = "";
 		
 		for ($ii = 0; $ii < $index; $ii++) {
@@ -213,7 +255,10 @@ class Str {
 	 * returns 2 concatenated strings
 	 */
 	public static function append($string, $with) {
-		return $string.$with;
+		/**
+		 * Concatenation
+		 */
+		return $string . $with;
 	}
 
 	/**
@@ -222,6 +267,9 @@ class Str {
 	 * Returns random password
 	 */
 	public static function randomize_password() {
+		/**
+		 * @var array
+		 */
 		$characters = array(
 			'a', 'b', 'c', 'd', 'e', 'f', 'g', 
 			'h', 'i', 'j', 'k', 'l', 'm', 'n',
@@ -229,7 +277,10 @@ class Str {
 			'v', 'w', 'x', 'y', 'z', '0', '1',
 			'2', '3', '4', '5', '6', '7', '8', '9'
 		); 
-		
+
+		/*
+		 * @var String
+		 */
 		$password = "";
 		
 		for ($ii = 0; $ii < 20; $ii++) {

@@ -1,20 +1,20 @@
 <?php
 class ScriptLoader {
-	/*
+	/**
 	 * Class ScriptLoader
 	 */
 	public function __construct() {
 		$this->load_scripts();
 	}
 
-	/*
+	/**
 	 * Loads in every script in Config::config
      */
 	private function load_scripts() {
 		if (Config::$config['SCRIPT']['EVERY_TIME_EXECUTION'] != 'NONE') {
 			$dirname = Config::$config['SCRIPT']['EVERY_TIME_EXECUTION'];
 
-			/*
+			/**
 			 * @var String
 			 */
 			$dir = './scripts/';
@@ -29,7 +29,7 @@ class ScriptLoader {
 						$files = array_diff(scandir($dir . $name), ['..', '.']);
 
 						foreach ($files as $file) {
-							/*
+							/**
 							 * @var String
 							 */
 							$myfile = file_get_contents($dir . $name . '/' . $file);
@@ -53,7 +53,7 @@ class ScriptLoader {
 					$files = array_diff(scandir($dir . $dirname), ['..', '.']);
 
 					foreach ($files as $file) {
-						/*
+						/**
 						 * @var String
 						 */
 						$myfile = file_get_contents($dir . $dirname . '/' . $file);
@@ -71,17 +71,17 @@ class ScriptLoader {
 		}
 		
 		if (Config::$config['SCRIPT']['ONE_TIME_EXECUTION'] != 'NONE') {
-			/*
+			/**
 			 * @var String
 			 */
 			$settingsContent = './app/Config.php';
 
-			/*
+			/**
 			 * @var String / Array
 			 */
 			$dirname = Config::$config['SCRIPT']['ONE_TIME_EXECUTION'];
 
-			/*
+			/**
 			 * @var String
 			 */
 			$dir = './scripts';
@@ -96,7 +96,7 @@ class ScriptLoader {
 						$files = array_diff(scandir($dir . '/' . $name), ['..', '.']);
 
 						foreach ($files as $file) {
-							/*
+							/**
 							 * @var String
 							 */
 							$myfile = file_get_contents($dir . '/' . $name . '/' . $file);
@@ -120,7 +120,7 @@ class ScriptLoader {
 					$files = array_diff(scandir($dir . '/' . $dirname), ['..', '.']);
 
 					foreach ($files as $file) {
-						/*
+						/**
 						 * @var String
 						 */
 						$myfile = file_get_contents($dir . '/' . $dirname . '/' . $file);

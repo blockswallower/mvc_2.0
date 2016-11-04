@@ -1,7 +1,7 @@
 <?php
 
 class View {
-	/*
+	/**
 	 * This class is the a
 	 * blueprint for all the other
 	 * views
@@ -42,7 +42,7 @@ class View {
 	 * $this->get([KEY]);
 	 */
 	public function get($key = null) {
-		/*
+		/**
 		 * @var String
 		 */
 		$cur_controller = Controller::return_current_controller();
@@ -80,7 +80,7 @@ class View {
 		if (file_exists($this->get_view_path($view))) {
 			if (file_exists($this->header)) {
 				if (file_exists($this->footer)) {
-					/*
+					/**
 					 * Configure global variables
 					 */
 					if (!empty($globals)) {
@@ -91,13 +91,13 @@ class View {
 					$this->render_view($view);
 					$this->require_footer();
 
-					/*
+					/**
 					 * Requires post request handler
 					 * for capturing post requests
 					 */
 					$this->require_post_request_handler();
 
-					/*
+					/**
 					 * Confirms that everything
 					 * has rendered properly
 					 */
@@ -138,7 +138,7 @@ class View {
 	 */
 	public function show($view, $globals = null) {
 		if (file_exists($this->get_view_path($view))) {
-			/*
+			/**
 			 * Configure global variables
 			 */
 			if (!empty($globals)) {
@@ -147,13 +147,13 @@ class View {
 
 			$this->render_view($view);
 
-			/*
+			/**
 			 * Requires post request handler
 			 * for capturing post requests
 			 */
 			$this->require_post_request_handler();
 
-			/*
+			/**
 			 * Confirms that everything
 			 * has rendered properly
 			 */
@@ -199,11 +199,11 @@ class View {
 		}
 	}
 
-	/*
+	/**
 	 * Requires post request handler
 	 */
 	public function require_post_request_handler() {
-		/*
+		/**
 		 * @var String
 		 */
 		$post_request_handler = "./http/PostRequestHandler.php";

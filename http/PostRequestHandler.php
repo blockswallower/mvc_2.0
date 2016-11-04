@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This script will handel every post request in the
  * http/PostRequest.php class
  *
@@ -20,7 +20,7 @@
 require_once './http/PostRequests.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    /*
+    /**
      * If the csrf config value is true
      * a csrf token needs to be provided
      *
@@ -33,46 +33,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    /*
-     * @var Array
+    /**
+     * @var array
      */
     $url = Router::get_url();
 
-    /*
+    /**
      * @var String
      */
     $current_page = $url[2];
 
-    /*
+    /**
      * @var Object
      */
     $PostRequests = new PostRequests();
 
-    /*
-     * @var Array
+    /**
+     * @var array
      */
     $post_requests = $PostRequests->getPostRequests();
 
     if (!empty($post_requests[$current_page])) {
         if (strstr($post_requests[$current_page], ".")) {
-            /*
-             * @var Array
+            /**
+             * @var array
              */
             $split = explode(".", $post_requests[$current_page]);
 
-            /*
+            /**
              * @var String
              */
             $controller = $split[0];
 
             require_once 'controllers/' . $controller . '.php';
 
-            /*
+            /**
              * @var Object
              */
             $controller = new $split[0];
 
-            /*
+            /**
              * Runs method given in post_requests
              */
             $controller->$split[1]();
