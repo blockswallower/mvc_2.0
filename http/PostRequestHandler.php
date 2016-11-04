@@ -44,10 +44,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      */
     $url = Router::get_url();
 
-    /**
-     * @var String
-     */
-    $current_page = $url[2];
+    if (Arr::size($url) > 2) {
+        /**
+         * @var String
+         */
+        $current_page = '';
+
+        for ($ii  = 2; $ii < Arr::size($url); $ii++) {
+            /**
+             * @var String
+             */
+            $slash =  Arr::last($url) == $url[$ii] ? "" : "/";
+
+            $current_page .= $url[$ii] . $slash;
+        }
+    } else {
+        /**
+         * @var String
+         */
+        $current_page = $url[2];
+    }
 
     /**
      * @var Object
