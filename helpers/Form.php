@@ -30,8 +30,11 @@ class Form {
          * parameters will fill in the
          * required
          */
-        echo "<form method='" . $method == "" ? self::$standard_method : $method ."
-              class=" . $css . "' action='" . $action . "' role='form'>";
+        if ($method != "") {
+            echo "<form method='" . $method  . "' class='" . $css . "' action='" . $action . "' role='form'>\n";
+        } else {
+            echo "<form method='" . self::$standard_method  . "' class='" . $css . "' action='" . $action . "' role='form'>\n";
+        }
     }
 
     /**
@@ -52,7 +55,7 @@ class Form {
         /**
          * Generates a submit button
          */
-        echo '<input type="submit" class="' . $css . '" value="submit" name="' . $name . '"/>';
+        echo '<input type="submit" class="' . $css . '" value="submit" name="' . $name . '"/>' . "\n";
     }
 
     /**
@@ -63,18 +66,19 @@ class Form {
         /**
          * Generates hidden input field
          */
-        echo '<input type="hidden" value="' . $value . '" name="' . $name . '"/>';
+        echo '<input type="hidden" value="' . $value . '" name="' . $name . '"/>' . "\n";
     }
 
     /**
      * @param $name
      * @param $placeholder
+     * @param $css
      */
     public static function text($name = "", $placeholder = "", $css = "") {
         /**
          * Generates text input field
          */
-        echo '<input type="text" name="' . $name . '" class="' . $css . '" placeholder="' . $placeholder . '"/>';
+        echo '<input type="text" name="' . $name . '" class="' . $css . '" placeholder="' . $placeholder . '"/>' . "\n";
     }
 
 
