@@ -68,7 +68,7 @@ class View {
 				Debug::exitdump('Please enter an array key as an argument: $this->get([KEY])', __LINE__, "app/View");
 			}
 		} else {
-			Debug::exitdump("No variables has been send from this controller yet: " . ucfirst($cur_controller) . "Controller", __LINE__, "app/View");
+			Debug::exitdump("No variables have been send from this controller yet: " . ucfirst($cur_controller) . "Controller", __LINE__, "app/View");
 		}
 
 		return $key;
