@@ -19,6 +19,7 @@ $directories = array(
     './helpers',
     './app',
     './lib/ScriptEngine',
+    './lib/PHPMailer'
 );
 
 /**

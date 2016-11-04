@@ -11,6 +11,7 @@
 class Date {
     /**
      * @return string
+     *
      * returns the current date and time
      * example: 2016-11-04 23:02
      */
