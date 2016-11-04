@@ -1,7 +1,24 @@
 {
+  "name": "Snail - PHP Framework v0.6",
+  "type": "framework",
+  "license" : "MIT",
+  "homepage": "https://github.com/dennisslimmers01/Snail-MVC",
+  "authors": [
+    {
+      "name": "Dennis Slimmers",
+      "email": "dennisslimmers@live.nl"
+    },
+
+    {
+      "name": "Bas van der Ploeg",
+      "email": ""
+    }
+  ],
+
   "require": {
     "symfony/console": "2.6.7"
   },
+
   "autoload": {
     "classmap": ["Commands"]
   }
