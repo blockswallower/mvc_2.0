@@ -155,8 +155,35 @@ class Router {
                          * Executes given method
                          */
                         if ($param !== null) {
+                            /*
+                             * @var Object
+                             *
+                             * An reflection class
+                             * to check if the given method
+                             * has parameters
+                             */
+                            $method = new ReflectionMethod($controller, $split[1]);
+
+                            if (empty($method->getParameters())) {
+                                Debug::exitdump("No parameter found! Be sure to add your parameter in '$split[0].$split[1]'",
+                                                 __LINE__,  "app/Router");
+                            }
+
                             $controller->$split[1]($param);
                         } else {
+                            /*
+                             * @var Object
+                             *
+                             * An reflection class
+                             * to check if the given method
+                             * has parameters
+                             */
+                            $method = new ReflectionMethod($controller, $split[1]);
+
+                            if (!empty($method->getParameters())) {
+                                Debug::exitdump("Undefined parameter(s) found in '$split[0].$split[1]'", __LINE__,  "app/Router");
+                            }
+
                             $controller->$split[1]();
                         }
                     } else {
