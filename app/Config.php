@@ -20,19 +20,6 @@ class Config {
 	public static $config;
 	
 	public function __construct() {
-		/**
-		 * This config array can be accessed 
-		 * in every other file
-		 * 
-		 * access in other PHP files:
-		 *
-		 * Config::$config[KEY]
-		 *
-		 * or
-		 *
-		 * Config::get(KEY)
-		 *
-		 */
 		self::$config = array(
 			/**
 			 * Application information
@@ -85,6 +72,8 @@ class Config {
 	 * @return bool
 	 *
 	 * Returns value from config array
+     *
+     * Use: Config::get([KEY])
      */
 	public static function get($key) {
 		/**
@@ -96,7 +85,7 @@ class Config {
 			return $value;
 		}
 
-		Debug::exitdump("Key doesn't exist in config array", __LINE__, "app/Config");
+		Debug::exitdump("Key doesn't exist in config array: '$key'", __LINE__, "app/Config");
 		return false;
 	}
 }
