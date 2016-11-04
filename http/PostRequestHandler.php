@@ -1,6 +1,12 @@
 <?php
 
 /**
+ * @package Snail_MVC
+ * @author Dennis Slimmers, Bas van der Ploeg
+ * @copyright Copyright (c) 2016 Dennis Slimmers, Bas van der Ploeg
+ * @link https://github.com/dennisslimmers01/Snail-MVC
+ * @license Open Source MIT license
+ *
  * This script will handel every post request in the
  * http/PostRequest.php class
  *

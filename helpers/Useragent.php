@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * @package Snail_MVC
+ * @author Dennis Slimmers, Bas van der Ploeg
+ * @copyright Copyright (c) 2016 Dennis Slimmers, Bas van der Ploeg
+ * @link https://github.com/dennisslimmers01/Snail-MVC
+ * @license Open Source MIT license
+ */
+
+
 class Useragent {
     /**
      * This class will mainly be used

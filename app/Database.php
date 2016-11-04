@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * @package Snail_MVC
+ * @author Dennis Slimmers, Bas van der Ploeg
+ * @copyright Copyright (c) 2016 Dennis Slimmers, Bas van der Ploeg
+ * @link https://github.com/dennisslimmers01/Snail-MVC
+ * @license Open Source MIT license
+ */
+
 class Database extends PDO {
     /**
      * This class will be used
