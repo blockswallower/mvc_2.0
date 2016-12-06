@@ -63,7 +63,8 @@ class Config {
 			 * Reserved names
 			 */
 			'STANDARD_CONTROLLER' => "index",
-			'STANDARD_RENDERING_METHOD' => 'show'
+			'STANDARD_RENDERING_METHOD' => 'show',
+			'STANDARD_MULTIPLE_FORM_NAME' => "multforms"
 		);
 	}
 
