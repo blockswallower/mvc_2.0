@@ -145,7 +145,7 @@ class Debug {
             /**
              * Print actual date and time of execution
              */
-            echo "Server time: " . date('l jS \of F Y h:i:s A') . "<br>\n";
+            echo "Server time: " . Date::now() . "<br>\n";
 
             if ($linenumber !== null) {
                 /**

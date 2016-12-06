@@ -61,7 +61,7 @@ class Useragent {
         /**
          * @var String
          */
-        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+        $user_agent = self::get_full_user_agent();
 
         /**
          * @var String
