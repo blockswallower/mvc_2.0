@@ -40,7 +40,7 @@ class Config {
 			 * If this value is true a csrf token
 			 * must be provided when the form submits
 			 */
-			'CSRF' => true,
+			'CSRF' => false,
 
 			/**
 			 * Database

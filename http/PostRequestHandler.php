@@ -32,12 +32,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      *
      * If this is not the case return an error
      */
-    if (Config::get("CSRF")) {
-        if (!isset($_POST["csrf_token"])) {
-            Debug::exitdump("Be sure to add a csrf token to your post!: <code>echo Csrf::csrf_token</code>",
-                __LINE__, "http/PostRequestHandler");
-        }
-    }
+
+    /*
+     * TODO: This needs to be debugged big time
+     */
+
+//    if (Config::get("CSRF")) {
+//        if (!isset($_POST["csrf_token"])) {
+//            Debug::exitdump("Be sure to add a csrf token to your post!: <code>echo Csrf::csrf_token</code>",
+//                __LINE__, "http/PostRequestHandler");
+//        }
+//    }
 
     /**
      * @var array
@@ -75,29 +80,78 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      */
     $post_requests = $PostRequests->getPostRequests();
 
-    if (!empty($post_requests[$current_page])) {
-        if (strstr($post_requests[$current_page], ".")) {
-            /**
-             * @var array
-             */
-            $split = explode(".", $post_requests[$current_page]);
+    /*
+     * This check is needed if the developer wants
+     * to use multiple forms in one view.
+     *
+     * To use multiple views add a hidden input field with
+     * the name "multforms" to each form in your view:
+     *
+     * for example: <input type="hidden" name="multforms" value="loginform">
+     *
+     * the value you give this hidden field is going to be the unique id
+     * of this form.
+     *
+     * To execute a method on this specific form id,
+     * add this to the PostRequest class:
+     *
+     * for example: "test/loginform" => "TestController.test",
+     */
+    if (isset($_POST["multforms"])) {
+        if (!empty($_POST["multforms"])) {
+            $current_page .= "/" . $_POST["multforms"];
 
-            /**
-             * @var String
-             */
-            $controller = $split[0];
+            if (!empty($post_requests[$current_page])) {
+                if (strstr($post_requests[$current_page], ".")) {
+                    /**
+                     * @var array
+                     */
+                    $split = explode(".", $post_requests[$current_page]);
 
-            require_once 'controllers/' . $controller . '.php';
+                    /**
+                     * @var String
+                     */
+                    $controller = $split[0];
 
-            /**
-             * @var Object
-             */
-            $controller = new $split[0];
+                    require_once 'controllers/' . $controller . '.php';
 
-            /**
-             * Runs method given in post_requests
-             */
-            $controller->$split[1]();
+                    /**
+                     * @var Object
+                     */
+                    $controller = new $split[0];
+
+                    /**
+                     * Runs method given in post_requests
+                     */
+                    $controller->$split[1]();
+                }
+            }
+        }
+    } else {
+        if (!empty($post_requests[$current_page])) {
+            if (strstr($post_requests[$current_page], ".")) {
+                /**
+                 * @var array
+                 */
+                $split = explode(".", $post_requests[$current_page]);
+
+                /**
+                 * @var String
+                 */
+                $controller = $split[0];
+
+                require_once 'controllers/' . $controller . '.php';
+
+                /**
+                 * @var Object
+                 */
+                $controller = new $split[0];
+
+                /**
+                 * Runs method given in post_requests
+                 */
+                $controller->$split[1]();
+            }
         }
     }
 }
