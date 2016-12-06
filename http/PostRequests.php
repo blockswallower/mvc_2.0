@@ -11,6 +11,10 @@ class PostRequests {
          * This array contains all post requests
          *
          * for example: "index" => "IndexController.test",
+         *
+         * For multiple form usage:
+         *
+         * "index/indexForm" => "IndexController.test"
          */
         $this->post_requests = [
 
