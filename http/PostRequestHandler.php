@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      * This check is needed if the developer wants
      * to use multiple forms in one view.
      *
-     * To use multiple views add a hidden input field with
+     * To use multiple forms add a hidden input field with
      * the name "multforms" to each form in your view:
      *
      * for example: <input type="hidden" name="multforms" value="loginform">
