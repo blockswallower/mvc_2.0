@@ -35,4 +35,13 @@ class Url {
     public static function redirect($page) {
         header("Location: " . __URL__ . $page);
     }
+
+    /**
+     * @param $page
+     *
+     * Echos and href link to another page
+     */
+    public static function href($page) {
+        echo __URL__ . $page;
+    }
 }
