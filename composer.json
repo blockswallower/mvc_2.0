@@ -3,7 +3,7 @@
     {
       "type":"package",
       "package": {
-        "name": "dennisslimmers01/Snail-MVC",
+        "name": "install/Snail",
         "version":"master",
         "source": {
           "url": "https://github.com/dennisslimmers01/Snail-MVC.git",
@@ -31,7 +31,8 @@
   ],
 
   "require": {
-    "dennisslimmers01/Snail-MVC": "master"
+    "install/Snail": "master",
+    "symfony/console": "2.6.7"
   },
 
   "autoload": {
