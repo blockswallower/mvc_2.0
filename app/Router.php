@@ -9,9 +9,6 @@
  */
 
 class Router {
-    /**
-     * This class handles routing
-     */
     public function __construct() {
         require './http/Routes.php';
 

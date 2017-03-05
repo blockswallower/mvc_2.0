@@ -9,14 +9,6 @@
  */
 
 class Sessions {
-    /**
-     * This Sessions class is in control
-     * of all sessions
-     *
-     * NOTE: Editing this file might corrupt
-     * the overall functionality
-     */
-
     private static $check_ip = false;
     private static $check_user_agent = false;
     private static $check_last_login = false;

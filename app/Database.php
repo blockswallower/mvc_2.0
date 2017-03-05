@@ -10,12 +10,6 @@
 
 class Database extends PDO {
     /**
-     * This class will be used
-     * for setting up and configuring
-     * the database
-     */
-
-    /**
      * Database type
      */
     private $db_type;

@@ -9,11 +9,6 @@
  */
 
 class Model {
-    /**
-     * This class will be a blueprint
-     * for all other models
-     */
-
     protected $db;
 
     public function __construct() {

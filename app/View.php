@@ -10,12 +10,6 @@
 
 class View {
 	/**
-	 * This class is the a
-	 * blueprint for all the other
-	 * views
-	 */
-
-	/**
 	 * globals array
 	 */
 	public $globals;

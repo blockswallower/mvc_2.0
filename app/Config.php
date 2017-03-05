@@ -9,11 +9,6 @@
  */
 
 class Config {
-	/**
-	 * This class contains the general
-	 * settings for the Snail framework
-	 */
-
 	public static $config;
 	
 	public function __construct() {

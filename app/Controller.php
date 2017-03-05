@@ -10,12 +10,6 @@
 
 class Controller {
 	/**
-	 * This class is a
-	 * blueprint for all the other
-	 * controllers
-	 */
-
-	/**
 	 * Globals array
 	 */
 	protected $globals;
