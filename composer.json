@@ -1,4 +1,19 @@
 {
+  "repositories": [
+    {
+      "type":"package",
+      "package": {
+        "name": "dennisslimmers01/Snail-MVC",
+        "version":"master",
+        "source": {
+          "url": "https://github.com/dennisslimmers01/Snail-MVC.git",
+          "type": "git",
+          "reference":"master"
+        }
+      }
+    }
+  ],
+
   "name": "Snail - PHP Framework v0.6",
   "type": "framework",
   "license" : "MIT",
@@ -16,7 +31,7 @@
   ],
 
   "require": {
-    "symfony/console": "2.6.7"
+    "dennisslimmers01/Snail-MVC": "master"
   },
 
   "autoload": {
