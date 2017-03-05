@@ -16,31 +16,26 @@ class Database extends PDO {
      */
 
     /**
-     * @var String
      * Database type
      */
     private $db_type;
 
     /**
-     * @var String
      * Database host
      */
     private $db_host;
 
     /**
-     * @var String
      * Database name
      */
     private $db_name;
 
     /**
-     * @var String
      * Database username
      */
     private $db_username;
 
     /**
-     * @var String
      * Database password
      */
     private $db_password;
@@ -54,8 +49,6 @@ class Database extends PDO {
 
         if (!empty($this->db_name)) {
             /**
-             * @var Object
-             *
              * create a temporary PDO object to test
              * database connections
              */
@@ -66,8 +59,6 @@ class Database extends PDO {
             $result->execute();
 
             /**
-             * @var array
-             *
              * Returns an array if the given database exists
              * Data should look like this:
              *
@@ -76,9 +67,6 @@ class Database extends PDO {
             $found_database = $result->fetchAll();
 
             if (empty($found_database)) {
-                /**
-                 * @var String
-                 */
                 $data = "The database: <i>'" . $this->db_name . "'</i> does not exist!";
 
                 Debug::exitdump($data, __LINE__, "app/Database");

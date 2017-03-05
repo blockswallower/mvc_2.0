@@ -50,34 +50,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $url = Router::get_url();
 
     if (Arr::size($url) > 2) {
-        /**
-         * @var String
-         */
         $current_page = '';
 
         for ($ii  = 2; $ii < Arr::size($url); $ii++) {
-            /**
-             * @var String
-             */
             $slash =  Arr::last($url) == $url[$ii] ? "" : "/";
-
             $current_page .= $url[$ii] . $slash;
         }
     } else {
-        /**
-         * @var String
-         */
         $current_page = $url[2];
     }
 
-    /**
-     * @var Object
-     */
     $PostRequests = new PostRequests();
 
-    /**
-     * @var array
-     */
     $post_requests = $PostRequests->getPostRequests();
 
     /*
@@ -103,26 +87,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if (!empty($post_requests[$current_page])) {
                 if (strstr($post_requests[$current_page], ".")) {
-                    /**
-                     * @var array
-                     */
                     $split = explode(".", $post_requests[$current_page]);
-
-                    /**
-                     * @var String
-                     */
                     $controller = $split[0];
 
                     require_once 'controllers/' . $controller . '.php';
 
-                    /**
-                     * @var Object
-                     */
                     $controller = new $split[0];
-
-                    /**
-                     * Runs method given in post_requests
-                     */
                     $controller->$split[1]();
                 }
             }
@@ -130,26 +100,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         if (!empty($post_requests[$current_page])) {
             if (strstr($post_requests[$current_page], ".")) {
-                /**
-                 * @var array
-                 */
                 $split = explode(".", $post_requests[$current_page]);
-
-                /**
-                 * @var String
-                 */
                 $controller = $split[0];
 
                 require_once 'controllers/' . $controller . '.php';
 
-                /**
-                 * @var Object
-                 */
                 $controller = new $split[0];
-
-                /**
-                 * Runs method given in post_requests
-                 */
                 $controller->$split[1]();
             }
         }

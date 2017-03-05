@@ -15,65 +15,32 @@ class Router {
     public function __construct() {
         require './http/Routes.php';
 
-        /**
-         * @var Object
-         */
         $routes = new Routes();
-
-        /**
-         * @var array
-         */
         $url = $this->get_url();
 
         if (Arr::size($url) > 2) {
-            /**
-             * @var String
-             */
             $current_page = '';
 
             for ($ii  = 2; $ii < Arr::size($url); $ii++) {
-                /**
-                 * @var String
-                 */
                 $slash =  Arr::last($url) == $url[$ii] ? "" : "/";
-
                 $current_page .= $url[$ii] . $slash;
             }
         } else {
-            /**
-             * @var String
-             */
             $current_page = $url[2];
         }
 
-        /**
-         * @var String
-         */
         $page_not_found_controller = "PageNotFoundController";
-
-        /**
-         * @var String
-         */
         $page_not_found_rendering_method = "show";
 
         if (!empty($current_page)) {
             /**
              * check if the last value needs to be passed
              * in to the rendering method as parameter
-             *
-             * @var array
              */
             $split = explode("/", $current_page);
-
-            /**
-             * @var array
-             */
             $temp_current_page = str_replace(Arr::last($split), "{param}", $current_page);
 
             if (!empty($routes->getRoutes()[$temp_current_page])) {
-                /**
-                 * @var String
-                 */
                 $param = Arr::last($split);
 
                 $this->http($routes->getRoutes()[$temp_current_page], $param);
@@ -85,14 +52,8 @@ class Router {
                     $this->http($routes->getRoutes()[$current_page]);
                 } else {
                     require 'controllers/' . $page_not_found_controller . ".php";
-                    /**
-                     * @var Object
-                     */
-                    $controller = new $page_not_found_controller();
 
-                    /**
-                     * Renders 404 page
-                     */
+                    $controller = new $page_not_found_controller();
                     $controller->$page_not_found_rendering_method();
                 }
             }
@@ -102,22 +63,11 @@ class Router {
                  * Replace with standard controller
                  */
                 $standard_controller = ucfirst(Config::get("STANDARD_CONTROLLER")) . "Controller";
-
                 require 'controllers/' . $standard_controller . '.php';
 
-                /**
-                 * @var Object
-                 */
                 $controller = new $standard_controller;
-
-                /**
-                 * @var String
-                 */
                 $rendering_method = Config::get("STANDARD_RENDERING_METHOD");
 
-                /**
-                 * Render view
-                 */
                 $controller->$rendering_method();
             }
         }
@@ -137,9 +87,6 @@ class Router {
             $controller();
         } else {
             if (strstr($controller, ".")) {
-                /**
-                 * @var array
-                 */
                 $split = explode(".", $controller);
 
                 /**
@@ -150,22 +97,14 @@ class Router {
                 } else {
                     require 'controllers/' . $split[0] . '.php';
 
-                    /**
-                     * @var Object
-                     */
                     $controller = new $split[0];
 
-                    /**
-                     * Checks if method exists
-                     */
                     if (method_exists($controller, $split[1])) {
                         /**
                          * Executes given method
                          */
                         if ($param !== null) {
                             /**
-                             * @var Object
-                             *
                              * An reflection class
                              * to check if the given method
                              * has parameters
@@ -180,8 +119,6 @@ class Router {
                             $controller->$split[1]($param);
                         } else {
                             /**
-                             * @var Object
-                             *
                              * An reflection class
                              * to check if the given method
                              * has parameters
@@ -200,10 +137,6 @@ class Router {
                 }
             } else {
                 require 'controllers/' . $controller . '.php';
-
-                /**
-                 * @var Object
-                 */
                 $controller = new $controller;
             }
         }
@@ -213,31 +146,14 @@ class Router {
      * @return array
      */
     public static function get_url() {
-        /**
-         * @var array
-         */
         $split = explode("/", $_SERVER['REQUEST_URI']);
 
         if (!empty(Arr::last($split))) {
             if (Str::contains(Arr::last($split), ["?", "="], true)) {
-                /**
-                 * @var array
-                 */
                 $strsplit = str_split(Arr::last($split));
-
-                /**
-                 * @var Integer
-                 */
                 $question_mark_index = Arr::find_index($strsplit, "?");
 
-                /**
-                 * @var String
-                 */
                 $cut_string = Str::substringint(Arr::last($split), 0, $question_mark_index - 1);
-
-                /**
-                 * @var Integer
-                 */
                 $last_item_index = Arr::find_index($split, Arr::last($split));
 
                 $split[$last_item_index] = $cut_string;

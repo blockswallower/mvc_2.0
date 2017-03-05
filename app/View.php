@@ -16,27 +16,27 @@ class View {
 	 */
 
 	/**
-	 * @var array
+	 * globals array
 	 */
 	public $globals;
 
 	/**
-	 * @var String
+	 * viewa base path
 	 */
 	protected $basepath = 'views/';
 
 	/**
-	 * @var String
+	 * header.php location
 	 */
 	protected $header = 'views/layout/header.php';
 
 	/**
-	 * @var String
+	 * footer.php location
 	 */
 	protected $footer = 'views/layout/footer.php';
 
 	/**
-	 * @var Boolean
+	 * rendered boolean
 	 */
 	protected $rendered;
 
@@ -50,9 +50,6 @@ class View {
 	 * $this->get([KEY]);
 	 */
 	public function get($key = null) {
-		/**
-		 * @var String
-		 */
 		$cur_controller = Controller::return_current_controller();
 
 		if (!empty($this->globals[$cur_controller])) {
@@ -211,9 +208,6 @@ class View {
 	 * Requires post request handler
 	 */
 	public function require_post_request_handler() {
-		/**
-		 * @var String
-		 */
 		$post_request_handler = "./http/PostRequestHandler.php";
 
 		if (file_exists($post_request_handler)) {

@@ -6,24 +6,12 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class CreateViewCommand extends Command {
-    /*
-     * @var String
-     */
     protected $commandName = 'add_view';
 
-    /*
-     * @var String
-     */
     protected $commandDescription = 'Add a view & controller';
 
-    /*
-     * @var String
-     */
     protected $commandArgumentName = "view_name";
 
-    /*
-     * @var String
-     */
     protected $commandArgumentDescription = "View name";
 
     protected function configure() {

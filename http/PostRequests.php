@@ -1,9 +1,6 @@
 <?php
 
 class PostRequests {
-    /**
-     * @var array
-     */
     public $post_requests;
 
     public function __construct() {

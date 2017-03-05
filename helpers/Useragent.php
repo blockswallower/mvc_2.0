@@ -30,9 +30,6 @@ class Useragent {
      *
      */
     public static function get_browser() {
-        /**
-         * @var String
-         */
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
         if (strpos($user_agent, 'Opera') || strpos($user_agent, 'OPR/')) {
@@ -58,19 +55,9 @@ class Useragent {
      * Returns Operating System
      */
     public static function get_OS() {
-        /**
-         * @var String
-         */
         $user_agent = self::get_full_user_agent();
-
-        /**
-         * @var String
-         */
         $os_platform = "Unknown OS Platform";
 
-        /**
-         * @var array
-         */
         $os_array = array (
             '/windows nt 10/i'      =>  'Windows 10',
             '/windows nt 6.3/i'     =>  'Windows 8.1',

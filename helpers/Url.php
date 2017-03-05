@@ -19,9 +19,6 @@ class Url {
      * the previous page
      */
     public static function previous() {
-        /**
-         * @var string
-         */
         $previous_page = 'javascript://history.go(-1)';
 
         header("Location:" . $previous_page);

@@ -16,11 +16,7 @@ class Date {
      * example: 2016-11-04 23:02
      */
     public static function now() {
-        /**
-         * @var Object
-         */
         $date = new DateTime();
-
         return $date->format("Y-m-d H:i");
     }
 
@@ -31,11 +27,7 @@ class Date {
      * example: 2016
      */
     public static function year() {
-        /**
-         * @var Object
-         */
         $date = new DateTime();
-
         return $date->format("Y");
     }
 
@@ -46,11 +38,7 @@ class Date {
      * example: 11
      */
     public static function month() {
-        /**
-         * @var Object
-         */
         $date = new DateTime();
-
         return $date->format("m");
     }
 
@@ -61,11 +49,7 @@ class Date {
      * example: 04
      */
     public static function day() {
-        /**
-         * @var Object
-         */
         $date = new DateTime();
-
         return $date->format("d");
     }
 
@@ -76,11 +60,7 @@ class Date {
      * example: 22
      */
     public static function hour() {
-        /**
-         * @var Object
-         */
         $date = new DateTime();
-
         return $date->format("H");
     }
 
@@ -91,11 +71,7 @@ class Date {
      * example: 22:55
      */
     public static function time() {
-        /**
-         * @var Object
-         */
         $date = new DateTime();
-
         return $date->format("H:i");
     }
 }

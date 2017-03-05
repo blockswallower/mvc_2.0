@@ -16,32 +16,32 @@ class Controller {
 	 */
 
 	/**
-	 * @var array
+	 * Globals array
 	 */
 	protected $globals;
 
 	/**
-	 * @var object
+	 * View object
 	 */
 	protected $view;
 
 	/**
-	 * @var string
+	 * Model object
 	 */
 	protected $model;
 
 	/**
-	 * @var array
+	 * Config object
 	 */
 	protected $config;
 
 	/**
-	 * @var string
+	 * models directory
 	 */
 	protected $modelsdir = 'models/';
 
 	/**
-	 * @var string
+	 * libs directory
 	 */
 	protected $libsdir = 'lib/';
 
@@ -92,22 +92,12 @@ class Controller {
 	 * $this->index->[FUCTION_CALL]
      */
 	public function load_model($model) {
-		/**
-		 * @var String
-		 */
 		$model = ucfirst($model)."Model";
-
-		/**
-		 * @var String
-		 */
 		$path = $this->modelsdir . $model.".php";
 
 		if (file_exists($path)) {
 			require_once $path;
 
-			/**
-			 * @var Object
-			 */
 			$this->$model = new $model();
 		} else {
 			Debug::exitdump($model . ".php doesn't exist", __LINE__, "app/Controller");
@@ -120,9 +110,6 @@ class Controller {
 	 * loads in library based on the parameter
      */
 	public function load_library($library) {
-		/**
-		 * @var String
-		 */
 		$path = $this->libsdir . $library . '/' . $library . '.php';
 
 		if (file_exists($path)) {

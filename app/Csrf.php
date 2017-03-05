@@ -26,9 +26,6 @@ class Csrf {
 	 * Requires session to have been started already.
 	 */
 	public static function create_csrf_token() {
-		/**
-		 * @var csrf token
-		 */
 		$token = self::csrf_token();
 		
 		$_SESSION['csrf_token'] = $token;
@@ -53,9 +50,6 @@ class Csrf {
 	 * Usage: echo csrf_token_tag();
 	 */
 	public static function csrf_token_tag() {
-		/**
-		 * @var csrf token
-		 */
 		$token = self::create_csrf_token();
 		
 		return "<input type=\"hidden\" name=\"csrf_token\" value=\"" . $token . "\">";
@@ -68,9 +62,6 @@ class Csrf {
 	 */
 	public static function csrf_token_is_valid() {
 		if (isset($_POST['csrf_token'])) {
-			/**
-		 	 * @var csrf token
-		 	 */
 			$user_token = $_POST['csrf_token'];
 			$stored_token = $_SESSION['csrf_token'];
 			
@@ -95,10 +86,6 @@ class Csrf {
 	 * Optional check to see if token is also recent
 	 */
 	public static function csrf_token_is_recent() {
-		/**
-		 * @var Integer
-		 * 1 day
-		 */
 		$max_elapsed = 60 * 60 * 24;
 		
 		if (isset($_SESSION['csrf_token_time'])) {

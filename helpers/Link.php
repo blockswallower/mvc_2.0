@@ -15,17 +15,17 @@ class Link {
      */
 
      /**
-      * @var String
+      * Style path
       */
      private static $absolute_style_path = __URL__ . 'assets/css/';
 
      /**
-      * @var String
+      * Scripts path
       */
      private static $absolute_script_path = __URL__ . '/assets/js/';
 
     /**
-     * @var String
+     * img path
      */
      private static $absolute_img_path = __URL__ . '/assets/img/';
 
@@ -67,9 +67,6 @@ class Link {
      * generates img tag
      */
     public static function img($src, $width, $height, $css = null) {
-        /**
-         * @var String
-         */
         $src = self::$absolute_img_path . $src;
 
         echo '<img src="' . $src . '" class="' . empty($css) ? "" : $css . '"
@@ -83,19 +80,8 @@ class Link {
      * Googles the given search term
      */
     public static function google($search_term, $between_tags) {
-        /**
-         * @var array
-         */
         $split = explode(" ", $search_term);
-
-        /**
-         * @var String
-         */
         $search_term = "https://www.google.nl/#q=";
-
-        /**
-         * @var Integer
-         */
         $last_index = Arr::find_index($split, Arr::last($split));
 
         for ($ii = 0; $ii < Arr::size($split); $ii++) {

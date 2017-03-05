@@ -9,8 +9,6 @@
  */
 
 /**
- * @var array
- *
  * store every directory
  * you want to autoload in
  * this array (Can only be PHP files)
@@ -56,23 +54,17 @@ function autoload($directories) {
 autoload($directories);
 
 /**
- * @var Object
- *
  * stores the settings object
  */
 $settings = new Config();
 
 /**
- * @var Object
- * 
  * loads in every script given
  * in the settings array/string
  */
 $script = new ScriptLoader();
 
 /**
- * @var Object
- *
  * stores the Application object
  * and starts the MVC system
  */

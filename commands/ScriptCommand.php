@@ -6,24 +6,12 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ScriptCommand extends Command {
-    /*
-     * @var String
-     */
     protected $commandName = 'run_script';
 
-    /*
-     * @var String
-     */
     protected $commandDescription = 'Runs script';
 
-    /*
-     * @var String
-     */
     protected $commandArgumentName = "folder_name";
 
-    /*
-     * @var String
-     */
     protected $commandArgumentDescription = "Folder name";
 
     protected function configure() {
@@ -47,9 +35,6 @@ class ScriptCommand extends Command {
 	    $files = array_diff(scandir("./scripts/" . $folder_name), ['..', '.']);
 	
 	    foreach ($files as $file) {
-		    /**
-			 * @var String
-			 */
 		    $myfile = file_get_contents(getcwd() . "/scripts/" . $folder_name .'/' . $file);
 		
 		    if (strpos($file, 'Model')) {

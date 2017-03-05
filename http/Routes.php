@@ -1,9 +1,6 @@
 <?php
 
 class Routes {
-    /**
-     * @var array
-     */
     private $routes;
 
     public function __construct() {

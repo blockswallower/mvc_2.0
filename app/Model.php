@@ -14,9 +14,6 @@ class Model {
      * for all other models
      */
 
-    /**
-     * @object Contains Database
-     */
     protected $db;
 
     public function __construct() {

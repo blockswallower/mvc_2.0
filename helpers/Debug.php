@@ -58,9 +58,6 @@ class Debug {
      */
     public static function exitdump($data, $linenumber = null, $coreSnailClass = null) {
         if (Config::get("DEBUG")) {
-            /**
-             * @var String
-             */
             $cur_controller = ucfirst(Controller::return_current_controller())."Controller";
 
             /**
@@ -107,9 +104,6 @@ class Debug {
                 echo "Request method: Get<br>\n";
             }
 
-            /**
-             * @var String
-             */
             $url = '';
 
             foreach(Router::get_url() as $route) {
@@ -148,14 +142,7 @@ class Debug {
             echo "Server time: " . Date::now() . "<br>\n";
 
             if ($linenumber !== null) {
-                /**
-                 * @var String
-                 */
                 $filename = $coreSnailClass !== null ? $coreSnailClass : "controllers/" . $cur_controller;
-
-                /**
-                 * @var array
-                 */
                 $lines = file(self::$standard_path . $filename . ".php");
 
                 for ($ii = 0; $ii < Arr::size($lines); $ii++) {

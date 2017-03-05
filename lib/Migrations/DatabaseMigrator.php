@@ -10,37 +10,31 @@
 
 class DatabaseMigrator {
     /**
-     * @var String
      * Database type
      */
     private $db_type;
 
     /**
-     * @var String
      * Database host
      */
     private $db_host;
 
     /**
-     * @var String
      * Database username
      */
     private $db_username;
 
     /**
-     * @var String
      * Database name
      */
     private $db_name;
 
     /**
-     * @var String
      * Database password
      */
     private $db_password;
 
     /**
-     * @var Object
      * PDO Configuration
      */
     private $PDO;
@@ -87,9 +81,6 @@ class DatabaseMigrator {
              */
             $this->PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            /**
-             * @var String
-             */
             $table_columns = "";
 
             for ($ii = 0; $ii < count($columns); $ii++) {
@@ -103,8 +94,6 @@ class DatabaseMigrator {
             }
 
             /**
-             * @var String
-             *
              * Set the database to the given database if not null
              */
             $database = $database === null ? "" : $database . ".";
@@ -132,7 +121,6 @@ class DatabaseMigrator {
         $this->db_password = $db_password;
 
         /**
-         * @var Object
          * PDO Configuration
          */
         $this->PDO = new PDO("$this->db_type:host=$this->db_host", $this->db_username, $this->db_password);

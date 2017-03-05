@@ -14,9 +14,6 @@ class Config {
 	 * settings for the Snail framework
 	 */
 
-	/**
-	 * @var array
-	 */
 	public static $config;
 	
 	public function __construct() {
@@ -77,9 +74,6 @@ class Config {
      * Use: Config::get([KEY])
      */
 	public static function get($key) {
-		/**
-		 * @var String
-		 */
 		$value = self::$config[$key];
 
 		if (isset($value)) {

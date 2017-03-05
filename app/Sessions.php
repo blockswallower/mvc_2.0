@@ -17,24 +17,9 @@ class Sessions {
      * the overall functionality
      */
 
-    /**
-     * @var boolean
-     */
     private static $check_ip = false;
-
-    /**
-     * @var boolean
-     */
     private static $check_user_agent = false;
-
-    /**
-     * @var boolean
-     */
     private static $check_last_login = false;
-
-    /**
-     * @var integer
-     */
     private static $max_elapsed = 86400;
 
     /**
@@ -58,9 +43,6 @@ class Sessions {
      * Sets a value to a session
      */
     public static function set($key, $value) {
-        /**
-         * @session $value
-         */
         $_SESSION[$key] = $value;
     }
 
@@ -71,9 +53,6 @@ class Sessions {
      * Returns a specific value
      */
     public static function get($key) {
-        /**
-         * @session $key
-         */
         return $_SESSION[$key];
     }
 
@@ -138,7 +117,7 @@ class Sessions {
              * (not even whitespace).
              */
 
-            header("Location: index");
+            Url::redirect("index");
             exit;
         }
     }
@@ -277,6 +256,5 @@ class Sessions {
         if($pos === false) {
             die('Restricted access');
         }
-
     }
 }
