@@ -15,7 +15,7 @@ class View {
 	public $globals;
 
 	/**
-	 * viewa base path
+	 * views base path
 	 */
 	protected $basepath = 'views/';
 
