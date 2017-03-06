@@ -27,7 +27,6 @@ class Routes {
          */
         $this->routes = [
              "index" => "IndexController.show",
-             "template" => "TemplateController.show",
         ];
     }
 
