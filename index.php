@@ -33,16 +33,19 @@ function autoload($directories) {
         }
 
         foreach (scandir($dir) as $file) {
-            if ('.' === $file) {
+            if ($file === '.') {
                 continue;
             }
 
-            if ('..' === $file) {
+            if ($file === '..') {
+                continue;
+            }
+
+            if ($file === '.htaccess') {
                 continue;
             }
 
             require $dir. '/' .$file;
-
         }
     }
 }
