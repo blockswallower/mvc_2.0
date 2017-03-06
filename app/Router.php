@@ -174,9 +174,9 @@ class Router {
             }
 
             if (!empty($controller)) {
-                if (file_exists('controllers/' . ucfirst($controller) . 'Controller.php')) {
+                if (file_exists('controllers/ajax/' . ucfirst($controller) . 'Controller.php')) {
                     $controller = ucfirst($controller) . 'Controller';
-                    require 'controllers/' . $controller . '.php';
+                    require 'controllers/ajax/' . $controller . '.php';
 
                     $ajax = new $controller();
 
