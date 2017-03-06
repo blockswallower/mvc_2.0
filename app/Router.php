@@ -9,6 +9,17 @@
  */
 
 class Router {
+    /*
+     * This variable will be the key for
+     * the Router to understand incoming Ajax
+     * requests
+     */
+    private $ajax_recognizer = 'ajax';
+
+    private $page_not_found_controller = "PageNotFoundController";
+
+    private $page_not_found_rendering_method = "show";
+
     public function __construct() {
         require './http/Routes.php';
 
@@ -26,32 +37,42 @@ class Router {
             $current_page = $url[2];
         }
 
-        $page_not_found_controller = "PageNotFoundController";
-        $page_not_found_rendering_method = "show";
-
         if (!empty($current_page)) {
             /**
              * check if the last value needs to be passed
              * in to the rendering method as parameter
              */
             $split = explode("/", $current_page);
-            $temp_current_page = str_replace(Arr::last($split), "{param}", $current_page);
 
-            if (!empty($routes->getRoutes()[$temp_current_page])) {
-                $param = Arr::last($split);
-
-                $this->http($routes->getRoutes()[$temp_current_page], $param);
+            /*
+             * Handle Ajax Requests (Only if the first URL item equals the Ajax recognizer)
+             */
+            if ($split[0] == $this->ajax_recognizer) {
+                $this->handle_ajax_request($split);
             } else {
-                if (!empty($routes->getRoutes()[$current_page])) {
-                    /**
-                     * Route to the correct view
-                     */
-                    $this->http($routes->getRoutes()[$current_page]);
-                } else {
-                    require 'controllers/' . $page_not_found_controller . ".php";
+                /*
+                 * Handle regular url GET request
+                 */
+                $temp_current_page = str_replace(Arr::last($split), "{param}", $current_page);
 
-                    $controller = new $page_not_found_controller();
-                    $controller->$page_not_found_rendering_method();
+                if (!empty($routes->getRoutes()[$temp_current_page])) {
+                    $param = Arr::last($split);
+
+                    $this->http($routes->getRoutes()[$temp_current_page], $param);
+                } else {
+                    if (!empty($routes->getRoutes()[$current_page])) {
+                        /**
+                         * Route to the correct view
+                         */
+                        $this->http($routes->getRoutes()[$current_page]);
+                    } else {
+                        require 'controllers/' . $this->page_not_found_controller . ".php";
+
+                        $method = $this->page_not_found_rendering_method;
+
+                        $controller = new $this->page_not_found_controller();
+                        $controller->$method();
+                    }
                 }
             }
         } else {
@@ -135,6 +156,47 @@ class Router {
             } else {
                 require 'controllers/' . $controller . '.php';
                 $controller = new $controller;
+            }
+        }
+    }
+
+    /**
+     * @param $url
+     *
+     * Handles Ajax requests
+     */
+    private function handle_ajax_request($url) {
+        if (IS_AJAX) {
+            $controller = $url[0];
+
+            if (!empty($url[1])) {
+                $method = $url[1];
+            }
+
+            if (!empty($controller)) {
+                if (file_exists('controllers/' . ucfirst($controller) . 'Controller.php')) {
+                    $controller = ucfirst($controller) . 'Controller';
+                    require 'controllers/' . $controller . '.php';
+
+                    $ajax = new $controller();
+
+                    if (!empty($method)) {
+                        if (method_exists($ajax, $method)) {
+                            $ajax->$method();
+                        }
+                    }
+                }
+            }
+        } else {
+            if (Config::get("DEBUG")) {
+                Debug::exitdump("No permission!", __LINE__, 'app/Router');
+            } else {
+                require 'controllers/' . $this->page_not_found_controller . ".php";
+
+                $method = $this->page_not_found_rendering_method;
+
+                $controller = new $this->page_not_found_controller();
+                $controller->$method();
             }
         }
     }

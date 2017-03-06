@@ -20,6 +20,9 @@
                 background-color: whitesmoke;
             }
         </style>
+        <?php Link::script('/jquery/JQuery.js')?>
+        <?php Link::script('/snail/Snail.js')?>
+        <?php Link::script('/script.js')?>
     </head>
     <body>
         <div id="error-handler"></div>
