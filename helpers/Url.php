@@ -36,7 +36,7 @@ class Url {
     /**
      * @param $page
      *
-     * Echos and href link to another page
+     * Prints an href link to another page
      */
     public static function href($page) {
         echo __URL__ . $page;
