@@ -58,7 +58,7 @@ class Debug {
      */
     public static function exitdump($data, $linenumber = null, $coreSnailClass = null) {
         if (Config::get("DEBUG")) {
-            $cur_controller = ucfirst(Controller::return_current_controller())."Controller";
+            $cur_controller = ucfirst(Controller::get_cur_controller())."Controller";
 
             /**
              * Blanks out the page using javascript

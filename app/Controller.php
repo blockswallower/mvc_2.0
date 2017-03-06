@@ -150,7 +150,7 @@ class Controller {
 	 * Returns the controller the user
 	 * is currently using
 	 */
-	public static function return_current_controller() {
+	public static function get_cur_controller() {
 		$url = isset($_GET['url']) ? $_GET['url'] : null;
 		$url = filter_var($url, FILTER_SANITIZE_URL);
 		$url = rtrim($url, '/');

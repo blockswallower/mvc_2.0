@@ -44,7 +44,7 @@ class View {
 	 * $this->get([KEY]);
 	 */
 	public function get($key = null) {
-		$cur_controller = Controller::return_current_controller();
+		$cur_controller = Controller::get_cur_controller();
 
 		if (!empty($this->globals[$cur_controller])) {
 			if (!empty($key)) {
