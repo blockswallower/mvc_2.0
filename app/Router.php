@@ -14,7 +14,7 @@ class Router {
      * the Router to understand incoming Ajax
      * requests
      */
-    private $ajax_recognizer = 'ajax';
+    private $ajax_keyword = 'ajax';
 
     private $page_not_found_controller = "PageNotFoundController";
 
@@ -47,7 +47,7 @@ class Router {
             /*
              * Handle Ajax Requests (Only if the first URL item equals the Ajax recognizer)
              */
-            if ($split[0] == $this->ajax_recognizer) {
+            if ($split[0] == $this->ajax_keyword) {
                 $this->handle_ajax_request($split);
             } else {
                 /*
