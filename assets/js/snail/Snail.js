@@ -1,6 +1,6 @@
 snail = {};
 
-snail.ajaxUrl = 'http://localhost/Snail-MVC/ajax';
+snail.ajaxUrl = 'http://localhost:81/Snail-MVC/ajax';
 
 /*
  * @param url
@@ -18,10 +18,7 @@ snail.httpGet = function(method, parameters) {
         url: snail.ajaxUrl + '/' + method,
         type: 'GET',
         async: true,
-        dataType: "json",
-        error: function () {
-            console.log("something went wrong!");
-        }
+        dataType: "json"
     });
 };
 
