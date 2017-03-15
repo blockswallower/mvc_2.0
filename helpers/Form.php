@@ -81,6 +81,19 @@ class Form {
         echo '<input type="text" name="' . $name . '" class="' . $css . '" placeholder="' . $placeholder . '"/>' . "\n";
     }
 
+    /**
+     * @param string $onclick
+     * @param string $name
+     * @param string $value
+     * @param string $css
+     */
+    public static function button($value = "", $onclick = "", $name = "", $css = "") {
+        /**
+         * Generates simple button
+         */
+        echo '<button onclick="' . $onclick . '" class="' . $css . '" name="' . $name . '">' . $value . '</button>';
+    }
+
 
     /**
      * @return bool

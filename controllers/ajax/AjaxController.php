@@ -10,4 +10,8 @@ class AjaxController extends Controller {
     public function get() {
         echo json_encode(["key" => "value"]);
     }
+
+    public function post() {
+        var_dump(json_decode($_POST['data']));
+    }
 }
