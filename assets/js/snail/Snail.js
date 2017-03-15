@@ -27,7 +27,7 @@ snail.ajaxGet = function(method, parameters) {
  *
  * snail.ajaxPost('methodName', dataObject, event);
  *
- * access in AjaxController with $_POST['data'];
+ * access in AjaxController with 'json_encode($_POST['data']);'
  * NOTE: data should always be a JSON object
  */
 snail.ajaxPost = function(method, data, event) {
