@@ -10,6 +10,7 @@
 
 class Model {
     protected $db;
+    protected $qb;
 
     public function __construct() {
         /**
@@ -17,5 +18,10 @@ class Model {
          * for every other child model
          */
         $this->db = new Database();
+
+        /**
+         * QueryBuilder Object
+         */
+        $this->qb = new QueryBuilder();
     }
 }

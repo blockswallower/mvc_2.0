@@ -1,6 +1,6 @@
 snail = {};
 
-snail.ajaxUrl = 'http://localhost:81/Snail-MVC/ajax';
+snail.ajaxUrl = 'http://localhost/Snail-MVC/ajax';
 
 /*
  * @param url
