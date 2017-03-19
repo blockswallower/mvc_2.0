@@ -16,9 +16,9 @@ class Router {
      */
     private $ajax_keyword = 'ajax';
 
-    private $page_not_found_controller = "PageNotFoundController";
+    private $httpstatus_controller = "HttpstatusController";
 
-    private $page_not_found_rendering_method = "show";
+    private $httpstatus_rendering_method = "show";
 
     public function __construct() {
         require './http/Routes.php';
@@ -66,12 +66,12 @@ class Router {
                          */
                         $this->http($routes->getRoutes()[$current_page]);
                     } else {
-                        require 'controllers/' . $this->page_not_found_controller . ".php";
+                        require 'controllers/' . $this->httpstatus_controller . ".php";
 
-                        $method = $this->page_not_found_rendering_method;
+                        $method = $this->httpstatus_rendering_method;
 
-                        $controller = new $this->page_not_found_controller();
-                        $controller->$method();
+                        $controller = new $this->httpstatus_controller();
+                        $controller->$method(404);
                     }
                 }
             }
@@ -191,11 +191,11 @@ class Router {
             if (Config::get("DEBUG")) {
                 Debug::exitdump("No permission!", __LINE__, 'app/Router');
             } else {
-                require 'controllers/' . $this->page_not_found_controller . ".php";
+                require 'controllers/' . $this->httpstatus_controller . ".php";
 
-                $method = $this->page_not_found_rendering_method;
+                $method = $this->httpstatus_rendering_method;
 
-                $controller = new $this->page_not_found_controller();
+                $controller = new $this->httpstatus_controller(404);
                 $controller->$method();
             }
         }

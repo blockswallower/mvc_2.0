@@ -84,6 +84,11 @@ class View {
 					 */
 					if (!empty($globals)) {
 						$this->globals = $globals;
+					} else {
+						$msg = 'Be sure to add the globals array to your rendering method:
+                                <code>$this->view->show_hf("test", $this->globals)</code>';
+
+						Debug::exitdump($msg, __LINE__, 'app/View');
 					}
 
 					$this->require_header();
@@ -142,6 +147,11 @@ class View {
 			 */
 			if (!empty($globals)) {
 				$this->globals = $globals;
+			} else {
+				$msg = 'Be sure to add the globals array to your rendering method:
+                                <code>$this->view->show("test", $this->globals)</code>';
+
+				Debug::exitdump($msg, __LINE__, 'app/View');
 			}
 
 			$this->render_view($view);

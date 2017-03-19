@@ -156,15 +156,29 @@ class Controller {
 		$url = rtrim($url, '/');
 		$url = explode('/', $url);
 
-		if (empty($url[0])) {
-			/**
-			 * Will set the current controller
-			 * to Config::get("STANDARD_CONTROLLER")
-			 * if no controller was found
-			 */
-			$url[0] = Config::get("STANDARD_CONTROLLER");
+		/*
+		 * Current controller
+		 */
+		$controller = $url[0];
+
+		/**
+		 * Will set the current controller
+		 * to Config::get("STANDARD_CONTROLLER")
+		 * if no controller was found
+		 */
+		if (empty($controller)) {
+			$controller = Config::get("STANDARD_CONTROLLER");
 		}
 
-		return $url[0];
+		/*
+		 * If the controller doesn't exist
+		 * set the current controller
+		 * to the httpstatus controller
+		 */
+		if (!file_exists('controllers/' . ucfirst($controller) . 'Controller.php')) {
+			$controller = 'httpstatus';
+		}
+
+		return $controller;
 	}
 }
