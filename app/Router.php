@@ -110,6 +110,9 @@ class Router {
                         Debug::exitdump("The method '$method' does not exist in '$controller'!", __LINE__, "app/Router");
                     }
                 }
+            } else {
+                Debug::exitdump("Be sure to add a method after your controller:
+                                 <code>'TestController.show'<code>", __LINE__, "app/Router");
             }
         }
     }
