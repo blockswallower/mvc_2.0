@@ -170,15 +170,6 @@ class Controller {
 			$controller = Config::get("STANDARD_CONTROLLER");
 		}
 
-		/*
-		 * If the controller doesn't exist
-		 * set the current controller
-		 * to the httpstatus controller
-		 */
-		if (!file_exists('controllers/' . ucfirst($controller) . 'Controller.php')) {
-			$controller = 'httpstatus';
-		}
-
 		return $controller;
 	}
 }
