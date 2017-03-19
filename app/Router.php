@@ -24,138 +24,92 @@ class Router {
         require './http/Routes.php';
 
         $routes = new Routes();
+
         $url = $this->get_url();
+        $route = $this->get_route($url);
 
-        if (Arr::size($url) > 2) {
-            $current_page = '';
+        if (!empty($route)) {
+            $split = explode("/", $route);
 
-            for ($ii  = 2; $ii < Arr::size($url); $ii++) {
-                $slash =  Arr::last($url) == $url[$ii] ? "" : "/";
-                $current_page .= $url[$ii] . $slash;
-            }
-        } else {
-            $current_page = $url[2];
-        }
-
-        if (!empty($current_page)) {
-            /**
-             * check if the last value needs to be passed
-             * in to the rendering method as parameter
-             */
-            $split = explode("/", $current_page);
-
-            /*
-             * Handle Ajax Requests (Only if the first URL item equals the Ajax recognizer)
-             */
-            if ($split[0] == $this->ajax_keyword) {
+            if ($split[0] === $this->ajax_keyword) {
+                /*
+                 * Handle Ajax Requests (Only if the first URL index equals the Ajax keyword)
+                 */
                 $this->handle_ajax_request($split);
             } else {
-                /*
-                 * Handle regular url GET request
-                 */
-                $temp_current_page = str_replace(Arr::last($split), "{param}", $current_page);
+                $route_with_params = str_replace(Arr::last($split), "{param}", $route);
 
-                if (!empty($routes->getRoutes()[$temp_current_page])) {
+                if (!empty($routes->getRoutes()[$route_with_params])) {
+                    /*
+                     * Route to page with last URL index as parameter
+                     */
                     $param = Arr::last($split);
-
-                    $this->http($routes->getRoutes()[$temp_current_page], $param);
+                    $this->route($routes->getRoutes()[$route_with_params], $param);
                 } else {
-                    if (!empty($routes->getRoutes()[$current_page])) {
-                        /**
-                         * Route to the correct view
+                    if (!empty($routes->getRoutes()[$route])) {
+                        /*
+                         * Route to page without parameters
                          */
-                        $this->http($routes->getRoutes()[$current_page]);
+                        $this->route($routes->getRoutes()[$route]);
                     } else {
-                        require 'controllers/' . $this->httpstatus_controller . ".php";
-
-                        $method = $this->httpstatus_rendering_method;
-
-                        $controller = new $this->httpstatus_controller();
-                        $controller->$method(404);
+                        $this->throw404();
                     }
                 }
             }
         } else {
-            if (!isset($standard_controller)) {
-                /**
-                 * Replace with standard controller
-                 */
-                $standard_controller = ucfirst(Config::get("STANDARD_CONTROLLER")) . "Controller";
-                require 'controllers/' . $standard_controller . '.php';
-
-                $controller = new $standard_controller;
-                $rendering_method = Config::get("STANDARD_RENDERING_METHOD");
-
-                $controller->$rendering_method();
-            }
+            $this->render_standard_page();
         }
     }
 
     /**
-     * @param null $controller
+     * @param $param
+     * @param $route
      *
      * This method routes the user based on http/Routes.php
      */
-    private function http($controller = null, $param = null) {
-        /**
-         * If the $controller parameter
-         * is a callable function run it
-         */
-        if (is_callable($controller)) {
-            $controller();
+    private function route($route = null, $param = null) {
+        if (is_callable($route)) {
+            /**
+             * If the $controller variable
+             * is a closure, run it
+             */
+            $route();
         } else {
-            if (strstr($controller, ".")) {
-                $split = explode(".", $controller);
+            if (strstr($route, ".")) {
+                $split_route = explode(".", $route);
+                $controller = $split_route[0];
+                $method = $split_route[1];
 
                 /**
-                 * Checks if given controller exists
+                 * Check if controller exists
                  */
-                if (!file_exists('controllers/' . $split[0] . '.php')) {
-                    Debug::exitdump('controllers/' . $split[0] . '.php does not exist!', __LINE__, "app/Router");
+                if (!file_exists('controllers/' . $controller . '.php')) {
+                    Debug::exitdump('controllers/' . $controller . '.php does not exist!', __LINE__, "app/Router");
                 } else {
-                    require 'controllers/' . $split[0] . '.php';
+                    require 'controllers/' . $controller . '.php';
+                    $object = new $controller;
 
-                    $controller = new $split[0];
-
-                    if (method_exists($controller, $split[1])) {
-                        /**
-                         * Executes given method
-                         */
+                    /*
+                     * Check if method exists in $controller
+                     */
+                    if (method_exists($object, $method)) {
                         if ($param !== null) {
-                            /**
-                             * An reflection class
-                             * to check if the given method
-                             * has parameters
-                             */
-                            $method = new ReflectionMethod($controller, $split[1]);
-
-                            if (empty($method->getParameters())) {
-                                Debug::exitdump("No parameter found! Be sure to add your parameter in '$split[0].$split[1]'",
-                                                 __LINE__,  "app/Router");
+                            if (!$this->has_parameters($object, $method)) {
+                                Debug::exitdump("No parameter found! Be sure to add your parameter in '$controller.$method'", __LINE__,  "app/Router");
                             }
 
-                            $controller->$split[1]($param);
+                            $object->$method($param);
                         } else {
-                            /**
-                             * An reflection class
-                             * to check if the given method
-                             * has parameters
-                             */
-                            $method = new ReflectionMethod($controller, $split[1]);
-
-                            if (!empty($method->getParameters())) {
-                                Debug::exitdump("Undefined parameter(s) found in '$split[0].$split[1]'", __LINE__,  "app/Router");
+                            if ($this->has_parameters($object, $method)) {
+                                Debug::exitdump("Undefined parameter(s) found in '$controller.$method'", __LINE__,  "app/Router");
                             }
 
-                            $controller->$split[1]();
+                            $object->$method();
                         }
                     } else {
-                        Debug::exitdump("The method '$split[1]' does not exist in '$split[0]'!", __LINE__, "app/Router");
+                        Debug::exitdump("The method '$method' does not exist in '$controller'!", __LINE__, "app/Router");
                     }
                 }
-            } else {
-                require 'controllers/' . $controller . '.php';
-                $controller = new $controller;
             }
         }
     }
@@ -174,31 +128,102 @@ class Router {
             }
 
             if (!empty($controller)) {
-                if (file_exists('controllers/ajax/' . ucfirst($controller) . 'Controller.php')) {
-                    $controller = ucfirst($controller) . 'Controller';
-                    require 'controllers/ajax/' . $controller . '.php';
-
-                    $ajax = new $controller();
-
-                    if (!empty($method)) {
-                        if (method_exists($ajax, $method)) {
-                            $ajax->$method();
-                        }
-                    }
-                }
+                $this->run_ajax_method($controller, $method);
             }
         } else {
             if (Config::get("DEBUG")) {
                 Debug::exitdump("No permission!", __LINE__, 'app/Router');
             } else {
-                require 'controllers/' . $this->httpstatus_controller . ".php";
-
-                $method = $this->httpstatus_rendering_method;
-
-                $controller = new $this->httpstatus_controller(404);
-                $controller->$method();
+                $this->throw404();
             }
         }
+    }
+
+    /**
+     * @param $url
+     * @return String
+     *
+     * Return the route the user is trying to
+     * access (String)
+     */
+    private function get_route($url) {
+        if (Arr::size($url) > 2) {
+            $route = '';
+
+            for ($ii  = 2; $ii < Arr::size($url); $ii++) {
+                $slash =  Arr::last($url) == $url[$ii] ? "" : "/";
+                $route .= $url[$ii] . $slash;
+            }
+        } else {
+            $route = $url[2];
+        }
+
+        return $route;
+    }
+
+    /*
+     * Renders an httpstatus page with 404 httpcode
+     */
+    private function throw404() {
+        require 'controllers/' . $this->httpstatus_controller . ".php";
+
+        $method = $this->httpstatus_rendering_method;
+
+        $controller = new $this->httpstatus_controller();
+        $controller->$method(404);
+    }
+
+    /*
+     * Renders standard page. (Defined in app/Config.php)
+     */
+    private function render_standard_page() {
+        $standard_controller = ucfirst(Config::get("STANDARD_CONTROLLER")) . "Controller";
+        require 'controllers/' . $standard_controller . '.php';
+
+        $controller = new $standard_controller;
+        $rendering_method = Config::get("STANDARD_RENDERING_METHOD");
+
+        $controller->$rendering_method();
+    }
+
+
+    /**
+     * @param $controller
+     *
+     * Executes AjaxController method send from ajax
+     */
+    private function run_ajax_method($controller, $method) {
+        if (file_exists('controllers/ajax/' . ucfirst($controller) . 'Controller.php')) {
+            $controller = ucfirst($controller) . 'Controller';
+            require 'controllers/ajax/' . $controller . '.php';
+
+            $ajax = new $controller();
+
+            if (!empty($method)) {
+                if (method_exists($ajax, $method)) {
+                    $ajax->$method();
+                }
+            }
+        }
+    }
+
+    /**
+     * @param $controller
+     * @param $method
+     * @return bool
+     *
+     * Returns true or false based on if the
+     * given method has parameters.
+     */
+    private function has_parameters($controller, $method) {
+        $hasParameters = false;
+        $reflector = new ReflectionMethod($controller, $method);
+
+        if (!empty($reflector->getParameters())) {
+            $hasParameters = true;
+        }
+
+        return $hasParameters;
     }
 
     /**
