@@ -36,6 +36,7 @@ class View {
 
 	/**
 	 * @param null $key
+	 * @param $placeholder
 	 * @return mixed
 	 *
 	 * returns a value from the "globals" array
@@ -43,12 +44,12 @@ class View {
 	 *
 	 * $this->get([KEY]);
 	 */
-	public function get($key = null) {
-		$cur_controller = Controller::get_cur_controller();
+	public function get($key = null, $placeholder = null) {
+		$page = empty($placeholder) ?  Controller::get_cur_controller() : $placeholder;
 
-		if (!empty($this->globals[$cur_controller])) {
+		if (!empty($this->globals[$page])) {
 			if (!empty($key)) {
-				$value = $this->globals[$cur_controller][$key];
+				$value = $this->globals[$page][$key];
 
 				if (!empty($value)) {
 					return $value;
@@ -59,7 +60,7 @@ class View {
 				Debug::exitdump('Please enter an array key as an argument: $this->get([KEY])', __LINE__, "app/View");
 			}
 		} else {
-			Debug::exitdump("No variables have been send from this controller yet: " . ucfirst($cur_controller) . "Controller", __LINE__, "app/View");
+			Debug::exitdump("No variables have been send from this controller yet: " . ucfirst($page) . "Controller", __LINE__, "app/View");
 		}
 
 		return $key;

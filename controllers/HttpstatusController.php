@@ -6,6 +6,16 @@ class HttpstatusController extends Controller {
 	}
 
 	public function show($httpcode) {
+		/*
+ 	     * Set http code
+ 	     */
+		$this->set('httpstatus', 'httpcode', $httpcode);
+
+		/*
+         * Set status message
+          */
+		$this->set('httpstatus', 'statusMessage', $this->getStatusMessage($httpcode));
+
 		/**
 		 * Render the correct
 		 * content based on the
