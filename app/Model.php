@@ -22,6 +22,6 @@ class Model {
         /**
          * QueryBuilder Object
          */
-        $this->qb = new QueryBuilder();
+        $this->qb = new QueryBuilder($this->db);
     }
 }

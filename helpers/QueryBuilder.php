@@ -9,14 +9,8 @@
  */
 
 class QueryBuilder {
-    /**
-     * @var object
-     * Database object
-     */
-    private $db;
-
-    public function __construct() {
-        $this->db = new Database();
+    public function __construct($db) {
+        $this->db = $db;
     }
 
     /**
