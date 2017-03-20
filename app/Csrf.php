@@ -27,11 +27,19 @@ class Csrf {
 	 */
 	public static function create_csrf_token() {
 		$token = self::csrf_token();
-		
-		$_SESSION['csrf_token'] = $token;
 		$_SESSION['csrf_token_time'] = time();
-		
+
 		return $token;
+	}
+
+	/*
+     * Sets the csrf session with the same value as
+     * $_POST['csrf_token']
+     */
+	public static function set_csrf_session() {
+		if (!empty($_POST['csrf_token'])) {
+			$_SESSION['csrf_token'] = $_POST['csrf_token'];
+		}
 	}
 	
 	/**
@@ -64,7 +72,7 @@ class Csrf {
 		if (isset($_POST['csrf_token'])) {
 			$user_token = $_POST['csrf_token'];
 			$stored_token = $_SESSION['csrf_token'];
-			
+
 			return $user_token === $stored_token;
 		} else {
 			Debug::exitdump("POST CSRF token is not identical to stored SESSION", __LINE__, "app/Csrf");

@@ -32,21 +32,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      *
      * If this is not the case return an error
      */
+    if (Config::get("CSRF_REQUIRED")) {
+        if (!isset($_POST["csrf_token"])) {
+            Debug::exitdump("Be sure to add a csrf token to your post!: <code>echo Csrf::csrf_token</code>",
+                __LINE__, "http/PostRequestHandler");
+        }
+    }
 
     /*
-     * TODO: This needs to be debugged big time
+     * Sets the csrf session with the same value as
+     * $_POST['csrf_token']
      */
+    Csrf::set_csrf_session();
 
-//    if (Config::get("CSRF")) {
-//        if (!isset($_POST["csrf_token"])) {
-//            Debug::exitdump("Be sure to add a csrf token to your post!: <code>echo Csrf::csrf_token</code>",
-//                __LINE__, "http/PostRequestHandler");
-//        }
-//    }
-
-    /**
-     * @var array
-     */
     $url = Router::get_url();
 
     if (Arr::size($url) > 2) {

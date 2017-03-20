@@ -14,9 +14,6 @@ class Debug {
      * debug methods
      */
 
-    /*
-     * @var String
-     */
     private static $standard_path = "./";
 
     /**
