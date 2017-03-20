@@ -34,13 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      */
     if (Config::get("CSRF_REQUIRED")) {
         if (!isset($_POST["csrf_token"])) {
-            Debug::exitdump("Be sure to add a csrf token to your post!: <code>echo Csrf::csrf_token</code>",
+            Debug::exitdump("Be sure to add a csrf token to your form!: <code>echo Csrf::csrf_token</code>",
                 __LINE__, "http/PostRequestHandler");
         }
     }
 
     /*
-     * Sets the csrf session with the same value as
+     * Sets the csrf session to the same value as
      * $_POST['csrf_token']
      */
     Csrf::set_csrf_session();
