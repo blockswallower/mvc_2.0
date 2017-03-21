@@ -17,7 +17,7 @@ class Config {
 			 * Application information
 			 */
 			'APP_NAME' => 'Snail - PHP framework',
-			'APP_VERSION' => "0.6.1",
+			'APP_VERSION' => "0.7",
 			'APP_LANGUAGE' => 'en',
 			'APP_MAIL' => 'info@snailframework.com',
 
