@@ -17,6 +17,10 @@
     "symfony/console": "3.0.2"
   },
 
+  "require-dev": {
+    "symfony/console": "3.0.2"
+  },
+
   "autoload": {
     "psr-4": {
       "Snail\\": "/"
