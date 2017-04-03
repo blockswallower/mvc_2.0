@@ -1,5 +1,5 @@
 {
-  "name": "Snail - PHP Framework v0.6",
+  "name": "dennisslimmers01/snailmvc",
   "license" : "MIT",
   "homepage": "https://github.com/dennisslimmers01/Snail-MVC",
   "authors": [
@@ -20,7 +20,7 @@
 
   "autoload": {
     "psr-4": {
-      "Snail": "/"
+      "Snail": ""
     }
   }
 }
