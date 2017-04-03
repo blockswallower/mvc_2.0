@@ -9,8 +9,7 @@
     },
 
     {
-      "name": "Bas van der Ploeg",
-      "email": ""
+      "name": "Bas van der Ploeg"
     }
   ],
 
@@ -20,7 +19,7 @@
 
   "autoload": {
     "psr-4": {
-      "Snail": "/"
+      "Snail\\": "/"
     }
   }
 }
