@@ -14,7 +14,7 @@
   ],
 
   "require": {
-    "symfony/console": "2.6.7"
+    "symfony/console": "3.0.2"
   },
 
   "autoload": {
