@@ -13,10 +13,10 @@ and contains a lot of optional features like:
   - _(Still in development)_ Build in PHP server
 
 # Download
-Website link soon!
-
-In the meantime you can download the zip/rar here.
-https://github.com/dennisslimmers01/Snail-MVC/
+Install with **Composer**:
+```composer
+composer require "dennisslimmers01/snailmvc"
+```
 
 # Requirements
 
