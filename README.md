@@ -14,7 +14,7 @@ and contains a lot of optional features like:
 
 # Download
 Install with **Composer**:
-```composer
+```php
 composer global require "dennisslimmers01/snailmvc"
 ```
 
