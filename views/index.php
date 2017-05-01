@@ -1,8 +1,9 @@
+<?php use Snail\App\Config\SNAIL, Snail\App\Utils\Link; ?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>
     <title>website</title>
-    <?php \Snail\App\Utils\Link::google_font('https://fonts.googleapis.com/css?family=Pacifico"'); ?>
+    <?php Link::google_font('https://fonts.googleapis.com/css?family=Pacifico"'); ?>
     <script src="./assets/ts/Snail.js"></script>
     <style>
         .font {
@@ -22,9 +23,9 @@
 </head>
 <body>
     <div class="container">
-        <h1 id="title">Snail</h1>
-        <h1 class="font">PHP Framework</h1>
-        <h1 class="font">V <?= \Snail\App\Config\SNAIL::APP_VERSION ?></h1>
+        <h1 id="title"><?= SNAIL::APP_NAME ?></h1>
+        <h1 class="font"><?= SNAIL::APP_TAG ?></h1>
+        <h1 class="font">V <?= SNAIL::APP_VERSION ?></h1>
     </div>
 </body>
 </html>

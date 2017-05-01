@@ -2,6 +2,8 @@ var Config = (function () {
     function Config() {
         this.APP_VERSION = 0.8;
         this.APP_NAME = "Snail- PHP framework";
+        /* Modify this if needed */
+        this.URL = 'http://localhost/Snail-MVC/';
     }
     return Config;
 }());

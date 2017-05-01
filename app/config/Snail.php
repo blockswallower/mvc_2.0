@@ -16,7 +16,7 @@ final class SNAIL {
     /**
      * @const URL string
      *
-     * Contains the full URl
+     * Contains the URl
      * where the Snail application is running on, and will
      * be different depending on your host
      */
@@ -64,7 +64,14 @@ final class SNAIL {
      *
      * Current application name of Snail
      */
-    const APP_NAME = "Snail - PHP framework";
+    const APP_NAME = "Snail";
+
+    /**
+     * @const APP_TAG string
+     *
+     * Current application tag of Snail
+     */
+    const APP_TAG = "PHP framework";
 
     /**
      * @const APP_VERSION int
