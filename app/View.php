@@ -1,234 +1,132 @@
 <?php
 
 /**
- * @package Snail_MVC
+ * =================================================================
+ * @package Snail
  * @author Dennis Slimmers, Bas van der Ploeg
- * @copyright Copyright (c) 2016 Dennis Slimmers, Bas van der Ploeg
- * @link https://github.com/dennisslimmers01/Snail-MVC
+ * @copyright Copyright (c) 2017 Dennis Slimmers, Bas van der Ploeg
+ * @link https://github.com/dennisslimmers/Snail
  * @license Open Source MIT license
+ * =================================================================
  */
 
+namespace Snail\App;
+
+use Snail\App\Config\SNAIL;
+use Snail\App\Utils\Debug;
+
 class View {
-	/**
-	 * globals array
-	 */
-	public $globals;
+    /**
+     * @var string
+     * Path to the controllers folder
+     */
+    private $path_to_controllers = './controllers/';
 
-	/**
-	 * views base path
-	 */
-	protected $basepath = 'views/';
+    /**
+     * @var string
+     * Path to the views folder
+     */
+    private $path_to_views = './views/';
 
-	/**
-	 * header.php location
-	 */
-	protected $header = 'views/layout/header.php';
+    /**
+     * @var bool
+     * Will be true on the first
+     * show/extend/show_hf execution
+     */
+    private $rendered = false;
 
-	/**
-	 * footer.php location
-	 */
-	protected $footer = 'views/layout/footer.php';
+    public function __construct($route = null, $param = null) {
+        if ($route !== null) {
+            /* Build the controller name with provided route */
+            $controller_name = ucfirst($route) . 'Controller';
 
-	/**
-	 * rendered boolean
-	 */
-	protected $rendered;
+            /* Check if the controller exists */
+            $complete_path = $this->path_to_controllers . $controller_name . '.php';
+            if (!file_exists($complete_path)) {
+                Debug::fatal("Controller: '$controller_name' does not exist");
+            }
 
-	/**
-	 * @param null $key
-	 * @param $placeholder
-	 * @return mixed
-	 *
-	 * returns a value from the "globals" array
-	 * can be accessed in views like this:
-	 *
-	 * $this->get([KEY]);
-	 */
-	public function get($key = null, $placeholder = null) {
-		$page = empty($placeholder) ?  Controller::get_cur_controller() : $placeholder;
+            /* Require the controller */
+            require_once $complete_path;
 
-		if (!empty($this->globals[$page])) {
-			if (!empty($key)) {
-				$value = $this->globals[$page][$key];
+            /* Render the view */
+            $object = new $controller_name();
 
-				if (!empty($value)) {
-					return $value;
-				} else {
-					Debug::exitdump('The value you are trying to access is empty or NULL', __LINE__, "app/View");
-				}
-			} else {
-				Debug::exitdump('Please enter an array key as an argument: $this->get([KEY])', __LINE__, "app/View");
-			}
-		} else {
-			Debug::exitdump("No variables have been send from this controller yet: " . ucfirst($page) . "Controller", __LINE__, "app/View");
-		}
+            if ($param !== null) {
+                /* Execute show method with provided $param var */
+                $object->show($param);
+            } else {
+                /* Execute show method without parameters */
+                $object->show();
+            }
+        }
+    }
 
-		return $key;
-	}
+    /**
+     * @param $view_name string
+     *
+     * Method to render a view from the
+     * views folder.
+     *
+     * Usage: $this->view->show([VIEW])
+     */
+    public function show($view_name) {
+        /* Add PHP extension to view name */
+        $view = strtolower($view_name) . '.php';
 
-	/**
-	 * @param $view
-	 * @param $globals
-	 *
-	 * This method renders
-	 * the requested view
-	 * from the controller
-	 * with header and footer
-	 * included
-	 */
-	public function show_hf($view, $globals = null) {
-		if (file_exists($this->get_view_path($view))) {
-			if (file_exists($this->header)) {
-				if (file_exists($this->footer)) {
-					/**
-					 * Configure global variables
-					 */
-					if (!empty($globals)) {
-						$this->globals = $globals;
-					}
+        $complete_path = $this->path_to_views . $view;
+        if (!file_exists($complete_path)) {
+            Debug::fatal("View: '$view_name' not found");
+        }
 
-					$this->require_header();
-					$this->render_view($view);
-					$this->require_footer();
+        /* Require the view */
+        require_once $complete_path;
 
-					/**
-					 * Requires post request handler
-					 * for capturing post requests
-					 */
-					$this->require_post_request_handler();
+        /* Set rendered to true */
+        if (!$this->rendered) {
+            $this->rendered = true;
+        }
+    }
 
-					/**
-					 * Confirms that everything
-					 * has rendered properly
-					 */
-					$this->rendered = true;
-				} else {
-					Debug::exitdump("The view: '$this->footer' does not exist", __LINE__, "app/View");
-				}
-			} else {
-				Debug::exitdump("The view: '$this->header' does not exist", __LINE__, "app/View");
-			}
-		} else {
-			Debug::exitdump("The view: '". $this->get_view_path($view) ."' does not exist", __LINE__, "app/View");
-		}
-	}
+    /**
+     * @param $view_name
+     *
+     * Method for rendering a view with header
+     * and footer file attached
+     *
+     * Usage: $this->view->show_hf([VIEW])
+     */
+    public function show_hf($view_name) {
+        /* Add PHP extension to view name */
+        $view = strtolower($view_name) . '.php';
 
-	/**
-	 * @param $view
-	 *
-	 * Does the same as '$this->show([VIEW])'
-	 * but this naming convention is more
-	 * readable if used in a view
-	 */
-	public function extend($view) {
-		if (file_exists($this->get_view_path($view))) {
-			include_once $this->get_view_path($view);
-		} else {
-			Debug::exitdump("The view '". $this->get_view_path($view) ."' you are trying to extend does not exist", __LINE__, "app/View");
-		}
-	}
+        $complete_path = $this->path_to_views . $view;
+        if (!file_exists($complete_path)) {
+            Debug::fatal("View: '$view_name' not found");
+        }
 
-	/**
-	 * @param $view
-	 * @param $globals
-	 *
-	 * This method renders
-	 * the requested view
-	 * from the controller
-	 */
-	public function show($view, $globals = null) {
-		if (file_exists($this->get_view_path($view))) {
-			/**
-			 * Configure global variables
-			 */
-			if (!empty($globals)) {
-				$this->globals = $globals;
-			}
+        if (!file_exists(SNAIL::HEADER)) {
+            $header = SNAIL::HEADER;
+            Debug::fatal("View: '$header' not found");
+        }
 
-			$this->render_view($view);
+        if (!file_exists(SNAIL::FOOTER)) {
+            $footer = SNAIL::FOOTER;
+            Debug::fatal("View: '$footer' not found");
+        }
 
-			/**
-			 * Requires post request handler
-			 * for capturing post requests
-			 */
-			$this->require_post_request_handler();
+        /* Require the header */
+        require_once SNAIL::HEADER;
 
-			/**
-			 * Confirms that everything
-			 * has rendered properly
-			 */
-			$this->rendered = true;
-		} else {
-			Debug::exitdump("The view '". $this->get_view_path($view) ."' does not exist", __LINE__, "app/View");
-		}
-	}
+        /* Require the view */
+        require_once $complete_path;
 
-	/**
-	 * Requires standard header file
-	 */
-	public function require_header() {
-		if (file_exists($this->header)) {
-			require $this->header;
-		} else {
-			Debug::exitdump("The view: '$this->header' does not exist", __LINE__, "app/View");
-		}
-	}
+        /* Require the footer */
+        require_once SNAIL::FOOTER;
 
-	/**
-	 * Requires standard footer file
-	 */
-	public function require_footer() {
-		if (file_exists($this->footer)) {
-			require $this->footer;
-		} else {
-			Debug::exitdump("The view: '$this->footer' does not exist", __LINE__, "app/View");
-		}
-	}
-
-	/**
-	 * @param $view
-	 *
-	 * Renders the content
-	 * from the requested view
-	 */
-	public function render_view($view) {
-		if (file_exists($this->get_view_path($view))) {
-			require $this->get_view_path($view);
-		} else {
-			Debug::exitdump("The view: '". $this->get_view_path($view) ."' does not exist", __LINE__, "app/View");
-		}
-	}
-
-	/**
-	 * Requires post request handler
-	 */
-	public function require_post_request_handler() {
-		$post_request_handler = "./http/PostRequestHandler.php";
-
-		if (file_exists($post_request_handler)) {
-			require $post_request_handler;
-		} else {
-			Debug::exitdump($post_request_handler."' does not exist", __LINE__, "app/View");
-		}
-	}
-
-	/**
-	 * @param $view
-	 * @return String
-	 *
-	 * returns the content
-	 * from the requested view
-	 */
-	public function get_view_path($view) {
-		return $this->basepath.$view.".php";
-	}
-
-	/**
-	 * @return array
-	 *
-	 * returns globals array
-	 */
-	public function get_globals() {
-		return $this->globals;
-	}
+        /* Set rendered to true */
+        if (!$this->rendered) {
+            $this->rendered = true;
+        }
+    }
 }

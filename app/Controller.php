@@ -1,175 +1,80 @@
 <?php
-
 /**
- * @package Snail_MVC
+ * =================================================================
+ * @package Snail
  * @author Dennis Slimmers, Bas van der Ploeg
- * @copyright Copyright (c) 2016 Dennis Slimmers, Bas van der Ploeg
- * @link https://github.com/dennisslimmers01/Snail-MVC
+ * @copyright Copyright (c) 2017 Dennis Slimmers, Bas van der Ploeg
+ * @link https://github.com/dennisslimmers/Snail
  * @license Open Source MIT license
+ * =================================================================
  */
 
-class Controller {
-	/**
-	 * Globals array
-	 */
-	protected $globals;
+namespace Snail\App;
 
-	/**
-	 * View object
-	 */
-	protected $view;
+use Snail\App\View;
+use Snail\App\Utils\Debug;
 
-	/**
-	 * Model object
-	 */
-	protected $model;
-
-	/**
-	 * Config object
-	 */
-	protected $config;
-
-	/**
-	 * models directory
-	 */
-	protected $modelsdir = 'models/';
-
-	/**
-	 * libs directory
-	 */
-	protected $libsdir = 'lib/';
-
-	public function __construct() {
-		/**
-		 * This is needed for 
-		 * being able to redirect 
-		 * after a function call
-		 */
-		ob_start();
-
-		/**
-		 * Starts the session
-		 * on every page
-		 */
-		Sessions::init();
-		
-		/**
-		 * Create a new View object on every page
-		 */
-		$this->view = new View();
-
-		/**
-		 * Create a new Config object
-		 *
-		 * Access with:
-		 *
-		 * Config::$config[KEY]
-		 *
-		 * or:
-		 *
-		 * Config::get(KEY)
-		 *
-		 */
-		$this->config = new Config();
-	}
-
-	/**
-	 * @param $model
-	 *
-	 * Loads the model in the given
-	 * parameter
-	 *
-	 * Controller:
-	 *
-	 * $this->loadmodel('index');
-	 *
-	 * $this->index->[FUCTION_CALL]
+abstract class Controller {
+    /**
+     * @var object
+     * Model object
      */
-	public function load_model($model) {
-		$model = ucfirst($model)."Model";
-		$path = $this->modelsdir . $model.".php";
+    protected $model;
 
-		if (file_exists($path)) {
-			require_once $path;
-
-			$this->$model = new $model();
-		} else {
-			Debug::exitdump($model . ".php doesn't exist", __LINE__, "app/Controller");
-		}
-	}
-
-	/**
-	 * @param $library
-	 *
-	 * loads in library based on the parameter
+    /**
+     * @var object
+     * View object
      */
-	public function load_library($library) {
-		$path = $this->libsdir . $library . '/' . $library . '.php';
+    protected $view;
 
-		if (file_exists($path)) {
-			require $path;
-		} else {
-			Debug::exitdump($library . ".php doesn't exist", __LINE__, "app/Controller");
-		}
-	}
+    public function __construct() {
+        /* Array that contains every variable send to the actual views */
+        $this->globals = [];
 
-	/**
-	 * @param $controller
-	 * @param $key
-	 * @param $value
-	 *
-	 * This method will 'send' a variable
-	 * to your view
-	 *
-	 * Controller:
-	 *
-	 * $test = [VALUE];
-	 * $this->set([CONTROLLER_NAME], [KEY], $test);
-	 *
-	 * View:
-	 *
-	 * $this->var[CONTROLLER_NAME][KEY];
-	 *
-	 * or:
-	 *
-	 * $this->get([KEY]);
+        /* View object used to render PHP views */
+        $this->view = new View();
+    }
+
+    /**
+     * @param $key
+     * @param $value
+     *
+     * Sets a view variable
+     * access: $this->[VARIABLE_NAME]
      */
-	public function set($controller, $key, $value) {
-		$this->globals[$controller][$key] = $value;
-	}
+    public function set($key, $value) {
+        $this->view->{$key} = $value;
+    }
 
-	/**
-	 * This allows templates to access
-	 * global variables
-	 */
-	public function config_template_globals() {
-		$this->view->globals = $this->globals;
-	}
+    /**
+     * @param $model_name
+     *
+     * Loads the model with the provided
+     * parameter as model name
+     *
+     * Controller:
+     *
+     * $this->load_model('index');
+     * $this->index->[FUCTION_CALL]
+     */
+    public function load_model($model_name) {
+        $model = ucfirst($model_name) . "Model";
 
-	/**
-	 * Returns the controller the user
-	 * is currently using
-	 */
-	public static function get_cur_controller() {
-		$url = isset($_GET['url']) ? $_GET['url'] : null;
-		$url = filter_var($url, FILTER_SANITIZE_URL);
-		$url = rtrim($url, '/');
-		$url = explode('/', $url);
+        /* Path to models */
+        $path_to_models = './models/';
 
-		/*
-		 * Current controller
-		 */
-		$controller = $url[0];
+        $complete_path = $path_to_models . $model . '.php';
+        if (file_exists($complete_path)) {
+            /* Require the model */
+            require_once $complete_path;
 
-		/**
-		 * Will set the current controller
-		 * to Config::get("STANDARD_CONTROLLER")
-		 * if no controller was found
-		 */
-		if (empty($controller)) {
-			$controller = Config::get("STANDARD_CONTROLLER");
-		}
+            /* Create the model */
+            $this->{$model_name} = new $model();
+        } else {
+            Debug::fatal('models/' . $model . ".php doesn't exist");
+        }
+    }
 
-		return $controller;
-	}
+    /* Every Controller needs a show method for rendering a view */
+    public abstract function show();
 }

@@ -1,0 +1,45 @@
+{
+  "name": "brainstormit/bitbuilder",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/BrainstormIT/BITbuilder"
+    }
+  ],
+
+  "description": "Easy to read querybuilder with a short learning curve!",
+  "license" : "MIT",
+  "homepage": "https://github.com/BrainstormIT/BITbuilder",
+  "authors": [
+    {
+      "name": "Dennis Slimmers",
+      "email": "dennis@brainstormit.nl"
+    },
+    {
+      "name": "Bas van der Ploeg",
+      "email": "bas@brainstormit.nl"
+    },
+    {
+      "name": "Xander Dijk",
+      "email": "xander@brainstormit.nl"
+    }
+  ],
+
+  "require": {
+    "php": ">=5.0.0"
+  },
+
+  "require-dev": {
+    "php": ">=5.0.0"
+  },
+
+  "autoload": {
+    "classmap": [
+      "src/core/Builder.php",
+      "src/core/Query.php",
+      "src/helpers/Arr.php",
+      "src/helpers/Database.php",
+      "src/helpers/Str.php"
+    ]
+  }
+}

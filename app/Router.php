@@ -1,212 +1,168 @@
 <?php
 
 /**
- * @package Snail_MVC
+ * =================================================================
+ * @package Snail
  * @author Dennis Slimmers, Bas van der Ploeg
- * @copyright Copyright (c) 2016 Dennis Slimmers, Bas van der Ploeg
- * @link https://github.com/dennisslimmers01/Snail-MVC
+ * @copyright Copyright (c) 2017 Dennis Slimmers, Bas van der Ploeg
+ * @link https://github.com/dennisslimmers/Snail
  * @license Open Source MIT license
+ * =================================================================
  */
 
+namespace Snail\App;
+
+use Snail\App\Config\SNAIL;
+use Snail\App\Utils\Debug;
+use Snail\App\Utils\Arr;
+use Snail\App\Utils\Req;
+use Snail\App\Utils\Str;
+
 class Router {
-    /*
-     * This variable will be the key for
-     * the Router to understand incoming Ajax
-     * requests
+    /**
+     * @var array
+     *
+     * This array will contain every route
+     * configured in http/Routes.php. A route
+     * can be configured with the 'get' method:
+     *
+     * $router->get('test', function() {
+     *      return new View('test');
+     * });
      */
-    private $ajax_keyword = 'ajax';
+    private $routes = [];
 
-    private $httpstatus_controller = "HttpstatusController";
+    /**
+     * @var mixed
+     *
+     * This variable will contain the provided
+     * {param}. $param can be accessed by calling the
+     * Router::get_param() method in your Router.php
+     * file.
+     */
+    private static $param;
 
-    private $httpstatus_rendering_method = "show";
+    /**
+     * @param $closure
+     * @return bool
+     *
+     * Configures the '/' route. This route
+     * will be used as default
+     */
+    public function base($closure) {
+        /* Check if the second parameter is a Closure */
+        if (!is_callable($closure)) {
+            Debug::dump("Please enter a closure (anonynous function) as parameter");
+            return false;
+        }
 
-    public function __construct() {
-        require './http/Routes.php';
+        /* Configure the base route */
+        $this->routes['GET']['/'] = $closure;
+    }
 
-        $routes = new Routes();
+    /**
+     * @param $route string
+     * @param $closure \Closure
+     * @return bool
+     *
+     * get is used to 'configure' a get route. Every configured get route
+     * gets stored in the $routes['GET'] array.
+     */
+    public function get($route, $closure) {
+        /* Check if the route has already been configured */
+        if (isset($this->routes['GET'][$route])) {
+            Debug::dump("Route: '$route' has allready been configured");
+            return false;
+        }
 
-        $url = $this->get_url();
-        $route = $this->get_route($url);
+        /* Check if the second parameter is a Closure */
+        if (!is_callable($closure)) {
+            Debug::dump("Please enter a closure (anonynous function) as second parameter");
+            return false;
+        }
+
+        /* Configure the route */
+        $this->routes['GET'][$route] = $closure;
+    }
+
+    /**
+     * @param $route string
+     * @param $closure \Closure
+     * @return bool
+     *
+     * post is used to 'configure' a post route. Every configured post route
+     * gets stored in the $routes['POST'] array.
+     */
+    public function post($route, $closure) {
+        /* Check if the route has already been configured */
+        if (isset($this->routes['POST'][$route])) {
+            Debug::dump("Route: '$route' has allready been configured");
+            return false;
+        }
+
+        /* Check if the second parameter is a Closure */
+        if (!is_callable($closure)) {
+            Debug::dump("Please enter a closure (anonynous function) as second parameter");
+            return false;
+        }
+
+        /* Configure the route */
+        $this->routes['POST'][$route] = $closure;
+    }
+
+    /**
+     * @return bool
+     *
+     * Performs the route
+     */
+    public function route() {
+        $route = $this->get_route();
+
+        /* Find the request method */
+        $request = $_SERVER['REQUEST_METHOD'];
 
         if (!empty($route)) {
-            $split = explode("/", $route);
+            /* Split the route on the slashes */
+            $split_route = explode("/", $route);
 
-            if ($split[0] === $this->ajax_keyword) {
-                /*
-                 * Handle Ajax Requests (Only if the first URL index equals the Ajax keyword)
-                 */
-                $this->handle_ajax_request($split);
-            } else {
-                $route_with_params = str_replace(Arr::last($split), "{param}", $route);
+            /* Store the parameter */
+            $param = Arr::last($split_route);
 
-                if (!empty($routes->getRoutes()[$route_with_params])) {
-                    /*
-                     * Route to page with last URL index as parameter
-                     */
-                    $param = Arr::last($split);
-                    $this->route($routes->getRoutes()[$route_with_params], $param);
-                } else {
-                    if (!empty($routes->getRoutes()[$route])) {
-                        /*
-                         * Route to page without parameters
-                         */
-                        $this->route($routes->getRoutes()[$route]);
-                    } else {
-                        $this->throw404();
-                    }
-                }
-            }
-        } else {
-            $this->render_standard_page();
-        }
-    }
+            /* Remove the last URL key */
+            unset($split_route[Arr::last_index($split_route)]);
 
-    /**
-     * @param $param
-     * @param $route
-     *
-     * This method routes the user based on http/Routes.php
-     */
-    private function route($route = null, $param = null) {
-        if (is_callable($route)) {
-            /**
-             * If the $controller variable
-             * is a closure, run it
-             */
-            $route();
-        } else {
-            if (strstr($route, ".")) {
-                $split_route = explode(".", $route);
-                $controller = $split_route[0];
-                $method = $split_route[1];
-
-                /**
-                 * Check if controller exists
-                 */
-                if (!file_exists('controllers/' . $controller . '.php')) {
-                    Debug::exitdump('controllers/' . $controller . '.php does not exist!', __LINE__, "app/Router");
-                } else {
-                    require 'controllers/' . $controller . '.php';
-                    $object = new $controller;
-
-                    /*
-                     * Check if method exists in $controller
-                     */
-                    if (method_exists($object, $method)) {
-                        if ($param !== null) {
-                            if (!$this->has_parameters($object, $method)) {
-                                Debug::exitdump("No parameter found! Be sure to add your parameter in '$controller.$method'", __LINE__,  "app/Router");
-                            }
-
-                            $object->$method($param);
-                        } else {
-                            if ($this->has_parameters($object, $method)) {
-                                Debug::exitdump("Undefined parameter(s) found in '$controller.$method'", __LINE__,  "app/Router");
-                            }
-
-                            $object->$method();
-                        }
-                    } else {
-                        Debug::exitdump("The method '$method' does not exist in '$controller'!", __LINE__, "app/Router");
-                    }
-                }
-            } else {
-                Debug::exitdump("Be sure to add a method after your controller:
-                                 <code>'TestController.show'<code>", __LINE__, "app/Router");
-            }
-        }
-    }
-
-    /**
-     * @param $url
-     *
-     * Handles Ajax requests
-     */
-    private function handle_ajax_request($url) {
-        if (IS_AJAX) {
-            $controller = $url[0];
-
-            if (!empty($url[1])) {
-                $method = $url[1];
+            $route_with_param = '';
+            foreach($split_route as $route) {
+                $route_with_param .= $route . '/';
             }
 
-            if (!empty($controller)) {
-                $this->run_ajax_method($controller, $method);
-            }
-        } else {
-            if (Config::get("DEBUG")) {
-                Debug::exitdump("No permission!", __LINE__, 'app/Router');
-            } else {
-                $this->throw404();
-            }
-        }
-    }
-
-    /**
-     * @param $url
-     * @return String
-     *
-     * Return the route the user is trying to
-     * access (String)
-     */
-    private function get_route($url) {
-        if (Arr::size($url) > 2) {
-            $route = '';
-
-            for ($ii  = 2; $ii < Arr::size($url); $ii++) {
-                $slash =  Arr::last($url) == $url[$ii] ? "" : "/";
-                $route .= $url[$ii] . $slash;
-            }
-        } else {
-            $route = $url[2];
+            /* Append the {param} keyword to the route */
+            $route_with_param .= '{param}';
         }
 
-        return $route;
-    }
+        /* Set the route to '/' if there are no routes found */
+        if (empty($route)) {
+            $route = '/';
+        }
 
-    /*
-     * Renders an httpstatus page with 404 httpcode
-     */
-    private function throw404() {
-        require 'controllers/' . $this->httpstatus_controller . ".php";
+        if (isset($this->routes[$request][$route])) {
+            /* Execute the closure */
+            $closure = $this->routes[$request][$route];
+            $closure();
 
-        $method = $this->httpstatus_rendering_method;
+            return true;
+        } else if (isset($this->routes[$request][$route_with_param])) {
+            /* Set the static $param variable */
+            self::set_param($param);
 
-        $controller = new $this->httpstatus_controller();
-        $controller->$method(404);
-    }
+            /* Execute the closure */
+            $closure = $this->routes[$request][$route_with_param];
+            $closure();
 
-    /*
-     * Renders standard page. (Defined in app/Config.php)
-     */
-    private function render_standard_page() {
-        $standard_controller = ucfirst(Config::get("STANDARD_CONTROLLER")) . "Controller";
-        require 'controllers/' . $standard_controller . '.php';
-
-        $controller = new $standard_controller;
-        $rendering_method = Config::get("STANDARD_RENDERING_METHOD");
-
-        $controller->$rendering_method();
-    }
-
-
-    /**
-     * @param $controller
-     *
-     * Executes AjaxController method send from ajax
-     */
-    private function run_ajax_method($controller, $method) {
-        if (file_exists('controllers/ajax/' . ucfirst($controller) . 'Controller.php')) {
-            $controller = ucfirst($controller) . 'Controller';
-            require 'controllers/ajax/' . $controller . '.php';
-
-            $ajax = new $controller();
-
-            if (!empty($method)) {
-                if (method_exists($ajax, $method)) {
-                    $ajax->$method();
-                }
-            }
+            return true;
+        } else {
+            Debug::dump("Route not found");
+            return false;
         }
     }
 
@@ -215,31 +171,99 @@ class Router {
      * @param $method
      * @return bool
      *
-     * Returns true or false based on if the
-     * given method has parameters.
+     * Executes the provided method on a specific
+     * form submit
      */
-    private function has_parameters($controller, $method) {
-        $hasParameters = false;
-        $reflector = new ReflectionMethod($controller, $method);
+    public static function form_action($controller, $method) {
+        if (SNAIL::CSRF) {
+            /* Make sure there is an csrf token provided */
+            $token = Req::post("csrf_token");
 
-        if (!empty($reflector->getParameters())) {
-            $hasParameters = true;
+            if (empty($token)) {
+                Debug::fatal("Make sure to add an csrf token to your form");
+            }
         }
 
-        return $hasParameters;
+        /* Path to controllers */
+        $path_to_controllers = './controllers/';
+
+        /* Require the controller */
+        $complete_path = $path_to_controllers . $controller . '.php';
+        if (file_exists($complete_path)) {
+            require_once $complete_path;
+        }
+
+        /* Instantiate the controller */
+        $object = new $controller();
+
+        if (method_exists($object, $method)) {
+            /* Execute the provided method */
+            $object->$method();
+        }
     }
 
     /**
      * @return array
+     *
+     * Returns the url in an assoc array format
      */
-    public static function get_url() {
+    public function get_url() {
+        /* Split the url on the slashes */
         $split = explode("/", $_SERVER['REQUEST_URI']);
 
+        /* Remove the GET variables */
+        $split = $this->manage_GET_variables($split);
+
+        return $split;
+    }
+
+    /**
+     * @return mixed|string
+     *
+     * Returns route needed for mapping
+     */
+    public function get_route() {
+        $url = $this->get_url();
+        $route = '';
+
+        /* Check if we need to handle endless routing */
+        if (isset($url[3])) {
+            foreach ($url as $key => $value) {
+                if ($key >= 2) {
+                    if ($key !== Arr::last_index($url)) {
+                        $route .= $value . '/';
+                    } else {
+                        $route .= $value;
+                    }
+                }
+            }
+        } else {
+            /* There is just 1 route */
+            $route = $url[2];
+        }
+
+        return $route;
+    }
+
+    /**
+     * @param $split array
+     * @return array
+     *
+     * Removes the the GET variables from the url
+     * so that they don't interfere with the routing
+     * process
+     */
+    private function manage_GET_variables($split) {
         if (!empty(Arr::last($split))) {
+            /* Check if the url contains GET variables*/
             if (Str::contains(Arr::last($split), ["?", "="], true)) {
+                /* Turn the last key off the url into a char array */
                 $strsplit = str_split(Arr::last($split));
+
+                /* Find the ? */
                 $question_mark_index = Arr::find_index($strsplit, "?");
 
+                /* Cut the key in a way that the GET variables aren't included */
                 $cut_string = Str::substringint(Arr::last($split), 0, $question_mark_index - 1);
                 $last_item_index = Arr::find_index($split, Arr::last($split));
 
@@ -248,5 +272,22 @@ class Router {
         }
 
         return $split;
+    }
+
+
+    /**
+     * @param $param
+     *
+     * Sets the param
+     */
+    private static function set_param($param) {
+        self::$param = $param;
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function get_param() {
+        return self::$param;
     }
 }

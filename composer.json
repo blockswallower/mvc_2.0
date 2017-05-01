@@ -1,34 +1,6 @@
 {
-  "name": "dennisslimmers01/snailmvc",
-  "license" : "MIT",
-  "homepage": "https://github.com/dennisslimmers01/Snail-MVC",
-  "authors": [
-    {
-      "name": "Dennis Slimmers",
-      "email": "dennisslimmers@live.nl"
-    },
-
-    {
-      "name": "Bas van der Ploeg",
-      "email": "bassievdploeg@hotmail.com"
+    "require": {
+        "brainstormit/bitbuilder": "^1.3",
+        "tracy/tracy": "^2.4"
     }
-  ],
-
-  "require": {
-    "symfony/console": "3.0.2"
-  },
-
-  "require-dev": {
-    "symfony/console": "3.0.2"
-  },
-
-  "require-global": {
-    "symfony/console": "3.0.2"
-  },
-
-  "autoload": {
-    "psr-4": {
-      "Snail\\": "/"
-    }
-  }
 }

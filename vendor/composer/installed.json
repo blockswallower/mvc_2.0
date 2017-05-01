@@ -1,108 +1,35 @@
 [
     {
-        "name": "symfony/polyfill-mbstring",
-        "version": "v1.3.0",
+        "name": "brainstormit/bitbuilder",
+        "version": "v1.3",
         "version_normalized": "1.3.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/symfony/polyfill-mbstring.git",
-            "reference": "e79d363049d1c2128f133a2667e4f4190904f7f4"
+            "url": "https://github.com/BrainstormIT/BITbuilder.git",
+            "reference": "ae7b59c7a2d6ec49979fc16a6aafec3ae3b90d4f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/e79d363049d1c2128f133a2667e4f4190904f7f4",
-            "reference": "e79d363049d1c2128f133a2667e4f4190904f7f4",
+            "url": "https://api.github.com/repos/BrainstormIT/BITbuilder/zipball/ae7b59c7a2d6ec49979fc16a6aafec3ae3b90d4f",
+            "reference": "ae7b59c7a2d6ec49979fc16a6aafec3ae3b90d4f",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.3.3"
-        },
-        "suggest": {
-            "ext-mbstring": "For best performance"
-        },
-        "time": "2016-11-14T01:06:16+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.3-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Polyfill\\Mbstring\\": ""
-            },
-            "files": [
-                "bootstrap.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Nicolas Grekas",
-                "email": "p@tchwork.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony polyfill for the Mbstring extension",
-        "homepage": "https://symfony.com",
-        "keywords": [
-            "compatibility",
-            "mbstring",
-            "polyfill",
-            "portable",
-            "shim"
-        ]
-    },
-    {
-        "name": "symfony/console",
-        "version": "v3.0.2",
-        "version_normalized": "3.0.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/console.git",
-            "reference": "5a02eaadaa285e2bb727eb6bbdfb8201fcd971b0"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/console/zipball/5a02eaadaa285e2bb727eb6bbdfb8201fcd971b0",
-            "reference": "5a02eaadaa285e2bb727eb6bbdfb8201fcd971b0",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.5.9",
-            "symfony/polyfill-mbstring": "~1.0"
+            "php": ">=5.0.0"
         },
         "require-dev": {
-            "psr/log": "~1.0",
-            "symfony/event-dispatcher": "~2.8|~3.0",
-            "symfony/process": "~2.8|~3.0"
+            "php": ">=5.0.0"
         },
-        "suggest": {
-            "psr/log": "For using the console logger",
-            "symfony/event-dispatcher": "",
-            "symfony/process": ""
-        },
-        "time": "2016-02-02T13:44:19+00:00",
+        "time": "2017-04-24T12:47:03+00:00",
         "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.0-dev"
-            }
-        },
         "installation-source": "dist",
         "autoload": {
-            "psr-4": {
-                "Symfony\\Component\\Console\\": ""
-            },
-            "exclude-from-classmap": [
-                "/Tests/"
+            "classmap": [
+                "src/core/Builder.php",
+                "src/core/Query.php",
+                "src/helpers/Arr.php",
+                "src/helpers/Database.php",
+                "src/helpers/Str.php"
             ]
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -111,15 +38,83 @@
         ],
         "authors": [
             {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
+                "name": "Dennis Slimmers",
+                "email": "dennis@brainstormit.nl"
             },
             {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
+                "name": "Bas van der Ploeg",
+                "email": "bas@brainstormit.nl"
+            },
+            {
+                "name": "Xander Dijk",
+                "email": "xander@brainstormit.nl"
             }
         ],
-        "description": "Symfony Console Component",
-        "homepage": "https://symfony.com"
+        "description": "Easy to read querybuilder with a short learning curve!",
+        "homepage": "https://github.com/BrainstormIT/BITbuilder"
+    },
+    {
+        "name": "tracy/tracy",
+        "version": "v2.4.6",
+        "version_normalized": "2.4.6.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/nette/tracy.git",
+            "reference": "c9fbca15b0a11d904c7783b7aad114182618d8d4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/nette/tracy/zipball/c9fbca15b0a11d904c7783b7aad114182618d8d4",
+            "reference": "c9fbca15b0a11d904c7783b7aad114182618d8d4",
+            "shasum": ""
+        },
+        "require": {
+            "ext-json": "*",
+            "ext-session": "*",
+            "php": ">=5.4.4"
+        },
+        "require-dev": {
+            "nette/di": "~2.3",
+            "nette/tester": "~2.0"
+        },
+        "time": "2017-01-29T19:39:20+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src"
+            ],
+            "files": [
+                "src/shortcuts.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "David Grudl",
+                "homepage": "https://davidgrudl.com"
+            },
+            {
+                "name": "Nette Community",
+                "homepage": "https://nette.org/contributors"
+            }
+        ],
+        "description": "Tracy: useful PHP debugger",
+        "homepage": "https://tracy.nette.org",
+        "keywords": [
+            "debug",
+            "debugger",
+            "nette"
+        ]
     }
 ]

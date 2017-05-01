@@ -1,27 +1,42 @@
 <?php
 
 /**
- * @package Snail_MVC
+ * =================================================================
+ * @package Snail
  * @author Dennis Slimmers, Bas van der Ploeg
- * @copyright Copyright (c) 2016 Dennis Slimmers, Bas van der Ploeg
- * @link https://github.com/dennisslimmers01/Snail-MVC
+ * @copyright Copyright (c) 2017 Dennis Slimmers, Bas van der Ploeg
+ * @link https://github.com/dennisslimmers/Snail
  * @license Open Source MIT license
+ * =================================================================
  */
 
+namespace Snail\App;
+
+use BITbuilder\core\Builder;
+use Snail\App\Database;
+
 class Model {
-    protected $db;
-    protected $qb;
+    /**
+     * $b @object
+     *
+     * This variable will contain the
+     * BITbuilder object
+     */
+    public $b;
+
+    /**
+     * $db @object
+     *
+     * This variable will contain the
+     * PDO database object
+     */
+    public $db;
 
     public function __construct() {
-        /**
-         * Sets up the database
-         * for every other child model
-         */
+        /* Instantiate the PDO object */
         $this->db = new Database();
 
-        /**
-         * QueryBuilder Object
-         */
-        $this->qb = new QueryBuilder($this->db);
+        /* Instantiate the BITbuilder object */
+        $this->b = new Builder($this->db);
     }
 }

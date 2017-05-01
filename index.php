@@ -1,75 +1,20 @@
 <?php
 
-/**
- * @package Snail_MVC
- * @author Dennis Slimmers, Bas van der Ploeg
- * @copyright Copyright (c) 2016 Dennis Slimmers, Bas van der Ploeg
- * @link https://github.com/dennisslimmers01/Snail-MVC
- * @license Open Source MIT license
- */
+namespace Snail;
 
-/**
- * store every directory
- * you want to autoload in
- * this array (Can only be PHP files)
- */
-$directories = array(
-    './helpers',
-    './app',
-    './lib/ScriptEngine',
-    './lib/PHPMailer'
-);
+use Snail\App\Bootstrap;
+use Snail\App\Config\TracySettings;
+use Tracy\Debugger;
 
-/**
- * @param $directory
- *
- * autoloads every directory
- * in the $directories array
- */
-function autoload($directories) {
-    foreach ($directories as $dir) {
-        if (!is_dir($dir)) {
-            exit($dir.' is not a directory!');
-        }
+/* Include autoloaders */
+require_once 'autoload.php';
+require_once 'vendor/autoload.php';
 
-        foreach (scandir($dir) as $file) {
-            if ($file === '.') {
-                continue;
-            }
+/* Enable the Tracy debugger */
+Debugger::enable();
 
-            if ($file === '..') {
-                continue;
-            }
+/* Set Tracy configurations */
+TracySettings::init();
 
-            if ($file === '.htaccess') {
-                continue;
-            }
-
-            require $dir. '/' .$file;
-        }
-    }
-}
-
-/**
- * autoloads every directory
- * in the $directories array
- */
-autoload($directories);
-
-/**
- * stores the settings object
- */
-$settings = new Config();
-
-/**
- * loads in every script given
- * in the settings array/string
- */
-$script = new ScriptLoader();
-
-/**
- * stores the Application object
- * and starts the MVC system
- */
-$router = new Router();
-
+/* Start Snail! */
+$app = new Bootstrap();
