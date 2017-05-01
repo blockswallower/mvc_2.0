@@ -1,3 +1,10 @@
+var Config = (function () {
+    function Config() {
+        this.APP_VERSION = 0.8;
+        this.APP_NAME = "Snail- PHP framework";
+    }
+    return Config;
+}());
 function getJson() {
     var xhr = new Xhr();
     xhr.makeRequest("GET", "https://www.reddit.com/r/programming.json", function (failure, data) {
