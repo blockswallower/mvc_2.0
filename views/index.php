@@ -4,7 +4,7 @@
 <head>
     <title>website</title>
     <?php Link::google_font('https://fonts.googleapis.com/css?family=Pacifico"'); ?>
-    <script src="./assets/ts/Snail.js"></script>
+    <script src="./assets/ts/dist/bundle.js"></script>
     <style>
         .font {
             text-align: center;
@@ -17,9 +17,6 @@
             font-family: 'Pacifico', cursive;
         }
     </style>
-    <script>
-        getJson();
-    </script>
 </head>
 <body>
     <div class="container">
