@@ -4,7 +4,6 @@
 <head>
     <title>website</title>
     <?php Link::google_font('https://fonts.googleapis.com/css?family=Pacifico"'); ?>
-    <script src="./assets/ts/dist/bundle.js"></script>
     <style>
         .font {
             text-align: center;
