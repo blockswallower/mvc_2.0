@@ -1,5 +1,26 @@
 {
+    "name": "dennisslimmers/snail",
+    "description": "Snail - PHP MVC framework",
+    "license" : "MIT",
+    "homepage": "https://github.com/dennisslimmers/Snail",
+    "authors": [
+        {
+            "name": "Dennis Slimmers",
+            "email": "dennisslimmers@live.nl"
+        },
+        {
+            "name": "Bas van der Ploeg"
+        }
+    ],
+
     "require": {
+        "php": ">=5.0.0",
+        "brainstormit/bitbuilder": "^1.3",
+        "tracy/tracy": "^2.4"
+    },
+
+    "require-dev": {
+        "php": ">=5.0.0",
         "brainstormit/bitbuilder": "^1.3",
         "tracy/tracy": "^2.4"
     }
