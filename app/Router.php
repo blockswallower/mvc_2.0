@@ -120,24 +120,25 @@ class Router {
 
         /* Find the request method */
         $request = $_SERVER['REQUEST_METHOD'];
-
         if (!empty($route)) {
             /* Split the route on the slashes */
             $split_route = explode("/", $route);
+            if (count($split_route) > 1) {
+                /* Store the parameter */
+                $param = Arr::last($split_route);
 
-            /* Store the parameter */
-            $param = Arr::last($split_route);
+                /* Remove the last URL key */
+                unset($split_route[Arr::last_index($split_route)]);
 
-            /* Remove the last URL key */
-            unset($split_route[Arr::last_index($split_route)]);
+                $route_with_param = '';
+                foreach($split_route as $route) {
+                    $route_with_param .= $route . '/';
+                }
 
-            $route_with_param = '';
-            foreach($split_route as $route) {
-                $route_with_param .= $route . '/';
+                /* Append the {param} keyword to the route */
+                $route_with_param .= '{param}';
+                $route .= "/$param";
             }
-
-            /* Append the {param} keyword to the route */
-            $route_with_param .= '{param}';
         }
 
         /* Set the route to '/' if there are no routes found */

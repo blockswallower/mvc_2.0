@@ -7,11 +7,6 @@ use Snail\App\View;
 
 $router = new Router();
 
-/*
- * the 'base' method configures the default
- * route. In this case we create a new view
- * linked to the IndexController
- */
 $router->base(function() {
     return new View('index');
 });
