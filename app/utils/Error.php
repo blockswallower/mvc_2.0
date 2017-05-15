@@ -15,7 +15,6 @@ namespace Snail\App\Utils;
 class Error {
     /**
      * @param $message
-     *
      * Shows error message
      */
     public static function set_error($message) {

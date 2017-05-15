@@ -59,10 +59,7 @@ class Database extends \PDO {
     private function database_exists() {
         $exists = true;
 
-        /**
-         * create a temporary PDO object to test
-         * database connections
-         */
+        /* create a temporary PDO object to test database connections */
         $PDO = new \PDO("$this->db_type:host=$this->db_host", $this->db_username, $this->db_password);
         $result = $PDO->prepare("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '"
             . $this->db_name ."'");

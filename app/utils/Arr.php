@@ -13,11 +13,6 @@ namespace Snail\App\Utils;
 
 class Arr {
 	/**
-	 * This class will contain
-	 * array methods
-	 */
-
-	/**
 	 * @param $array
 	 * @return array
 	 *

@@ -148,9 +148,7 @@ class Csrf {
                 Debug::dump("CSRF Token is not valid!");
             }
         } else {
-            /**
-             * form not submitted or was GET request
-             */
+            /* form not submitted or was GET request */
             Debug::dump("Form not submitted or was GET request");
         }
     }

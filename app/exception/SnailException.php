@@ -12,5 +12,5 @@
 
 namespace Snail\App\Exception;
 
-/* Exception used for rendering Tracy bluescreen */
+/* Exception used for rendering Tracy bluescreens */
 class SnailException extends \Exception {}

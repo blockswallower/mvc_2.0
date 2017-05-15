@@ -16,11 +16,6 @@ use Snail\App\Config\SNAIL;
 
 class Form {
     /**
-     * This class will mainly be used
-     * to build forms with static methods
-     */
-
-    /**
      * @var String
      */
     private static $standard_method = 'post';
@@ -31,11 +26,7 @@ class Form {
      * @param $css
      */
     public static function open($method = "", $action = "", $css = "") {
-        /**
-         * Instantiates a new form.
-         * parameters will fill in the
-         * required
-         */
+        /* Instantiates a new form */
         if ($method != "") {
             echo "<form method='" . $method  . "' class='" . $css . "' action='" . $action . "' role='form'>\n";
         } else {
@@ -47,9 +38,7 @@ class Form {
      * Closes the form
      */
     public static function close() {
-        /**
-         * Closes the form
-         */
+        /* Closes the form */
         echo '</form>';
     }
 
@@ -58,9 +47,7 @@ class Form {
      * @param $css
      */
     public static function submit($name = "", $css = "") {
-        /**
-         * Generates a submit button
-         */
+        /* Generates a submit button */
         echo '<input type="submit" class="' . $css . '" value="submit" name="' . $name . '"/>' . "\n";
     }
 
@@ -69,9 +56,7 @@ class Form {
      * @param $name
      */
     public static function hidden($value, $name = "") {
-        /**
-         * Generates hidden input field
-         */
+        /* Generates hidden input field */
         echo '<input type="hidden" value="' . $value . '" name="' . $name . '"/>' . "\n";
     }
 
@@ -81,9 +66,7 @@ class Form {
      * @param $css
      */
     public static function text($name = "", $placeholder = "", $css = "") {
-        /**
-         * Generates text input field
-         */
+        /* Generates text input field */
         echo '<input type="text" name="' . $name . '" class="' . $css . '" placeholder="' . $placeholder . '"/>' . "\n";
     }
 
@@ -94,9 +77,7 @@ class Form {
      * @param string $css
      */
     public static function button($value = "", $onclick = "", $name = "", $css = "") {
-        /**
-         * Generates simple button
-         */
+        /* Generates simple button */
         echo '<button onclick="' . $onclick . '" class="' . $css . '" name="' . $name . '">' . $value . '</button>';
     }
 
@@ -108,9 +89,7 @@ class Form {
      */
     public static function request_is_same_domain() {
 		if(!isset($_SERVER['HTTP_REFERER'])) {
-			/**
-			 * No refererer sent, so can't be same domain
-			 */
+			/* No refererer sent, so can't be same domain */
 			return false;
 		} else {
 			$referer_host = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST);

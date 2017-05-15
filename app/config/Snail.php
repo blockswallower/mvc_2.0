@@ -40,63 +40,54 @@ final class SNAIL {
 
     /**
      * @const DB_NAME string
-     *
      * Contains the database name
      */
     const DB_NAME = '';
 
     /**
      * @const DB_USERNAME string
-     *
      * Contains the database username
      */
     const DB_USERNAME = 'root';
 
     /**
      * @const DB_PASSWORD string
-     *
      * Contains the database password
      */
     const DB_PASSWORD = '';
 
     /**
      * @const APP_NAME string
-     *
      * Current application name of Snail
      */
     const APP_NAME = "Snail";
 
     /**
      * @const APP_TAG string
-     *
      * Current application tag of Snail
      */
     const APP_TAG = "PHP framework";
 
     /**
      * @const APP_VERSION int
-     *
      * Snail version
      */
     const APP_VERSION = 0.8;
 
     /**
      * @const DEFAULT_LANG string
-     *
      * Default language set to english
      */
     const DEFAULT_LANG = "en";
 
     /**
      * @const APP_MAIL string
-     *
      * Snail email
      */
     const APP_MAIL = "info@snailframework.com";
 
     /**
      * @const DEBUG boolean
-     *
      * Debug mode
      */
     const DEBUG = true;
@@ -111,14 +102,12 @@ final class SNAIL {
 
     /**
      * @const HEADER string
-     *
      * Header file
      */
     const HEADER = './views/layout/header.php';
 
     /**
      * @const FOOTER string
-     *
      * Footer file
      */
     const FOOTER = './views/layout/footer.php';
