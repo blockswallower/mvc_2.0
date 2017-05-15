@@ -43,6 +43,11 @@ abstract class Controller {
      * access: $this->[VARIABLE_NAME]
      */
     public function set($key, $value) {
+        /* Make sure only string variables can be used as variable names*/
+        if (!is_string($key)) {
+            Debug::fatal("'$key' can't be used as variable name, please provide a string");
+        }
+
         $this->view->{$key} = $value;
     }
 

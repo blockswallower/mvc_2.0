@@ -1,13 +1,8 @@
 <?php
 
-/*
- * Autoloader for the Snail application
- */
+/* Autoloader for the Snail application */
 spl_autoload_register(function($class) {
-    /*
-     * This array contains namespaces
-     * with their corresponding folder names
-     */
+    /* This array contains namespaces with their corresponding folder names */
     $namespaces = [
         'Snail\\App\\' => 'app',
         'Snail\\App\\Http' => 'app/http',
