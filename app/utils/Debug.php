@@ -15,6 +15,8 @@ namespace Snail\App\Utils;
 use Tracy\BlueScreen;
 use Tracy\Debugger;
 
+use Snail\App\Exception\SnailException;
+
 class Debug {
     /**
      * @param $data
@@ -41,7 +43,7 @@ class Debug {
     /**
      * @param $data
      *
-     * Renders a Tracy bluescreen with with
+     * Renders a Tracy bluescreen with
      * provided exception/data
      */
     public static function fatal($data) {
@@ -49,7 +51,7 @@ class Debug {
         $bluescreen = new BlueScreen();
 
         /* Render the bluescreen */
-        $bluescreen->render(new \Exception($data));
+        $bluescreen->render(new SnailException($data));
         exit(0);
     }
 }

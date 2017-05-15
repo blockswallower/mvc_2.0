@@ -12,6 +12,7 @@ spl_autoload_register(function($class) {
         'Snail\\App\\' => 'app',
         'Snail\\App\\Http' => 'app/http',
         'Snail\\App\\Utils' => 'app/utils',
+        'Snail\\App\\Exception' => 'app/utils/exception',
         'Snail\\App\\Config' => 'app/config',
     ];
 
