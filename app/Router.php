@@ -72,7 +72,7 @@ class Router {
     public function get($route, $closure) {
         /* Check if the route has already been configured */
         if (isset($this->routes['GET'][$route])) {
-            Debug::dump("Route: '$route' has allready been configured");
+            Debug::dump("Route: '$route' has already been configured");
             return false;
         }
 
@@ -97,7 +97,7 @@ class Router {
     public function post($route, $closure) {
         /* Check if the route has already been configured */
         if (isset($this->routes['POST'][$route])) {
-            Debug::dump("Route: '$route' has allready been configured");
+            Debug::dump("Route: '$route' has already been configured");
             return false;
         }
 

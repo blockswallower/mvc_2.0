@@ -3,17 +3,17 @@
 <html lang="nl">
 <head>
     <title>website</title>
-    <?php Link::google_font('https://fonts.googleapis.com/css?family=Pacifico"'); ?>
+    <?php Link::google_font('https://fonts.googleapis.com/css?family=Fredericka+the+Great'); ?>
     <style>
         .font {
             text-align: center;
-            font-family: 'Pacifico', cursive;
+            font-family: 'Fredericka the Great', cursive;
         }
         #title {
             color: #1b6d85;
             font-size: 100px;
             text-align: center;
-            font-family: 'Pacifico', cursive;
+            font-family: 'Fredericka the Great', cursive;
         }
     </style>
 </head>

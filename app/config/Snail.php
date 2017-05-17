@@ -60,7 +60,7 @@ final class SNAIL {
      * @const APP_NAME string
      * Current application name of Snail
      */
-    const APP_NAME = "Snail";
+    const APP_NAME = "SNAIL";
 
     /**
      * @const APP_TAG string
