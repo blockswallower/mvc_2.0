@@ -40,7 +40,7 @@ class Router {
      * Router::get_param() method in your Router.php
      * file.
      */
-    private static $param;
+    private $param;
 
     /**
      * @param $closure
@@ -154,7 +154,7 @@ class Router {
             return true;
         } else if (isset($this->routes[$request][$route_with_param])) {
             /* Set the static $param variable */
-            self::set_param($param);
+            $this->set_param($param);
 
             /* Execute the closure */
             $closure = $this->routes[$request][$route_with_param];
@@ -175,13 +175,13 @@ class Router {
      * Executes the provided method on a specific
      * form submit
      */
-    public static function form_action($controller, $method) {
+    public function form_action($controller, $method) {
         if (SNAIL::CSRF) {
             /* Make sure there is an csrf token provided */
             $token = Req::post("csrf_token");
 
             if (empty($token)) {
-                Debug::fatal("Make sure to add an csrf token to your form");
+                Debug::fatal("Make sure to add a csrf token to your form");
             }
         }
 
@@ -281,14 +281,14 @@ class Router {
      *
      * Sets the param
      */
-    private static function set_param($param) {
-        self::$param = $param;
+    private function set_param($param) {
+        $this->param = $param;
     }
 
     /**
      * @return mixed
      */
-    public static function get_param() {
-        return self::$param;
+    public function get_param() {
+        return $this->param;
     }
 }

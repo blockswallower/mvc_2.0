@@ -11,14 +11,14 @@ $router->base(function() {
     return new View('index');
 });
 
-$router->get('blabla/{param}', function() {
-    return new View('blabla', Router::get_param());
+$router->get('blabla/{param}', function() use ($router) {
+    return new View('blabla', $router->get_param());
 });
 
 $router->get('test', function() {
     return new View('test');
 });
 
-$router->post('login', function() {
-    Router::form_action('TestController', 'login');
+$router->post('login', function() use ($router) {
+    $router->form_action('TestController', 'login');
 });

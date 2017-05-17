@@ -79,7 +79,4 @@ abstract class Controller {
             Debug::fatal('models/' . $model . ".php doesn't exist");
         }
     }
-
-    /* Every Controller needs a show method for rendering a view */
-    public abstract function show();
 }
