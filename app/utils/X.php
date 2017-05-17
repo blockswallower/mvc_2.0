@@ -35,7 +35,7 @@ class X {
 
         foreach ($data as $key => $value) {
             if (is_array($value)) {
-                $ret[$key] = self::_prevent($data[$key]);
+                $ret[$key] = self::prevent($data[$key]);
                 continue;
             }
 
@@ -62,7 +62,7 @@ class X {
 
         foreach ($data as $key => $value) {
             if (is_array($value)) {
-                $ret[$key] = self::_decode($data[$key]);
+                $ret[$key] = self::decode($data[$key]);
                 continue;
             }
 
@@ -106,12 +106,12 @@ class X {
      * Echos string secured
      * against cross site scripting
      */
-    public static function echo($data) {
+    public static function _echo($data) {
         if (!is_array($data)) {
-            echo self::_prevent($data);
+            echo self::prevent($data);
         } else {
             foreach($data as $item) {
-                echo self::_prevent($item)."</br>";
+                echo self::prevent($item)."</br>";
             }
         }
     }
