@@ -13,6 +13,7 @@ namespace Snail\App;
 
 use Snail\App\View;
 use Snail\App\Utils\Debug;
+use Snail\App\Utils\X;
 
 class Controller {
     /**
@@ -48,6 +49,10 @@ class Controller {
             Debug::fatal("'$key' can't be used as variable name, please provide a string");
         }
 
+        /* Decode the value to prevent XSS */
+        $value = X::_decode($value);
+
+        /* "Send" the variable to the view */
         $this->view->{$key} = $value;
     }
 
