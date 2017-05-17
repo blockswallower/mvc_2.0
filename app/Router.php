@@ -13,6 +13,7 @@
 namespace Snail\App;
 
 use Snail\App\Config\SNAIL;
+use Snail\App\Utils\Csrf;
 use Snail\App\Utils\Debug;
 use Snail\App\Utils\Arr;
 use Snail\App\Utils\Req;
@@ -182,6 +183,11 @@ class Router {
 
             if (empty($token)) {
                 Debug::fatal("Make sure to add a csrf token to your form");
+            }
+
+            /* Validate CSRF token*/
+            if (!Csrf::validate_request()) {
+                Debug::fatal("Your CSRF token is not valid!");
             }
         }
 
