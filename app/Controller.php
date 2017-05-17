@@ -14,7 +14,7 @@ namespace Snail\App;
 use Snail\App\View;
 use Snail\App\Utils\Debug;
 
-abstract class Controller {
+class Controller {
     /**
      * @var object
      * Model object
