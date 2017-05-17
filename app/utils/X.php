@@ -26,7 +26,7 @@ class X {
      * Returns string|array secured
      * against cross site scripting
      */
-    public static function _prevent($data) {
+    public static function prevent($data) {
         if (!is_array($data)) {
             return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
         }
@@ -53,7 +53,7 @@ class X {
      * Returns string|array decode
      * against cross site scripting
      */
-    public static function _decode($data) {
+    public static function decode($data) {
         if (!is_array($data)) {
             return htmlspecialchars_decode($data, ENT_QUOTES);
         }
@@ -83,7 +83,7 @@ class X {
      *
      * $this->fix($_POST, file_get_contents('php://input'));
      */
-    public static function _fix(&$target, $source, $discard = true) {
+    public static function fix(&$target, $source, $discard = true) {
         if ($discard) {
             $target = array();
         }
@@ -106,7 +106,7 @@ class X {
      * Echos string secured
      * against cross site scripting
      */
-    public static function _echo($data) {
+    public static function echo($data) {
         if (!is_array($data)) {
             echo self::_prevent($data);
         } else {
@@ -123,7 +123,7 @@ class X {
      * Cleans string for javascript/vb
      * encodings
      */
-    public static function _clean($data) {
+    public static function clean($data) {
         /**
          * Fix &entity\n;
          */

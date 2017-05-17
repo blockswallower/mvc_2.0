@@ -50,7 +50,7 @@ class Controller {
         }
 
         /* Decode the value to prevent XSS */
-        $value = X::_decode($value);
+        $value = X::decode($value);
 
         /* "Send" the variable to the view */
         $this->view->{$key} = $value;
